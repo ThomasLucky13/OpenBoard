@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1342</width>
-    <height>223</height>
+    <height>268</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1249,8 +1249,8 @@
    </property>
    <property name="icon">
     <iconset resource="../OpenBoard.qrc">
-     <normaloff>:/images/stylusPalette/arrow.png</normaloff>
-     <normalon>:/images/stylusPalette/arrowOn.png</normalon>:/images/stylusPalette/arrow.png</iconset>
+     <normaloff>:/images/stylusPalette/arrow.svg</normaloff>
+     <normalon>:/images/stylusPalette/arrowOn.svg</normalon>:/images/stylusPalette/arrow.svg</iconset>
    </property>
    <property name="text">
     <string>Selector</string>
@@ -1268,8 +1268,8 @@
    </property>
    <property name="icon">
     <iconset resource="../OpenBoard.qrc">
-     <normaloff>:/images/stylusPalette/hand.png</normaloff>
-     <normalon>:/images/stylusPalette/handOn.png</normalon>:/images/stylusPalette/hand.png</iconset>
+     <normaloff>:/images/stylusPalette/hand.svg</normaloff>
+     <normalon>:/images/stylusPalette/handOn.svg</normalon>:/images/stylusPalette/hand.svg</iconset>
    </property>
    <property name="text">
     <string>Hand</string>
@@ -1284,8 +1284,8 @@
    </property>
    <property name="icon">
     <iconset resource="../OpenBoard.qrc">
-     <normaloff>:/images/stylusPalette/zoomIn.png</normaloff>
-     <normalon>:/images/stylusPalette/zoomInOn.png</normalon>:/images/stylusPalette/zoomIn.png</iconset>
+     <normaloff>:/images/stylusPalette/zoomIn.svg</normaloff>
+     <normalon>:/images/stylusPalette/zoomInOn.svg</normalon>:/images/stylusPalette/zoomIn.svg</iconset>
    </property>
    <property name="text">
     <string>Zoom In</string>
@@ -1297,8 +1297,8 @@
    </property>
    <property name="icon">
     <iconset resource="../OpenBoard.qrc">
-     <normaloff>:/images/stylusPalette/zoomOut.png</normaloff>
-     <normalon>:/images/stylusPalette/zoomOutOn.png</normalon>:/images/stylusPalette/zoomOut.png</iconset>
+     <normaloff>:/images/stylusPalette/zoomOut.svg</normaloff>
+     <normalon>:/images/stylusPalette/zoomOutOn.svg</normalon>:/images/stylusPalette/zoomOut.svg</iconset>
    </property>
    <property name="text">
     <string>Zoom Out</string>
@@ -1310,8 +1310,8 @@
    </property>
    <property name="icon">
     <iconset resource="../OpenBoard.qrc">
-     <normaloff>:/images/stylusPalette/laser.png</normaloff>
-     <normalon>:/images/stylusPalette/laserOn.png</normalon>:/images/stylusPalette/laser.png</iconset>
+     <normaloff>:/images/stylusPalette/laser.svg</normaloff>
+     <normalon>:/images/stylusPalette/laserOn.svg</normalon>:/images/stylusPalette/laser.svg</iconset>
    </property>
    <property name="text">
     <string>Laser Pointer</string>
@@ -1329,8 +1329,8 @@
    </property>
    <property name="icon">
     <iconset resource="../OpenBoard.qrc">
-     <normaloff>:/images/stylusPalette/line.png</normaloff>
-     <normalon>:/images/stylusPalette/lineOn.png</normalon>:/images/stylusPalette/line.png</iconset>
+     <normaloff>:/images/stylusPalette/line.svg</normaloff>
+     <normalon>:/images/stylusPalette/lineOn.svg</normalon>:/images/stylusPalette/line.svg</iconset>
    </property>
    <property name="text">
     <string>Line</string>
@@ -1348,8 +1348,8 @@
    </property>
    <property name="icon">
     <iconset resource="../OpenBoard.qrc">
-     <normaloff>:/images/stylusPalette/text.png</normaloff>
-     <normalon>:/images/stylusPalette/textOn.png</normalon>:/images/stylusPalette/text.png</iconset>
+     <normaloff>:/images/stylusPalette/text.svg</normaloff>
+     <normalon>:/images/stylusPalette/textOn.svg</normalon>:/images/stylusPalette/text.svg</iconset>
    </property>
    <property name="text">
     <string>Text</string>
@@ -1367,8 +1367,8 @@
    </property>
    <property name="icon">
     <iconset resource="../OpenBoard.qrc">
-     <normaloff>:/images/stylusPalette/captureArea.png</normaloff>
-     <normalon>:/images/stylusPalette/captureAreaOn.png</normalon>:/images/stylusPalette/captureArea.png</iconset>
+     <normaloff>:/images/stylusPalette/captureArea.svg</normaloff>
+     <normalon>:/images/stylusPalette/captureAreaOn.svg</normalon>:/images/stylusPalette/captureArea.svg</iconset>
    </property>
    <property name="text">
     <string>Capture</string>
@@ -1640,8 +1640,8 @@
    </property>
    <property name="icon">
     <iconset resource="../OpenBoard.qrc">
-     <normaloff>:/images/stylusPalette/handPlay.png</normaloff>
-     <normalon>:/images/stylusPalette/handPlayOn.png</normalon>:/images/stylusPalette/handPlay.png</iconset>
+     <normaloff>:/images/stylusPalette/handPlay.svg</normaloff>
+     <normalon>:/images/stylusPalette/handPlayOn.svg</normalon>:/images/stylusPalette/handPlay.svg</iconset>
    </property>
    <property name="text">
     <string>Play</string>

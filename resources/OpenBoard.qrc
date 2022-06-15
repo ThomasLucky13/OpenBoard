@@ -378,6 +378,25 @@
         <file>images/stylusPalette/pen.svg</file>
         <file>images/stylusPalette/penOn.svg</file>
         <file>images/stylusPalette/penOnArrow.svg</file>
+        <file>images/stylusPalette/arrow.svg</file>
+        <file>images/stylusPalette/arrowOn.svg</file>
+        <file>images/stylusPalette/handPlay.svg</file>
+        <file>images/stylusPalette/handPlayOn.svg</file>
+        <file>images/stylusPalette/hand.svg</file>
+        <file>images/stylusPalette/handOn.svg</file>
+        <file>images/stylusPalette/laser.svg</file>
+        <file>images/stylusPalette/laserOn.svg</file>
+        <file>images/stylusPalette/line.svg</file>
+        <file>images/stylusPalette/lineOn.svg</file>
+        <file>images/stylusPalette/zoomOut.svg</file>
+        <file>images/stylusPalette/zoomOutOn.svg</file>
+        <file>images/stylusPalette/zoomIn.svg</file>
+        <file>images/stylusPalette/zoomInOn.svg</file>
+        <file>images/stylusPalette/restoreZoom.svg</file>
+        <file>images/stylusPalette/text.svg</file>
+        <file>images/stylusPalette/textOn.svg</file>
+        <file>images/stylusPalette/captureArea.svg</file>
+        <file>images/stylusPalette/captureAreaOn.svg</file>
         <file>images/trash-my-documents.png</file>
         <file>images/trash-empty.png</file>
         <file>images/trash-folder.png</file>
