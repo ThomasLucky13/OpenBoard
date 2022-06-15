@@ -286,6 +286,9 @@
         <file>images/libpalette/trash_favorite.svg</file>
         <file>images/libpalette/back.png</file>
         <file>images/libpalette/loading.png</file>
+        <file>images/libpalette/notFound.svg</file>
+        <file>images/libpalette/back.svg</file>
+        <file>images/libpalette/loading.svg</file>
         <file>images/stylusPalette/eraserArrow.png</file>
         <file>images/stylusPalette/eraserOnArrow.png</file>
         <file>images/stylusPalette/markerArrow.png</file>
@@ -307,6 +310,11 @@
         <file>images/libpalette/miniNewFolder.png</file>
         <file>images/libpalette/miniFavorite.png</file>
         <file>images/libpalette/home.png</file>
+        <file>images/libpalette/miniSearch.svg</file>
+        <file>images/libpalette/miniTrash.svg</file>
+        <file>images/libpalette/miniNewFolder.svg</file>
+        <file>images/libpalette/miniFavorite.svg</file>
+        <file>images/libpalette/home.svg</file>
         <file>images/toolbar/updates.png</file>
         <file>images/paletteLibrary.png</file>
         <file>images/paletteNavigator.png</file>
