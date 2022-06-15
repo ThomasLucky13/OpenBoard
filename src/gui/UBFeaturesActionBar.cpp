@@ -71,7 +71,7 @@ UBFeaturesActionBar::UBFeaturesActionBar( UBFeaturesController *controller, QWid
     mpFavoriteAction = new QAction(QIcon(":/images/libpalette/miniFavorite.png"), tr("Add to favorites"), this);
     mpSocialAction = new QAction(QIcon(":/images/libpalette/social.png"), tr("Share"), this);
     mpSearchAction = new QAction(QIcon(":/images/libpalette/miniSearch.png"), tr("Search"), this);
-    mpRescanModelAction = new QAction(QIcon(":/images/cursors/rotate.png"), tr("Rescan file system"), this);
+    mpRescanModelAction = new QAction(QIcon(":/images/cursors/rotate.svg"), tr("Rescan file system"), this);
     mpDeleteAction = new QAction(QIcon(":/images/libpalette/miniTrash.png"), tr("Delete"), this);
     mpCloseAction = new QAction(QIcon(":/images/close.svg"), tr("Back to folder"), this);
     mpRemoveFavorite = new QAction(QIcon(":/images/libpalette/trash_favorite.svg"), tr("Remove from favorites"), this);

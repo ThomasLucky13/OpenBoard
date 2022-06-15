@@ -192,6 +192,18 @@
         <file>images/cursors/drawCompass.png</file>
         <file>images/cursors/drawRulerLine.png</file>
         <file>images/cursors/play.png</file>
+        <file>images/cursors/eraser.svg</file>
+        <file>images/cursors/laser.svg</file>
+        <file>images/cursors/marker.svg</file>
+        <file>images/cursors/zoomIn.svg</file>
+        <file>images/cursors/zoomOut.svg</file>
+        <file>images/cursors/rotate.svg</file>
+        <file>images/cursors/resize.svg</file>
+        <file>images/cursors/drawCompass.svg</file>
+        <file>images/cursors/drawRulerLine.svg</file>
+        <file>images/cursors/play.svg</file>
+        <file>images/cursors/scrollPage.svg</file>
+        <file>images/cursors/scrollPageOn.svg</file>
         <file>images/print/onepage.png</file>
         <file>images/print/thumbnails.png</file>
         <file>images/print/twopages.png</file>
