@@ -178,6 +178,14 @@
         <file>images/extraPalette/webTrap.png</file>
         <file>images/extraPalette/webTrapEnabled.png</file>
         <file>images/extraPalette/oEmbed.png</file>
+        <file>images/extraPalette/blackout.svg</file>
+        <file>images/extraPalette/blackoutOn.svg</file>
+        <file>images/extraPalette/keyboard.svg</file>
+        <file>images/extraPalette/keyboardOn.svg</file>
+        <file>images/extraPalette/trapFlash.svg</file>
+        <file>images/extraPalette/webTrap.svg</file>
+        <file>images/extraPalette/webTrapEnabled.svg</file>
+        <file>images/extraPalette/oEmbed.svg</file>
         <file>images/erasePalette/eraseAll.svg</file>
         <file>images/erasePalette/eraseItem.svg</file>
         <file>images/erasePalette/eraseAnnotation.svg</file>
@@ -230,6 +238,7 @@
         <file>images/edit-mode.svg</file>
         <file>images/save.svg</file>
         <file>images/libpalette/social.png</file>
+        <file>images/libpalette/social.svg</file>
         <file>images/navig_arrow.png</file>
         <file>images/flags/ar.png</file>
         <file>images/flags/bg.png</file>
