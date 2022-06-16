@@ -215,6 +215,9 @@
         <file>images/print/onepage.png</file>
         <file>images/print/thumbnails.png</file>
         <file>images/print/twopages.png</file>
+        <file>images/print/onepage.svg</file>
+        <file>images/print/thumbnails.svg</file>
+        <file>images/print/twopages.svg</file>
         <file>images/defaultWidgetIcon.png</file>
         <file>images/favorites.png</file>
         <file>images/myContent.png</file>
@@ -291,13 +294,6 @@
         <file>images/flags/vi.png</file>
         <file>images/flags/zh-hans.png</file>
         <file>images/flags/zh-hant.png</file>
-
-
-
-
-
-
-
         <file>images/flags/ar.svg</file>
         <file>images/flags/bg.svg</file>
         <file>images/flags/ca.svg</file>
