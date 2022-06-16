@@ -291,6 +291,65 @@
         <file>images/flags/vi.png</file>
         <file>images/flags/zh-hans.png</file>
         <file>images/flags/zh-hant.png</file>
+
+
+
+
+
+
+
+        <file>images/flags/ar.svg</file>
+        <file>images/flags/bg.svg</file>
+        <file>images/flags/ca.svg</file>
+        <file>images/flags/cs.svg</file>
+        <file>images/flags/da.svg</file>
+        <file>images/flags/de.svg</file>
+        <file>images/flags/el.svg</file>
+        <file>images/flags/en.svg</file>
+        <file>images/flags/eo.svg</file>
+        <file>images/flags/es.svg</file>
+        <file>images/flags/et.svg</file>
+        <file>images/flags/eu.svg</file>
+        <file>images/flags/fa.svg</file>
+        <file>images/flags/fi.svg</file>
+        <file>images/flags/fo.svg</file>
+        <file>images/flags/fr.svg</file>
+        <file>images/flags/ga.svg</file>
+        <file>images/flags/gl.svg</file>
+        <file>images/flags/he.svg</file>
+        <file>images/flags/hr.svg</file>
+        <file>images/flags/hu.svg</file>
+        <file>images/flags/id.svg</file>
+        <file>images/flags/is.svg</file>
+        <file>images/flags/it.svg</file>
+        <file>images/flags/ja.svg</file>
+        <file>images/flags/km.svg</file>
+        <file>images/flags/lb.svg</file>
+        <file>images/flags/lt.svg</file>
+        <file>images/flags/lv.svg</file>
+        <file>images/flags/nb.svg</file>
+        <file>images/flags/nl.svg</file>
+        <file>images/flags/nn.svg</file>
+        <file>images/flags/pl.svg</file>
+        <file>images/flags/pt-br.svg</file>
+        <file>images/flags/pt-pt.svg</file>
+        <file>images/flags/ro.svg</file>
+        <file>images/flags/ru.svg</file>
+        <file>images/flags/sco.svg</file>
+        <file>images/flags/se.svg</file>
+        <file>images/flags/sk.svg</file>
+        <file>images/flags/sl.svg</file>
+        <file>images/flags/sq.svg</file>
+        <file>images/flags/sv.svg</file>
+        <file>images/flags/tg.svg</file>
+        <file>images/flags/th.svg</file>
+        <file>images/flags/tl.svg</file>
+        <file>images/flags/tr.svg</file>
+        <file>images/flags/uk.svg</file>
+        <file>images/flags/vi.svg</file>
+        <file>images/flags/zh-hans.svg</file>
+        <file>images/flags/zh-hant.svg</file>
+
         <file>images/libpalette/notFound.png</file>
         <file>images/libpalette/trash_favorite.svg</file>
         <file>images/libpalette/back.png</file>
