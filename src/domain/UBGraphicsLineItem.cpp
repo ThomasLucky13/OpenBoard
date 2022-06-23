@@ -2,8 +2,7 @@
 
 #include "frameworks/UBGeometryUtils.h"
 #include "UBGraphicsScene.h"
-#include "domain/UBGraphicsPolygonItem.h"
-#include "domain/UBGraphicsStroke.h"
+#include "domain/UBGraphicsLineStroke.h"
 
 #include "core/memcheck.h"
 
@@ -75,8 +74,8 @@ void UBGraphicsLineItem::clearStroke()
 {
     if (mStroke!=NULL)
     {
-        //mStroke->remove(this);
-        if (mStroke->polygons().empty())
+        mStroke->remove(this);
+        if (mStroke->lines().empty())
             delete mStroke;
         mStroke = NULL;
     }
@@ -84,7 +83,7 @@ void UBGraphicsLineItem::clearStroke()
 
 UBGraphicsLineItem::~UBGraphicsLineItem()
 {
-    //clearStroke();
+    clearStroke();
 }
 
 void UBGraphicsLineItem::setStrokesGroup(UBGraphicsStrokesGroup *group)
@@ -92,17 +91,17 @@ void UBGraphicsLineItem::setStrokesGroup(UBGraphicsStrokesGroup *group)
     mpGroup = group;
 }
 
-void UBGraphicsLineItem::setStroke(UBGraphicsStroke* stroke)
+void UBGraphicsLineItem::setStroke(UBGraphicsLineStroke* stroke)
 {
     if (stroke) {
         clearStroke();
 
         mStroke = stroke;
-        //mStroke->addPolygon(this);
+        mStroke->addLine(this);
     }
 }
 
-UBGraphicsStroke* UBGraphicsLineItem::stroke() const
+UBGraphicsLineStroke* UBGraphicsLineItem::stroke() const
 {
     return mStroke;
 }

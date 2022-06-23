@@ -9,7 +9,7 @@
 
 class UBItem;
 class UBGraphicsScene;
-class UBGraphicsStroke;
+class UBGraphicsLineStroke;
 
 class UBGraphicsLineItem : public QGraphicsLineItem, public UBItem
 {
@@ -39,8 +39,8 @@ class UBGraphicsLineItem : public QGraphicsLineItem, public UBItem
 
         inline void subtract(UBGraphicsLineItem *pi)
         {
-            if (boundingRect().intersects(pi->boundingRect()))
-            {
+            //if (boundingRect().intersects(pi->boundingRect()))
+            //{
                 //QLineF subtractedLine = line().substracted(pi->line());
 
                 /*if (line() != subtractedLine)
@@ -48,13 +48,12 @@ class UBGraphicsLineItem : public QGraphicsLineItem, public UBItem
                     mIsNominalLine = false;
                     QGraphicsLineItem::setLine(subtractedLine);
                 }*/
-            }
+            //}
         }
 
         inline void subtractIntersecting(UBGraphicsLineItem *pi)
         {
-            /*QLineF subtractedLine = line().substracted(pi->line())
-
+            /*QLineF subtractedLine = line();.substracted(pi->line())
             if (line() != subtractedLine)
             {
                 mIsNominalLine = false;
@@ -105,8 +104,8 @@ class UBGraphicsLineItem : public QGraphicsLineItem, public UBItem
             mColorOnLightBackground = pColorOnLightBackground;
         }
 
-        void setStroke(UBGraphicsStroke* stroke);
-        UBGraphicsStroke* stroke() const;
+        void setStroke(UBGraphicsLineStroke* stroke);
+        UBGraphicsLineStroke* stroke() const;
 
     protected:
         void paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget);
@@ -125,7 +124,7 @@ class UBGraphicsLineItem : public QGraphicsLineItem, public UBItem
         QColor mColorOnDarkBackground;
         QColor mColorOnLightBackground;
 
-        UBGraphicsStroke* mStroke;
+        UBGraphicsLineStroke* mStroke;
         UBGraphicsStrokesGroup* mpGroup;
 
 };

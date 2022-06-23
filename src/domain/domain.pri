@@ -14,6 +14,7 @@ HEADERS += src/domain/UBGraphicsScene.h \
     src/domain/UBGraphicsTextItem.h \
     src/domain/UBResizableGraphicsItem.h \
     src/domain/UBGraphicsStroke.h \
+    src/domain/UBGraphicsLineStroke.h \
     src/domain/UBGraphicsMediaItem.h \
     src/domain/UBGraphicsGroupContainerItem.h \
     src/domain/UBGraphicsGroupContainerItemDelegate.h \
@@ -44,6 +45,7 @@ SOURCES += src/domain/UBGraphicsScene.cpp \
     src/domain/UBGraphicsTextItem.cpp \
     src/domain/UBResizableGraphicsItem.cpp \
     src/domain/UBGraphicsStroke.cpp \
+    src/domain/UBGraphicsLineStroke.cpp \
     src/domain/UBGraphicsMediaItem.cpp \
     src/domain/UBGraphicsGroupContainerItem.cpp \
     src/domain/UBGraphicsGroupContainerItemDelegate.cpp \
