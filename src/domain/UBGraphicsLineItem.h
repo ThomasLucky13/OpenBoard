@@ -37,23 +37,23 @@ class UBGraphicsLineItem : public QGraphicsLineItem, public UBItem
 
         virtual UBGraphicsScene* scene();
 
-        inline void subtract(UBGraphicsLineItem *pi)
+        inline void subtract(UBGraphicsLineItem *li)
         {
-            //if (boundingRect().intersects(pi->boundingRect()))
-            //{
-                //QLineF subtractedLine = line().substracted(pi->line());
+            /*if (boundingRect().intersects(li->boundingRect()))
+            {
+                QLineF subtractedLine = line().substracted(li->line());
 
-                /*if (line() != subtractedLine)
+                if (line() != subtractedLine)
                 {
                     mIsNominalLine = false;
                     QGraphicsLineItem::setLine(subtractedLine);
-                }*/
-            //}
+                }
+            }*/
         }
 
-        inline void subtractIntersecting(UBGraphicsLineItem *pi)
+        inline void subtractIntersecting(UBGraphicsLineItem *li)
         {
-            /*QLineF subtractedLine = line();.substracted(pi->line())
+            /*QLineF subtractedLine = line().substracted(li->line());
             if (line() != subtractedLine)
             {
                 mIsNominalLine = false;
@@ -83,6 +83,8 @@ class UBGraphicsLineItem : public QGraphicsLineItem, public UBItem
         bool isNominalLine() {return mIsNominalLine;}
 
         void setNominalLine(bool isNominalLine) { mIsNominalLine = isNominalLine; }
+
+        QList<QPointF> linePoints();
 
         QColor colorOnDarkBackground() const
         {

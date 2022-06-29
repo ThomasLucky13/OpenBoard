@@ -6,7 +6,6 @@
 
 #include "core/memcheck.h"
 
-#include <iostream>
 
 UBGraphicsLineItem::UBGraphicsLineItem (QGraphicsItem * parent)
     : QGraphicsLineItem(parent)
@@ -19,7 +18,6 @@ UBGraphicsLineItem::UBGraphicsLineItem (QGraphicsItem * parent)
     // NOOP
     initialize();
 }
-
 
 UBGraphicsLineItem::UBGraphicsLineItem (const QLineF & line, QGraphicsItem * parent)
     : QGraphicsLineItem(line, parent)
@@ -144,6 +142,20 @@ Qt::PenStyle UBGraphicsLineItem::style() const
     return QGraphicsLineItem::pen().style();
 }
 
+QList<QPointF> UBGraphicsLineItem::linePoints()
+{
+    QList<QPointF> points = QList<QPointF>();
+    qreal incr = 1/line().length();
+    if (incr<0) incr*=-1;
+    if (incr>0)
+    {
+       for (qreal t = 0; t <= 1; t+=incr)
+       {
+           points.push_back(line().pointAt(t));
+       }
+    }
+    return points;
+}
 
 UBItem* UBGraphicsLineItem::deepCopy() const
 {
