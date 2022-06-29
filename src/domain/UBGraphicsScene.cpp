@@ -70,6 +70,7 @@
 #include "UBGraphicsPixmapItem.h"
 #include "UBGraphicsSvgItem.h"
 #include "UBGraphicsPolygonItem.h"
+#include "UBGraphicsLineItem.h"
 #include "UBGraphicsMediaItem.h"
 #include "UBGraphicsWidgetItem.h"
 #include "UBGraphicsPDFItem.h"
@@ -667,7 +668,16 @@ bool UBGraphicsScene::inputDeviceRelease(int tool)
 
     if (currentTool == UBStylusTool::Eraser)
         hideEraser();
+    if(currentTool == UBStylusTool::Line)
+    {
+        if (mUndoRedoStackEnabled)
+        {   //should be deleted after scene own undo stack implemented
+            UBGraphicsItemUndoCommand* uc = new UBGraphicsItemUndoCommand(this, NULL, mpLastLine);
+            UBApplication::undoStack->push(uc);
 
+            mAddedItems.clear();
+        }
+    } else{
 
     UBDrawingController *dc = UBDrawingController::drawingController();
 
@@ -740,6 +750,7 @@ bool UBGraphicsScene::inputDeviceRelease(int tool)
             }
             mCurrentPolygon = 0;
         }
+    }
     }
 
     if (mRemovedItems.size() > 0 || mAddedItems.size() > 0)
@@ -943,8 +954,17 @@ void UBGraphicsScene::drawLineTo(const QPointF &pEndPoint, const qreal &startWid
         mAddedItems.clear();
     }
 
-    UBGraphicsPolygonItem *polygonItem = lineToPolygonItem(QLineF(mPreviousPoint, pEndPoint), initialWidth, endWidth);
-    addPolygonItemToCurrentStroke(polygonItem);
+    if (UBDrawingController::drawingController()->stylusTool() != UBStylusTool::Line)
+    {
+        UBGraphicsPolygonItem *polygonItem = lineToPolygonItem(QLineF(mPreviousPoint, pEndPoint), initialWidth, endWidth);
+        addPolygonItemToCurrentStroke(polygonItem);
+    } else
+    {
+        UBGraphicsLineItem *lineItem = new UBGraphicsLineItem(QLineF(mPreviousPoint, pEndPoint), initialWidth, endWidth);
+        initLineItem(lineItem);
+        addLineItemToCurrentStroke(lineItem);
+    }
+
 
     if (!bLineStyle) {
         mPreviousPoint = pEndPoint;
@@ -995,6 +1015,16 @@ void UBGraphicsScene::addPolygonItemToCurrentStroke(UBGraphicsPolygonItem* polyg
     polygonItem->setStroke(mCurrentStroke);
 
     mPreviousPolygonItems.append(polygonItem);
+
+}
+
+void UBGraphicsScene::addLineItemToCurrentStroke(UBGraphicsLineItem* lineItem)
+{
+    mpLastLine = lineItem;
+    mAddedItems.insert(lineItem);
+
+    // Here we add the item to the scene
+    addItem(lineItem);
 
 }
 
@@ -1269,6 +1299,37 @@ void UBGraphicsScene::initPolygonItem(UBGraphicsPolygonItem* polygonItem)
     polygonItem->setColorOnLightBackground(colorOnLightBG);
 
     polygonItem->setData(UBGraphicsItemData::ItemLayerType, QVariant(UBItemLayerType::Graphic));
+}
+
+void UBGraphicsScene::initLineItem(UBGraphicsLineItem* lineItem)
+{
+    QColor colorOnDarkBG;
+    QColor colorOnLightBG;
+
+    if (UBDrawingController::drawingController()->stylusTool() != UBStylusTool::Marker)
+    {
+        colorOnDarkBG = UBApplication::boardController->penColorOnDarkBackground();
+        colorOnLightBG = UBApplication::boardController->penColorOnLightBackground();
+    }
+
+    if (mDarkBackground)
+    {
+        lineItem->setColor(colorOnDarkBG);
+    }
+    else
+    {
+        lineItem->setColor(colorOnLightBG);
+    }
+
+    lineItem->setColorOnDarkBackground(colorOnDarkBG);
+    lineItem->setColorOnLightBackground(colorOnLightBG);
+
+    lineItem->setData(UBGraphicsItemData::ItemLayerType, QVariant(UBItemLayerType::Graphic));
+    //lineItem->setStyle(UBSettings::settings()->currentLineStyle());
+
+    QPen linePen = lineItem->pen();
+    linePen.setWidth(lineItem->originalWidth());
+    lineItem->setPen(linePen);
 }
 
 UBGraphicsPolygonItem* UBGraphicsScene::arcToPolygonItem(const QLineF& pStartRadius, qreal pSpanAngle, qreal pWidth)
