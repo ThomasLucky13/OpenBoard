@@ -1020,6 +1020,10 @@ void UBGraphicsScene::addPolygonItemToCurrentStroke(UBGraphicsPolygonItem* polyg
 
 void UBGraphicsScene::addLineItemToCurrentStroke(UBGraphicsLineItem* lineItem)
 {
+    lineItem->setFlag(QGraphicsItem::ItemIsMovable, true);
+    lineItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
+    lineItem->SetDelegate();
+
     mpLastLine = lineItem;
     mAddedItems.insert(lineItem);
 

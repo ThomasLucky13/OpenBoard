@@ -11,7 +11,7 @@ class UBItem;
 class UBGraphicsScene;
 class UBGraphicsLineStroke;
 
-class UBGraphicsLineItem : public QGraphicsLineItem, public UBItem
+class UBGraphicsLineItem : public QGraphicsLineItem, public UBItem, public UBGraphicsItem
 {
 
     public:
@@ -109,9 +109,11 @@ class UBGraphicsLineItem : public QGraphicsLineItem, public UBItem
         void setStroke(UBGraphicsLineStroke* stroke);
         UBGraphicsLineStroke* stroke() const;
 
+        void SetDelegate();
+
     protected:
         void paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget);
-
+        virtual QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
     private:
 

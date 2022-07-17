@@ -3,7 +3,6 @@
 #include "frameworks/UBGeometryUtils.h"
 #include "UBGraphicsScene.h"
 #include "domain/UBGraphicsLineStroke.h"
-
 #include "core/memcheck.h"
 
 
@@ -59,7 +58,15 @@ UBGraphicsLineItem::UBGraphicsLineItem (const QLineF& pLine, qreal pStartWidth, 
 void UBGraphicsLineItem::initialize()
 {
     setData(UBGraphicsItemData::itemLayerType, QVariant(itemLayerType::DrawingItem)); //Necessary to set if we want z value to be assigned correctly
+    setDelegate(new UBGraphicsItemDelegate(this, 0, GF_COMMON
+                                           | GF_RESPECT_RATIO
+                                           | GF_REVOLVABLE
+                                           | GF_FLIPPABLE_ALL_AXIS));
     setUuid(QUuid::createUuid());
+    setData(UBGraphicsItemData::itemLayerType, QVariant(itemLayerType::ObjectItem)); //Necessary to set if we want z value to be assigned correctly
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
+    setFlag(QGraphicsItem::ItemIsSelectable, true);
+    setFlag(QGraphicsItem::ItemIsMovable, true);
 }
 
 void UBGraphicsLineItem::setUuid(const QUuid &pUuid)
@@ -175,28 +182,51 @@ void UBGraphicsLineItem::copyItemParameters(UBItem *copy) const
         cp->mIsNominalLine = this->mIsNominalLine;
 
         cp->setTransform(transform());
+        cp->setPos(pos());
         cp->setPen(this->pen());
         cp->mHasAlpha = this->mHasAlpha;
 
         cp->setColorOnDarkBackground(this->colorOnDarkBackground());
         cp->setColorOnLightBackground(this->colorOnLightBackground());
 
+        cp->setFlag(QGraphicsItem::ItemIsMovable, true);
+        cp->setFlag(QGraphicsItem::ItemIsSelectable, true);
         cp->setZValue(this->zValue());
         cp->setData(UBGraphicsItemData::ItemLayerType, this->data(UBGraphicsItemData::ItemLayerType));
+        cp->setData(UBGraphicsItemData::ItemLocked, this->data(UBGraphicsItemData::ItemLocked));
     }
 }
 
 void UBGraphicsLineItem::paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
 {
+    QStyleOptionGraphicsItem styleOption = QStyleOptionGraphicsItem(*option);
     if(mHasAlpha && scene() && scene()->isLightBackground())
         painter->setCompositionMode(QPainter::CompositionMode_SourceOver);
 
     painter->setRenderHints(QPainter::Antialiasing);
 
     QGraphicsLineItem::paint(painter, option, widget);
+    Delegate()->postpaint(painter, &styleOption, widget);
 }
 
 UBGraphicsScene* UBGraphicsLineItem::scene()
 {
     return qobject_cast<UBGraphicsScene*>(QGraphicsLineItem::scene());
+}
+
+void UBGraphicsLineItem::SetDelegate()
+{
+    Delegate()->createControls();
+}
+
+QVariant UBGraphicsLineItem::itemChange(GraphicsItemChange change, const QVariant &value)
+{
+    QVariant newValue = Delegate()->itemChange(change, value);
+        UBGraphicsItem *item = dynamic_cast<UBGraphicsItem*>(this);
+        if (item)
+        {
+            item->Delegate()->positionHandles();
+        }
+
+    return QGraphicsItem::itemChange(change, newValue);
 }
