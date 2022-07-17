@@ -1362,7 +1362,7 @@ void UBGraphicsScene::initLineItem(UBGraphicsLineItem* lineItem)
     lineItem->setColorOnLightBackground(colorOnLightBG);
 
     lineItem->setData(UBGraphicsItemData::ItemLayerType, QVariant(UBItemLayerType::Graphic));
-    //lineItem->setStyle(UBSettings::settings()->currentLineStyle());
+    lineItem->setStyle(UBSettings::settings()->currentLineStyle());
 
     QPen linePen = lineItem->pen();
     linePen.setWidth(lineItem->originalWidth());

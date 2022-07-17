@@ -84,6 +84,16 @@ struct UBWidth
     };
 };
 
+struct UBLineStyle
+{
+    enum Enum
+    {
+        Solid = 0,
+        Dashed = 1,
+        Dotted = 2
+    };
+};
+
 struct UBZoom
 {
     enum Enum

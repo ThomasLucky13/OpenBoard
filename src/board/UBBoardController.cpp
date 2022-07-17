@@ -377,6 +377,27 @@ void UBBoardController::setupToolbar()
     mMainWindow->boardToolBar->insertSeparator(mMainWindow->actionBackgrounds);
     mPropertyPaletteWidgets.insert(eraserWidth, newPropertyPaletteWidget);
     //-----------------------------------------------------------//
+    // Setup line style choice widget
+    QList<QAction *> lineStyleActions;
+    lineStyleActions.append(mMainWindow->actionLineSolid);
+    lineStyleActions.append(mMainWindow->actionLineDashed);
+    lineStyleActions.append(mMainWindow->actionLineDotted);
+
+    UBToolbarButtonGroup *lineStyleChoice =
+        new UBToolbarButtonGroup(mMainWindow->boardToolBar, lineStyleActions);
+
+    connect(settings->appToolBarDisplayText, SIGNAL(changed(QVariant)), lineStyleChoice, SLOT(displayText(QVariant)));
+
+    connect(lineStyleChoice, SIGNAL(activated(int)),
+        UBDrawingController::drawingController(), SLOT(setLineStyleIndex(int)));
+
+    lineStyleChoice->displayText(QVariant(settings->appToolBarDisplayText->get().toBool()));
+    newPropertyPaletteWidget = mMainWindow->boardToolBar->insertWidget(mMainWindow->actionBackgrounds, lineStyleChoice);
+    lineStyleChoice->setCurrentIndex(settings->lineStyleIndex());
+    lineStyleActions.at(settings->lineStyleIndex())->setChecked(true);
+    mPropertyPaletteWidgets.insert(lineStyle, newPropertyPaletteWidget);
+
+    //-----------------------------------------------------------//
 
     UBApplication::app()->insertSpaceToToolbarBeforeAction(mMainWindow->boardToolBar, mMainWindow->actionBackgrounds);
     UBApplication::app()->insertSpaceToToolbarBeforeAction(mMainWindow->boardToolBar, mMainWindow->actionBoard, 40);
@@ -2209,23 +2230,27 @@ void UBBoardController::stylusToolChanged(int tool)
             mPropertyPaletteWidgets[color]->setVisible(true);
             mPropertyPaletteWidgets[lineWidth]->setVisible(true);
             mPropertyPaletteWidgets[eraserWidth]->setVisible(false);
+            mPropertyPaletteWidgets[lineStyle]->setVisible(false);
         } else
         if (eTool == UBStylusTool::Eraser)
         {
             mPropertyPaletteWidgets[color]->setVisible(false);
             mPropertyPaletteWidgets[lineWidth]->setVisible(false);
             mPropertyPaletteWidgets[eraserWidth]->setVisible(true);
+            mPropertyPaletteWidgets[lineStyle]->setVisible(false);
         } else
         if (eTool == UBStylusTool::Line)
         {
             mPropertyPaletteWidgets[color]->setVisible(true);
             mPropertyPaletteWidgets[lineWidth]->setVisible(true);
             mPropertyPaletteWidgets[eraserWidth]->setVisible(false);
+            mPropertyPaletteWidgets[lineStyle]->setVisible(true);
         } else
         {
             mPropertyPaletteWidgets[color]->setVisible(false);
             mPropertyPaletteWidgets[lineWidth]->setVisible(false);
             mPropertyPaletteWidgets[eraserWidth]->setVisible(false);
+            mPropertyPaletteWidgets[lineStyle]->setVisible(false);
         }
 
 
