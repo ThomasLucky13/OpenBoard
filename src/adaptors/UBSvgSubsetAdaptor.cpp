@@ -654,7 +654,6 @@ UBGraphicsScene* UBSvgSubsetAdaptor::UBSvgSubsetReader::loadScene(UBDocumentProx
                         lineItem->setTransform(group->transform());
 
                     group->addToGroup(lineItem);
-                    lineItem->setStrokesGroup(group);
 
                     lineItem->show();
                     group->addToGroup(lineItem);
@@ -1346,38 +1345,32 @@ bool UBSvgSubsetAdaptor::UBSvgSubsetWriter::persistScene(UBDocumentProxy* proxy,
         UBGraphicsLineItem *lineItem = qgraphicsitem_cast<UBGraphicsLineItem*> (item);
         if (lineItem && lineItem->isVisible())
         {
-            UBGraphicsLineStroke* currentStroke = lineItem->stroke();
 
-            bool firstLineInStroke = currentStroke  && !openStroke;
-
-            if (firstLineInStroke)
-            {
                 mXmlWriter.writeStartElement("g");
 
                 QColor colorOnDarkBackground = lineItem->colorOnDarkBackground();
                 QColor colorOnLightBackground = lineItem->colorOnLightBackground();
-                UBGraphicsStrokesGroup * sg = lineItem->strokesGroup();
 
-                if (colorOnDarkBackground.isValid() && colorOnLightBackground.isValid() && sg)
+                if (colorOnDarkBackground.isValid() && colorOnLightBackground.isValid() && lineItem)
                 {
                     mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri, "z-value"
-                                              , QString("%1").arg(lineItem->strokesGroup()->zValue()));
+                                              , QString("%1").arg(lineItem->zValue()));
 
                     mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri
                                               , "fill-on-dark-background", colorOnDarkBackground.name());
                     mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri
                                               , "fill-on-light-background", colorOnLightBackground.name());
 
-                    mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri, "uuid", UBStringUtils::toCanonicalUuid(sg->uuid()));
+                    mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri, "uuid", UBStringUtils::toCanonicalUuid(lineItem->uuid()));
 
-                    QVariant locked = sg->data(UBGraphicsItemData::ItemLocked);
+                    QVariant locked = lineItem->data(UBGraphicsItemData::ItemLocked);
                     if (!locked.isNull() && locked.toBool())
                         mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri, "locked", xmlTrue);
 
-                    QVariant layer = sg->data(UBGraphicsItemData::ItemLayerType);
+                    QVariant layer = lineItem->data(UBGraphicsItemData::ItemLayerType);
                     mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri, "layer", QString("%1").arg(layer.toInt()));
 
-                    QMatrix matrix = sg->sceneMatrix();
+                    QMatrix matrix = lineItem->sceneMatrix();
                     if (!matrix.isIdentity())
                         mXmlWriter.writeAttribute("transform", toSvgTransform(matrix));
 
@@ -1385,7 +1378,6 @@ bool UBSvgSubsetAdaptor::UBSvgSubsetWriter::persistScene(UBDocumentProxy* proxy,
 
                     groupHoldsInfo = true;
                 }
-            }
 
             lineItemToSvgLine(lineItem, groupHoldsInfo);
 

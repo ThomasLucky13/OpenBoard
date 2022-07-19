@@ -4,12 +4,9 @@
 #include <QtGui>
 #include "core/UB.h"
 #include "UBItem.h"
-#include "UBGraphicsStrokesGroup.h"
-#include "domain/UBGraphicsGroupContainerItem.h"
 
 class UBItem;
 class UBGraphicsScene;
-class UBGraphicsLineStroke;
 
 class UBGraphicsLineItem : public QGraphicsLineItem, public UBItem, public UBGraphicsItem
 {
@@ -27,8 +24,6 @@ class UBGraphicsLineItem : public QGraphicsLineItem, public UBItem, public UBGra
 
         void setUuid(const QUuid &pUuid);
 
-        void setStrokesGroup(UBGraphicsStrokesGroup* group);
-        UBGraphicsStrokesGroup* strokesGroup() const{return mpGroup;}
         void setColor(const QColor& color);
         void setStyle(const Qt::PenStyle& style);
 
@@ -36,30 +31,6 @@ class UBGraphicsLineItem : public QGraphicsLineItem, public UBItem, public UBGra
         Qt::PenStyle style() const;
 
         virtual UBGraphicsScene* scene();
-
-        inline void subtract(UBGraphicsLineItem *li)
-        {
-            /*if (boundingRect().intersects(li->boundingRect()))
-            {
-                QLineF subtractedLine = line().substracted(li->line());
-
-                if (line() != subtractedLine)
-                {
-                    mIsNominalLine = false;
-                    QGraphicsLineItem::setLine(subtractedLine);
-                }
-            }*/
-        }
-
-        inline void subtractIntersecting(UBGraphicsLineItem *li)
-        {
-            /*QLineF subtractedLine = line().substracted(li->line());
-            if (line() != subtractedLine)
-            {
-                mIsNominalLine = false;
-                QGraphicsLineItem::setLine(subtractedLine);
-            }*/
-        }
 
         enum { Type = UBGraphicsItemType::LineItemType };
 
@@ -106,9 +77,6 @@ class UBGraphicsLineItem : public QGraphicsLineItem, public UBItem, public UBGra
             mColorOnLightBackground = pColorOnLightBackground;
         }
 
-        void setStroke(UBGraphicsLineStroke* stroke);
-        UBGraphicsLineStroke* stroke() const;
-
         void SetDelegate();
 
     protected:
@@ -116,8 +84,6 @@ class UBGraphicsLineItem : public QGraphicsLineItem, public UBItem, public UBGra
         virtual QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
     private:
-
-        void clearStroke();
 
         bool mHasAlpha;
 
@@ -127,9 +93,6 @@ class UBGraphicsLineItem : public QGraphicsLineItem, public UBItem, public UBGra
 
         QColor mColorOnDarkBackground;
         QColor mColorOnLightBackground;
-
-        UBGraphicsLineStroke* mStroke;
-        UBGraphicsStrokesGroup* mpGroup;
 
 };
 

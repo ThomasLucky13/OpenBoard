@@ -542,23 +542,6 @@ bool UBGraphicsScene::inputDeviceMove(const QPointF& scenePos, const qreal& pres
 
             if (currentTool == UBStylusTool::Line || dc->mActiveRuler)
             {
-                if (UBDrawingController::drawingController()->stylusTool() != UBStylusTool::Marker)
-                if(NULL != mpLastPolygon && NULL != mCurrentStroke && mAddedItems.size() > 0){
-                    UBCoreGraphicsScene::removeItemFromDeletion(mpLastPolygon);
-                    mAddedItems.remove(mpLastPolygon);
-                    mCurrentStroke->remove(mpLastPolygon);
-                    if (mCurrentStroke->polygons().empty()){
-                        delete mCurrentStroke;
-                        mCurrentStroke = NULL;
-                    }
-                    removeItem(mpLastPolygon);
-                    mPreviousPolygonItems.removeAll(mpLastPolygon);
-                }
-
-                // ------------------------------------------------------------------------
-                // Here we wanna make sure that the Line will 'grip' at i*45, i*90 degrees
-                // ------------------------------------------------------------------------
-
                 QLineF radius(mPreviousPoint, position);
                 qreal angle = radius.angle();
                 angle = qRound(angle / 45) * 45;

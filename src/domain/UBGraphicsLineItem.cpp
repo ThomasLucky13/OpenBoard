@@ -2,7 +2,6 @@
 
 #include "frameworks/UBGeometryUtils.h"
 #include "UBGraphicsScene.h"
-#include "domain/UBGraphicsLineStroke.h"
 #include "core/memcheck.h"
 
 
@@ -11,8 +10,6 @@ UBGraphicsLineItem::UBGraphicsLineItem (QGraphicsItem * parent)
     , mHasAlpha(false)
     , mOriginalWidth(-1)
     , mIsNominalLine(false)
-    , mStroke(0)
-    , mpGroup(NULL)
 {
     // NOOP
     initialize();
@@ -22,8 +19,6 @@ UBGraphicsLineItem::UBGraphicsLineItem (const QLineF & line, QGraphicsItem * par
     : QGraphicsLineItem(line, parent)
     , mOriginalWidth(-1)
     , mIsNominalLine(false)
-    , mStroke(0)
-    , mpGroup(NULL)
 {
     // NOOP
     initialize();
@@ -35,8 +30,6 @@ UBGraphicsLineItem::UBGraphicsLineItem (const QLineF& pLine, qreal pWidth)
     , mOriginalLine(pLine)
     , mOriginalWidth(pWidth)
     , mIsNominalLine(true)
-    , mStroke(0)
-    , mpGroup(NULL)
 {
     // NOOP
     initialize();
@@ -47,8 +40,6 @@ UBGraphicsLineItem::UBGraphicsLineItem (const QLineF& pLine, qreal pStartWidth, 
     , mOriginalLine(pLine)
     , mOriginalWidth(pEndWidth)
     , mIsNominalLine(true)
-    , mStroke(0)
-    , mpGroup(NULL)
 {
     // NOOP
     initialize();
@@ -57,7 +48,7 @@ UBGraphicsLineItem::UBGraphicsLineItem (const QLineF& pLine, qreal pStartWidth, 
 
 void UBGraphicsLineItem::initialize()
 {
-    setData(UBGraphicsItemData::itemLayerType, QVariant(itemLayerType::DrawingItem)); //Necessary to set if we want z value to be assigned correctly
+    //setData(UBGraphicsItemData::itemLayerType, QVariant(itemLayerType::DrawingItem)); //Necessary to set if we want z value to be assigned correctly
     setDelegate(new UBGraphicsItemDelegate(this, 0, GF_COMMON
                                            | GF_RESPECT_RATIO
                                            | GF_REVOLVABLE
@@ -75,42 +66,10 @@ void UBGraphicsLineItem::setUuid(const QUuid &pUuid)
     setData(UBGraphicsItemData::ItemUuid, QVariant(pUuid)); //store item uuid inside the QGraphicsItem to fast operations with Items on the scene
 }
 
-void UBGraphicsLineItem::clearStroke()
-{
-    if (mStroke!=NULL)
-    {
-        mStroke->remove(this);
-        if (mStroke->lines().empty())
-            delete mStroke;
-        mStroke = NULL;
-    }
-}
-
 UBGraphicsLineItem::~UBGraphicsLineItem()
 {
-    clearStroke();
+
 }
-
-void UBGraphicsLineItem::setStrokesGroup(UBGraphicsStrokesGroup *group)
-{
-    mpGroup = group;
-}
-
-void UBGraphicsLineItem::setStroke(UBGraphicsLineStroke* stroke)
-{
-    if (stroke) {
-        clearStroke();
-
-        mStroke = stroke;
-        mStroke->addLine(this);
-    }
-}
-
-UBGraphicsLineStroke* UBGraphicsLineItem::stroke() const
-{
-    return mStroke;
-}
-
 
 void UBGraphicsLineItem::setColor(const QColor& pColor)
 {
