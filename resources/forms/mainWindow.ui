@@ -1708,7 +1708,7 @@
    </property>
    <property name="icon">
     <iconset resource="../OpenBoard.qrc">
-     <normaloff>:/images/toolbar/smallEraser.png</normaloff>:/images/toolbar/smallEraser.png</iconset>
+     <normaloff>:/images/toolbar/solidLine.svg</normaloff>:/images/toolbar/solidLine.svg</iconset>
    </property>
    <property name="text">
     <string>Line Style</string>
@@ -1726,7 +1726,7 @@
    </property>
    <property name="icon">
     <iconset resource="../OpenBoard.qrc">
-     <normaloff>:/images/toolbar/mediumEraser.png</normaloff>:/images/toolbar/mediumEraser.png</iconset>
+     <normaloff>:/images/toolbar/dashedLine.svg</normaloff>:/images/toolbar/dashedLine.svg</iconset>
    </property>
    <property name="text">
     <string>Line Style</string>
@@ -1741,7 +1741,7 @@
    </property>
    <property name="icon">
     <iconset resource="../OpenBoard.qrc">
-     <normaloff>:/images/toolbar/largeEraser.png</normaloff>:/images/toolbar/largeEraser.png</iconset>
+     <normaloff>:/images/toolbar/dottedLine.svg</normaloff>:/images/toolbar/dottedLine.svg</iconset>
    </property>
    <property name="text">
     <string>Line Style</string>
