@@ -413,6 +413,26 @@
         <file>images/virtual.keyboard/29/capslock.png</file>
         <file>images/virtual.keyboard/29/shift.png</file>
         <file>images/virtual.keyboard/29/tab.png</file>
+        <file>images/virtual.keyboard/29/backspace.svg</file>
+        <file>images/virtual.keyboard/29/capslock.svg</file>
+        <file>images/virtual.keyboard/29/shift.svg</file>
+        <file>images/virtual.keyboard/29/tab.svg</file>
+        <file>images/virtual.keyboard/29/centre-active.svg</file>
+        <file>images/virtual.keyboard/29/left-active.svg</file>
+        <file>images/virtual.keyboard/29/right-active.svg</file>
+        <file>images/virtual.keyboard/29/centre-passive.svg</file>
+        <file>images/virtual.keyboard/29/left-passive.svg</file>
+        <file>images/virtual.keyboard/29/right-passive.svg</file>
+        <file>images/virtual.keyboard/41/backspace.svg</file>
+        <file>images/virtual.keyboard/41/capslock.svg</file>
+        <file>images/virtual.keyboard/41/shift.svg</file>
+        <file>images/virtual.keyboard/41/tab.svg</file>
+        <file>images/virtual.keyboard/41/centre-active.svg</file>
+        <file>images/virtual.keyboard/41/left-active.svg</file>
+        <file>images/virtual.keyboard/41/right-active.svg</file>
+        <file>images/virtual.keyboard/41/centre-passive.svg</file>
+        <file>images/virtual.keyboard/41/left-passive.svg</file>
+        <file>images/virtual.keyboard/41/right-passive.svg</file>
         <file>images/toolPalette/cacheTool.png</file>
         <file>images/libpalette/FlashCategory.svg</file>
         <file>images/libpalette/FlashIcon.svg</file>
