@@ -172,6 +172,13 @@
         <file>images/toolPalette/aristoTool.png</file>
         <file>images/toolPalette/maskTool.png</file>
         <file>images/toolPalette/magnifierTool.png</file>
+        <file>images/toolPalette/maskTool.svg</file>
+        <file>images/toolPalette/protractorTool.svg</file>
+        <file>images/toolPalette/axesTool.svg</file>
+        <file>images/toolPalette/rulerTool.svg</file>
+        <file>images/toolPalette/cacheTool.svg</file>
+        <file>images/toolPalette/magnifierTool.svg</file>
+        <file>images/toolPalette/triangleTool.svg</file>
         <file>images/extraPalette/blackout.png</file>
         <file>images/extraPalette/keyboard.png</file>
         <file>images/extraPalette/trapFlash.png</file>
