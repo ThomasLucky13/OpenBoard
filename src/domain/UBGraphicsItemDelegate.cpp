@@ -711,8 +711,8 @@ void UBGraphicsItemDelegate::decorateMenu(QMenu* menu)
 {
     mLockAction = menu->addAction(tr("Locked"), this, SLOT(lock(bool)));
     QIcon lockIcon;
-    lockIcon.addPixmap(QPixmap(":/images/locked.svg"), QIcon::Normal, QIcon::On);
-    lockIcon.addPixmap(QPixmap(":/images/unlocked.svg"), QIcon::Normal, QIcon::Off);
+    lockIcon.addFile(":/images/locked.svg", QSize(), QIcon::Normal, QIcon::On);
+    lockIcon.addFile(":/images/unlocked.svg", QSize(), QIcon::Normal, QIcon::Off);
     mLockAction->setIcon(lockIcon);
     mLockAction->setCheckable(true);
 
@@ -720,8 +720,8 @@ void UBGraphicsItemDelegate::decorateMenu(QMenu* menu)
     mShowOnDisplayAction->setCheckable(true);
 
     QIcon showIcon;
-    showIcon.addPixmap(QPixmap(":/images/eyeOpened.svg"), QIcon::Normal, QIcon::On);
-    showIcon.addPixmap(QPixmap(":/images/eyeClosed.svg"), QIcon::Normal, QIcon::Off);
+    showIcon.addFile(":/images/eyeOpened.svg", QSize(), QIcon::Normal, QIcon::On);
+    showIcon.addFile(":/images/eyeClosed.svg", QSize(), QIcon::Normal, QIcon::Off);
     mShowOnDisplayAction->setIcon(showIcon);
 
     if (delegated()->data(UBGraphicsItemData::ItemCanBeSetAsBackground).toBool()) {
@@ -729,7 +729,7 @@ void UBGraphicsItemDelegate::decorateMenu(QMenu* menu)
         mSetAsBackgroundAction->setCheckable(false);
 
         QIcon backgroundIcon;
-        backgroundIcon.addPixmap(QPixmap(":/images/setAsBackground.svg"), QIcon::Normal, QIcon::On);
+        backgroundIcon.addFile(":/images/setAsBackground.svg", QSize(), QIcon::Normal, QIcon::On);
         mSetAsBackgroundAction->setIcon(backgroundIcon);
     }
 
@@ -738,7 +738,7 @@ void UBGraphicsItemDelegate::decorateMenu(QMenu* menu)
         mGotoContentSourceAction = menu->addAction(tr("Go to Content Source"), this, SLOT(gotoContentSource()));
 
         QIcon sourceIcon;
-        sourceIcon.addPixmap(QPixmap(":/images/toolbar/internet.png"), QIcon::Normal, QIcon::On);
+        sourceIcon.addFile(":/images/toolbar/internet.png", QSize(), QIcon::Normal, QIcon::On);
         mGotoContentSourceAction->setIcon(sourceIcon);
     }
 }

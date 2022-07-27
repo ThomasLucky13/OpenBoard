@@ -511,7 +511,7 @@ QVariant UBDocumentTreeModel::data(const QModelIndex &index, int role) const
                     case UBDocumentTreeNode::Catalog :
                         return QIcon(":images/folder.svg");
                     case UBDocumentTreeNode::Document :
-                        return QIcon(":images/toolbar/board.png");
+                        return QIcon(":images/toolbar/board.svg");
                 }
             }
             break;

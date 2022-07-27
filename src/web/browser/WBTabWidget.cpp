@@ -241,7 +241,7 @@ WBTabWidget::WBTabWidget(QWidget *parent)
     , mTabBar(new WBTabBar(this))
 {
     setObjectName("ubWebBrowserTabWidget");
-    mAddTabIcon = QPixmap(":/images/toolbar/plusBlack.png");
+    mAddTabIcon = QPixmap(":/images/toolbar/plusBlack.svg");
 
     setElideMode(Qt::ElideRight);
 
