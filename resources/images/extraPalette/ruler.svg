@@ -5,7 +5,7 @@
    viewBox="0 0 42 42"
    version="1.1"
    id="svg38508"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04, custom)"
+   inkscape:version="1.2 (1:1.2.1+202207142221+cd75a1ee6d)"
    sodipodi:docname="ruler.svg"
    inkscape:export-filename="/home/dmitry/git/OpenBoard/resources/images/stylusPalette/arrow_svg.png"
    inkscape:export-xdpi="96"
@@ -33,19 +33,21 @@
      fit-margin-bottom="0"
      units="px"
      inkscape:zoom="22.627417"
-     inkscape:cx="36.703261"
-     inkscape:cy="23.931145"
+     inkscape:cx="19.047689"
+     inkscape:cy="22.229669"
      inkscape:window-width="1366"
      inkscape:window-height="695"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g965"
+     inkscape:current-layer="g12917"
      inkscape:document-rotation="0"
      inkscape:snap-others="true"
      inkscape:snap-global="false"
      showguides="true"
-     inkscape:guide-bbox="true">
+     inkscape:guide-bbox="true"
+     inkscape:showpageshadow="0"
+     inkscape:deskcolor="#d1d1d1">
     <inkscape:grid
        type="xygrid"
        id="grid7387"
@@ -53,11 +55,13 @@
     <sodipodi:guide
        position="20.893686,21.992558"
        orientation="0,-1"
-       id="guide51709" />
+       id="guide51709"
+       inkscape:locked="false" />
     <sodipodi:guide
        position="15.375,17"
        orientation="0,-1"
-       id="guide55391" />
+       id="guide55391"
+       inkscape:locked="false" />
   </sodipodi:namedview>
   <defs
      id="defs38505" />
@@ -219,6 +223,16 @@
            y="229.2822"
            ry="3.1640657e-06"
            inkscape:label="division" />
+        <rect
+           style="display:inline;stroke:none;opacity:1;fill:#423f5a;fill-opacity:0.713725;stroke-width:1.78886;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0.713725;paint-order:stroke fill markers"
+           id="rect49151"
+           width="1"
+           height="4.0000038"
+           x="187.84747"
+           y="229.2822"
+           ry="3.1640657e-06"
+           inkscape:label="division"
+           transform="translate(3.14e-6)" />
         <g
            aria-label="s"
            transform="matrix(0.81945523,0,0,0.8402229,27.439797,42.826609)"
@@ -242,15 +256,6 @@
              style="font-weight:bold;-inkscape-font-specification:'sans-serif Bold';stroke-width:1.3718"
              id="path55349" />
         </g>
-        <rect
-           style="opacity:1;fill:#423f5a;fill-opacity:0.713725;stroke:none;stroke-width:1.78886;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0.713725;paint-order:stroke fill markers"
-           id="rect49151"
-           width="1"
-           height="4.0000038"
-           x="187.84747"
-           y="229.2822"
-           ry="3.1640657e-06"
-           inkscape:label="division" />
       </g>
     </g>
   </g>
