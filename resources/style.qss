@@ -97,7 +97,7 @@ QComboBox#DockPaletteWidgetComboBox:drop-down
 
 QComboBox#DockPaletteWidgetComboBox::down-arrow
 {
-	image:url(:/images/down_arrow.png);
+	image:url(:/images/down_arrow.svg);
 	background:#BBBBBB;
 	border: 2px solid #999999;
 	height:16px;
@@ -145,7 +145,7 @@ QScrollBar::handle:vertical
 
 QScrollBar::add-line:vertical
 {
-	image:url(:/images/down_arrow.png);
+	image:url(:/images/down_arrow.svg);
 	height:16px;
 	background:#BBBBBB;
 	border:2px solid #999999;
@@ -157,7 +157,7 @@ QScrollBar::add-line:vertical
 
 QScrollBar::sub-line:vertical
 {
-	image:url(:/images/up_arrow.png);
+	image:url(:/images/up_arrow.svg);
 	height:16px;
 	background:#BBBBBB;
 	border:2px solid #999999;
@@ -188,7 +188,7 @@ QScrollBar::handle:horizontal
 
 QScrollBar::add-line:horizontal
 {
-	image:url(:/images/right_arrow.png);
+	image:url(:/images/right_arrow.svg);
 	width:16px;
 	background:#BBBBBB;
 	border:2px solid #999999;
@@ -200,7 +200,7 @@ QScrollBar::add-line:horizontal
 
 QScrollBar::sub-line:horizontal
 {
-	image:url(:/images/left_arrow.png);
+	image:url(:/images/left_arrow.svg);
 	width:16px;
 	background:#BBBBBB;
 	border:2px solid #999999;

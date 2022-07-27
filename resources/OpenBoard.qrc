@@ -515,5 +515,36 @@
         <file>images/trash-delete-folder.png</file>
         <file>images/trash-document.png</file>
         <file>images/trash-document-page.png</file>
+        <file>images/navig_arrow.svg</file>
+        <file>images/asc.svg</file>
+        <file>images/pages_close.svg</file>
+        <file>images/pages_open.svg</file>
+        <file>images/tab_mask.svg</file>
+        <file>images/bigOpenBoard.svg</file>
+        <file>images/folder.svg</file>
+        <file>images/cache_circle.svg</file>
+        <file>images/cache_close.svg</file>
+        <file>images/trash-delete-document.svg</file>
+        <file>images/cache_open.svg</file>
+        <file>images/trash-delete-folder.svg</file>
+        <file>images/cache_square.svg</file>
+        <file>images/trash-document-page.svg</file>
+        <file>images/trash-document.svg</file>
+        <file>images/trash-empty.svg</file>
+        <file>images/trash-folder.svg</file>
+        <file>images/left_arrow.svg</file>
+        <file>images/trash-my-documents.svg</file>
+        <file>images/trash.svg</file>
+        <file>images/library_close.svg</file>
+        <file>images/library_open.svg</file>
+        <file>images/currentDocument.svg</file>
+        <file>images/up_arrow.svg</file>
+        <file>images/defaultWidgetIcon.svg</file>
+        <file>images/desc.svg</file>
+        <file>images/down_arrow.svg</file>
+        <file>images/right_arrow.svg</file>
+        <file>images/OpenBoard.svg</file>
+        <file>images/download_close.svg</file>
+        <file>images/download_open.svg</file>
     </qresource>
 </RCC>

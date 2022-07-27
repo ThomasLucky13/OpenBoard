@@ -58,8 +58,8 @@ UBFeaturesWidget::UBFeaturesWidget(QWidget *parent, const char *name)
 
     SET_STYLE_SHEET();
 
-    mIconToLeft = QPixmap(":images/library_open.png");
-    mIconToRight = QPixmap(":images/library_close.png");
+    mIconToLeft = QPixmap(":images/library_open.svg");
+    mIconToRight = QPixmap(":images/library_close.svg");
     setAcceptDrops(true);
 
     //Main UBFeature functionality
@@ -1466,7 +1466,7 @@ QString    UBFeaturesItemDelegate::displayText ( const QVariant & value, const Q
 
 UBFeaturesPathItemDelegate::UBFeaturesPathItemDelegate(QObject *parent) : QStyledItemDelegate(parent)
 {
-    arrowPixmap = new QPixmap(":images/navig_arrow.png");
+    arrowPixmap = new QPixmap(":images/navig_arrow.svg");
 }
 
 QString    UBFeaturesPathItemDelegate::displayText ( const QVariant & value, const QLocale & locale ) const

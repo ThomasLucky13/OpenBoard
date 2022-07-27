@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../OpenBoard.qrc">
-    <normaloff>:/images/OpenBoard.png</normaloff>:/images/OpenBoard.png</iconset>
+    <normaloff>:/images/OpenBoard.svg</normaloff>:/images/OpenBoard.svg</iconset>
   </property>
   <property name="iconSize">
    <size>
