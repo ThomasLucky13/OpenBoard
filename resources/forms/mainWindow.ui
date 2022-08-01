@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1342</width>
-    <height>223</height>
+    <height>268</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1700,6 +1700,25 @@
    </property>
    <property name="toolTip">
     <string>Draw intermediate grid lines</string>
+   </property>
+  </action>
+  <action name="actionVector">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../OpenBoard.qrc">
+     <normaloff>:/images/stylusPalette/line.png</normaloff>
+     <normalon>:/images/stylusPalette/lineOn.png</normalon>:/images/stylusPalette/line.png</iconset>
+   </property>
+   <property name="text">
+    <string>Vector</string>
+   </property>
+   <property name="toolTip">
+    <string>Draw Vectors</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+J</string>
    </property>
   </action>
  </widget>

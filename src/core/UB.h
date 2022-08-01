@@ -71,6 +71,7 @@ struct UBStylusTool
         ZoomOut,
         Pointer,
         Line,
+        Vector,
         Text,
         Capture
     };

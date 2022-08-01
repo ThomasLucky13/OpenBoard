@@ -539,7 +539,7 @@ bool UBGraphicsScene::inputDeviceMove(const QPointF& scenePos, const qreal& pres
             width /= UBApplication::boardController->systemScaleFactor();
             width /= UBApplication::boardController->currentZoom();
 
-            if (currentTool == UBStylusTool::Line || dc->mActiveRuler)
+            if (currentTool == UBStylusTool::Line || dc->mActiveRuler || currentTool == UBStylusTool::Vector)
             {
                 if (UBDrawingController::drawingController()->stylusTool() != UBStylusTool::Marker)
                 if(NULL != mpLastPolygon && NULL != mCurrentStroke && mAddedItems.size() > 0){
@@ -580,7 +580,9 @@ bool UBGraphicsScene::inputDeviceMove(const QPointF& scenePos, const qreal& pres
             else if (currentTool == UBStylusTool::Line) {
                 drawLineTo(position, width, true);
             }
-
+            else if (currentTool == UBStylusTool::Vector) {
+                drawLineTo(position, width, true);
+            }
             else {
                 bool interpolate = false;
 
