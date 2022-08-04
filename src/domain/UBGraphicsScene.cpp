@@ -1043,13 +1043,15 @@ void UBGraphicsScene::eraseLineTo(const QPointF &pEndPoint, const qreal &pWidth)
     typedef QList<QPolygonF> POLYGONSLIST;
     QList<POLYGONSLIST> intersectedPolygons;
 
+    QList<UBGraphicsVectorItem*> intersectedVectorItems;
+
     #pragma omp parallel for
     for(int i=0; i<collidItems.size(); i++)
     {
         UBGraphicsPolygonItem *pi = qgraphicsitem_cast<UBGraphicsPolygonItem*>(collidItems[i]);
-        if(pi == NULL)
-            continue;
-
+        UBGraphicsVectorItem *vi = qgraphicsitem_cast<UBGraphicsVectorItem*>(collidItems[i]);
+        if(pi != NULL)
+        {
         QPainterPath itemPainterPath;
         itemPainterPath.addPolygon(pi->sceneTransform().map(pi->polygon()));
 
@@ -1072,6 +1074,23 @@ void UBGraphicsScene::eraseLineTo(const QPointF &pEndPoint, const qreal &pWidth)
                intersectedPolygons << newPath.simplified().toFillPolygons(pi->sceneTransform().inverted());
             }
         }
+    } else if (vi != NULL)
+    {
+            QPainterPath itemPainterPath;
+            QList<QPointF> linePoints = vi->linePoints();
+            for (int i=0; i < linePoints.count(); ++i)
+            {
+                itemPainterPath.addEllipse(linePoints[i], 1, 1);
+            }
+            if (eraserPath.contains(itemPainterPath) || eraserPath.intersects(itemPainterPath))
+                        {
+                            #pragma omp critical
+                            {
+                                // Compete remove item
+                                intersectedVectorItems << vi;
+                            }
+                        }
+    }
     }
 
     for(int i=0; i<intersectedItems.size(); i++)
@@ -1119,7 +1138,21 @@ void UBGraphicsScene::eraseLineTo(const QPointF &pEndPoint, const qreal &pWidth)
             intersectedPolygonItem->setTransform(t);
     }
 
-    if (!intersectedItems.empty())
+    for (int i=0; i<intersectedVectorItems.size(); i++)
+    {
+            UBGraphicsVectorItem *intersectedVectorItem = intersectedVectorItems[i];
+
+            mRemovedItems << intersectedVectorItem;
+            QTransform t;
+            bool bApplyTransform = false;
+            removeItem(intersectedVectorItem);
+            if (bApplyTransform)
+            {
+                intersectedVectorItem ->setTransform(t);
+            }
+     }
+
+    if (!intersectedItems.empty() || !intersectedVectorItems.empty())
         setModified(true);
 }
 
@@ -1539,7 +1572,7 @@ void UBGraphicsScene::clearContent(clearCase pCase)
                                                       ? qgraphicsitem_cast<UBGraphicsGroupContainerItem*>(item->parentItem())
                                                       : 0;
             UBGraphicsItemDelegate *curDelegate = UBGraphicsItem::Delegate(item);
-            if (!curDelegate) {
+            if (!curDelegate && item->type() != UBGraphicsVectorItem::Type) {
                 continue;
             }
 
@@ -1547,6 +1580,12 @@ void UBGraphicsScene::clearContent(clearCase pCase)
             bool isStrokesGroup = item->type() == UBGraphicsStrokesGroup::Type;
 
             bool shouldDelete = false;
+            if(item->type()==UBGraphicsVectorItem::Type)
+            {
+                removedItems << item;
+                this->removeItem(item);
+            } else
+            {
             switch (static_cast<int>(pCase)) {
             case clearAnnotations :
                 shouldDelete = isStrokesGroup;
@@ -1557,6 +1596,7 @@ void UBGraphicsScene::clearContent(clearCase pCase)
             case clearItemsAndAnnotations:
                 shouldDelete = !isGroup && !isBackgroundObject(item);
                 break;
+            }
             }
 
             if(shouldDelete) {
