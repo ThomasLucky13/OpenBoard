@@ -671,7 +671,16 @@ bool UBGraphicsScene::inputDeviceRelease(int tool)
 
     if (currentTool == UBStylusTool::Eraser)
         hideEraser();
+    if(currentTool == UBStylusTool::Vector)
+    {
+            if (mUndoRedoStackEnabled)
+            {   //should be deleted after scene own undo stack implemented
+                UBGraphicsItemUndoCommand* uc = new UBGraphicsItemUndoCommand(this, NULL, mpLastVector);
+                UBApplication::undoStack->push(uc);
 
+                mAddedItems.clear();
+            }
+    } else{
 
     UBDrawingController *dc = UBDrawingController::drawingController();
 
@@ -744,6 +753,7 @@ bool UBGraphicsScene::inputDeviceRelease(int tool)
             }
             mCurrentPolygon = 0;
         }
+    }
     }
 
     if (mRemovedItems.size() > 0 || mAddedItems.size() > 0)
