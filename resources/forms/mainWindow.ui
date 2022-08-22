@@ -1750,6 +1750,25 @@
     <string>Dotted Style</string>
    </property>
   </action>
+  <action name="actionVector">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../OpenBoard.qrc">
+     <normaloff>:/images/stylusPalette/line.svg</normaloff>
+     <normalon>:/images/stylusPalette/lineOn.svg</normalon>:/images/stylusPalette/line.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Vector</string>
+   </property>
+   <property name="toolTip">
+    <string>Draw Vectors</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+J</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../OpenBoard.qrc"/>

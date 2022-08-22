@@ -145,6 +145,10 @@ void UBWidgetUniboardAPI::setTool(const QString& toolString)
     {
         UBDrawingController::drawingController()->setStylusTool(UBStylusTool::Line);
     }
+    else if (lower == "vector")
+    {
+        UBDrawingController::drawingController()->setStylusTool(UBStylusTool::Vector);
+    }
 }
 
 

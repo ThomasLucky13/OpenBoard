@@ -1,4 +1,5 @@
 HEADERS += src/domain/UBGraphicsScene.h \
+    $$PWD/UBGraphicsVectorItem.h \
     src/domain/UBGraphicsItemUndoCommand.h \
     src/domain/UBGraphicsTextItemUndoCommand.h \
     src/domain/UBGraphicsItemTransformUndoCommand.h \
@@ -29,6 +30,7 @@ HEADERS += src/domain/UBGraphicsScene.h \
     src/domain/UBGraphicsItemZLevelUndoCommand.h
 
 SOURCES += src/domain/UBGraphicsScene.cpp \
+    $$PWD/UBGraphicsVectorItem.cpp \
     src/domain/UBGraphicsItemUndoCommand.cpp \
     src/domain/UBGraphicsTextItemUndoCommand.cpp \
     src/domain/UBGraphicsItemTransformUndoCommand.cpp \

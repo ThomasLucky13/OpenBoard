@@ -72,6 +72,7 @@ struct UBStylusTool
         Pointer,
         Line,
         Text,
+        Vector,
         Capture
     };
 };
@@ -184,6 +185,7 @@ struct UBGraphicsItemType
         UserTypesCount,                                 //65557
         AxesItemType,                                   //65558
         LineItemType,                                   //65559
+        VectorItemType,                                 //65560
         SelectionFrameType                              // this line must be the last line in this enum because it is types counter.
     };
 };

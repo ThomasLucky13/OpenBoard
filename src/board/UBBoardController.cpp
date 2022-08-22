@@ -2005,6 +2005,7 @@ void UBBoardController::setColorIndex(int pColorIndex)
 
     if (UBDrawingController::drawingController()->stylusTool() != UBStylusTool::Marker &&
             UBDrawingController::drawingController()->stylusTool() != UBStylusTool::Line &&
+            UBDrawingController::drawingController()->stylusTool() != UBStylusTool::Vector &&
             UBDrawingController::drawingController()->stylusTool() != UBStylusTool::Text &&
             UBDrawingController::drawingController()->stylusTool() != UBStylusTool::Selector)
     {
@@ -2013,6 +2014,7 @@ void UBBoardController::setColorIndex(int pColorIndex)
 
     if (UBDrawingController::drawingController()->stylusTool() == UBStylusTool::Pen ||
             UBDrawingController::drawingController()->stylusTool() == UBStylusTool::Line ||
+            UBDrawingController::drawingController()->stylusTool() == UBStylusTool::Vector ||
             UBDrawingController::drawingController()->stylusTool() == UBStylusTool::Text ||
             UBDrawingController::drawingController()->stylusTool() == UBStylusTool::Selector)
     {
@@ -2245,6 +2247,13 @@ void UBBoardController::stylusToolChanged(int tool)
             mPropertyPaletteWidgets[lineWidth]->setVisible(true);
             mPropertyPaletteWidgets[eraserWidth]->setVisible(false);
             mPropertyPaletteWidgets[lineStyle]->setVisible(true);
+        } else
+        if (eTool == UBStylusTool::Vector)
+        {
+            mPropertyPaletteWidgets[color]->setVisible(true);
+            mPropertyPaletteWidgets[lineWidth]->setVisible(true);
+            mPropertyPaletteWidgets[eraserWidth]->setVisible(false);
+            mPropertyPaletteWidgets[lineStyle]->setVisible(false);
         } else
         {
             mPropertyPaletteWidgets[color]->setVisible(false);

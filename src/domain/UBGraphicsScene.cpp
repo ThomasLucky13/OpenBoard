@@ -71,6 +71,7 @@
 #include "UBGraphicsSvgItem.h"
 #include "UBGraphicsPolygonItem.h"
 #include "UBGraphicsLineItem.h"
+#include "UBGraphicsVectorItem.h"
 #include "UBGraphicsMediaItem.h"
 #include "UBGraphicsWidgetItem.h"
 #include "UBGraphicsPDFItem.h"
@@ -540,7 +541,7 @@ bool UBGraphicsScene::inputDeviceMove(const QPointF& scenePos, const qreal& pres
             width /= UBApplication::boardController->systemScaleFactor();
             width /= UBApplication::boardController->currentZoom();
 
-            if (currentTool == UBStylusTool::Line || dc->activeRuler())
+            if (currentTool == UBStylusTool::Line || dc->activeRuler()|| currentTool == UBStylusTool::Vector)
             {
                 QLineF radius(mPreviousPoint, position);
                 qreal angle = radius.angle();
@@ -562,6 +563,9 @@ bool UBGraphicsScene::inputDeviceMove(const QPointF& scenePos, const qreal& pres
             }
 
             else if (currentTool == UBStylusTool::Line) {
+                drawLineTo(position, width, true);
+            }
+            else if (currentTool == UBStylusTool::Vector) {
                 drawLineTo(position, width, true);
             }
 
@@ -656,6 +660,16 @@ bool UBGraphicsScene::inputDeviceRelease(int tool)
         if (mUndoRedoStackEnabled)
         {   //should be deleted after scene own undo stack implemented
             UBGraphicsItemUndoCommand* uc = new UBGraphicsItemUndoCommand(this, NULL, mpLastLine);
+            UBApplication::undoStack->push(uc);
+
+            mAddedItems.clear();
+        }
+    } else
+    if(currentTool == UBStylusTool::Vector)
+    {
+        if (mUndoRedoStackEnabled)
+        {   //should be deleted after scene own undo stack implemented
+            UBGraphicsItemUndoCommand* uc = new UBGraphicsItemUndoCommand(this, NULL, mpLastVector);
             UBApplication::undoStack->push(uc);
 
             mAddedItems.clear();
@@ -914,6 +928,7 @@ void UBGraphicsScene::moveTo(const QPointF &pPoint)
 }
 void UBGraphicsScene::drawLineTo(const QPointF &pEndPoint, const qreal &pWidth, bool bLineStyle)
 {
+    if(UBDrawingController::drawingController()->stylusTool() == UBStylusTool::Vector) bLineStyle = true;
     drawLineTo(pEndPoint, pWidth, pWidth, bLineStyle);
 
 }
@@ -937,6 +952,12 @@ void UBGraphicsScene::drawLineTo(const QPointF &pEndPoint, const qreal &startWid
         mAddedItems.clear();
     }
 
+    if(UBDrawingController::drawingController()->stylusTool() == UBStylusTool::Vector)
+    {
+        UBGraphicsVectorItem *vectorItem = new UBGraphicsVectorItem(QLineF(mPreviousPoint, pEndPoint), initialWidth, endWidth);
+        initVectorItem(vectorItem);
+        addVectorItemToCurrentStroke(vectorItem);
+    } else
     if (UBDrawingController::drawingController()->stylusTool() != UBStylusTool::Line)
     {
         UBGraphicsPolygonItem *polygonItem = lineToPolygonItem(QLineF(mPreviousPoint, pEndPoint), initialWidth, endWidth);
@@ -1015,6 +1036,20 @@ void UBGraphicsScene::addLineItemToCurrentStroke(UBGraphicsLineItem* lineItem)
 
 }
 
+void UBGraphicsScene::addVectorItemToCurrentStroke(UBGraphicsVectorItem* vectorItem)
+{
+    vectorItem->setFlag(QGraphicsItem::ItemIsMovable, true);
+    vectorItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
+    vectorItem->SetDelegate();
+
+    mpLastVector = vectorItem;
+    mAddedItems.insert(vectorItem);
+
+    // Here we add the item to the scene
+    addItem(vectorItem);
+
+}
+
 void UBGraphicsScene::eraseLineTo(const QPointF &pEndPoint, const qreal &pWidth)
 {
     const QLineF line(mPreviousPoint, pEndPoint);
@@ -1036,11 +1071,14 @@ void UBGraphicsScene::eraseLineTo(const QPointF &pEndPoint, const qreal &pWidth)
 
     QList<UBGraphicsLineItem*> intersectedLineItems;
 
+    QList<UBGraphicsVectorItem*> intersectedVectorItems;
+
     #pragma omp parallel for
     for(int i=0; i<collidItems.size(); i++)
     {
         UBGraphicsPolygonItem *pi = qgraphicsitem_cast<UBGraphicsPolygonItem*>(collidItems[i]);
         UBGraphicsLineItem *li = qgraphicsitem_cast<UBGraphicsLineItem*>(collidItems[i]);
+        UBGraphicsVectorItem *vi = qgraphicsitem_cast<UBGraphicsVectorItem*>(collidItems[i]);
         if(pi != NULL)
         {
         QPainterPath itemPainterPath;
@@ -1081,7 +1119,24 @@ void UBGraphicsScene::eraseLineTo(const QPointF &pEndPoint, const qreal &pWidth)
                     intersectedLineItems << li;
                 }
             }
+        }else if (vi != NULL)
+        {
+            QPainterPath itemPainterPath;
+            QList<QPointF> linePoints = vi->linePoints();
+            for (int i=0; i < linePoints.count(); ++i)
+            {
+                itemPainterPath.addEllipse(linePoints[i], 1, 1);
+            }
+            if (eraserPath.contains(itemPainterPath) || eraserPath.intersects(itemPainterPath))
+            {
+                #pragma omp critical
+                {
+                    // Compete remove item
+                    intersectedVectorItems << vi;
+                }
+            }
         }
+
     }
 
     for(int i=0; i<intersectedItems.size(); i++)
@@ -1143,7 +1198,21 @@ void UBGraphicsScene::eraseLineTo(const QPointF &pEndPoint, const qreal &pWidth)
         }
     }
 
-    if (!intersectedItems.empty() || !intersectedLineItems.empty())
+    for (int i=0; i<intersectedVectorItems.size(); i++)
+    {
+        UBGraphicsVectorItem *intersectedVectorItem = intersectedVectorItems[i];
+
+        mRemovedItems << intersectedVectorItem;
+        QTransform t;
+        bool bApplyTransform = false;
+        removeItem(intersectedVectorItem);
+        if (bApplyTransform)
+        {
+            intersectedVectorItem->setTransform(t);
+        }
+    }
+
+    if (!intersectedItems.empty() || !intersectedLineItems.empty()||!intersectedVectorItems.empty())
         setModified(true);
 }
 
@@ -1350,6 +1419,28 @@ void UBGraphicsScene::initLineItem(UBGraphicsLineItem* lineItem)
     QPen linePen = lineItem->pen();
     linePen.setWidth(lineItem->originalWidth());
     lineItem->setPen(linePen);
+}
+
+void UBGraphicsScene::initVectorItem(UBGraphicsVectorItem* vectorItem)
+{
+    QColor colorOnDarkBG;
+    QColor colorOnLightBG;
+
+    colorOnDarkBG = UBApplication::boardController->penColorOnDarkBackground();
+    colorOnLightBG = UBApplication::boardController->penColorOnLightBackground();
+
+    if (mDarkBackground)
+    {
+        vectorItem->setColor(colorOnDarkBG);
+    }
+    else
+    {
+        vectorItem->setColor(colorOnLightBG);
+    }
+    vectorItem->setColorOnDarkBackground(colorOnDarkBG);
+    vectorItem->setColorOnLightBackground(colorOnLightBG);
+
+    vectorItem->setData(UBGraphicsItemData::ItemLayerType, QVariant(UBItemLayerType::Graphic));
 }
 
 UBGraphicsPolygonItem* UBGraphicsScene::arcToPolygonItem(const QLineF& pStartRadius, qreal pSpanAngle, qreal pWidth)
@@ -1572,7 +1663,8 @@ void UBGraphicsScene::clearContent(clearCase pCase)
                                                       ? qgraphicsitem_cast<UBGraphicsGroupContainerItem*>(item->parentItem())
                                                       : 0;
             UBGraphicsItemDelegate *curDelegate = UBGraphicsItem::Delegate(item);
-            if (!curDelegate && item->type() != UBGraphicsLineItem::Type) {
+            if (!curDelegate && item->type() != UBGraphicsLineItem::Type
+                    && item->type() != UBGraphicsVectorItem::Type) {
                 continue;
             }
 
@@ -1581,6 +1673,10 @@ void UBGraphicsScene::clearContent(clearCase pCase)
 
             bool shouldDelete = false;
             if(item->type()==UBGraphicsLineItem::Type)
+            {
+                removedItems << item;
+                this->removeItem(item);
+            } else if(item->type()==UBGraphicsVectorItem::Type)
             {
                 removedItems << item;
                 this->removeItem(item);
