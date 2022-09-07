@@ -111,6 +111,7 @@ private:
         inline bool parseSvgPolygon(const QDomElement &element);
         inline bool parseSvgPolyline(const QDomElement &element);
         inline bool parseSvgLine(const QDomElement &element);
+        inline bool parseSvgVector(const QDomElement &element);
         inline bool parseSvgText(const QDomElement &element);
         inline bool parseSvgTextarea(const QDomElement &element);
         inline bool parseSvgImage(const QDomElement &element);
