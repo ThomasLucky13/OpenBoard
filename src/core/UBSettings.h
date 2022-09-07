@@ -89,6 +89,10 @@ class UBSettings : public QObject
         int lineStyleIndex();
         Qt::PenStyle currentLineStyle();
 
+        // Line related
+        int vectorStyleIndex();
+        UBVectorStyle::Enum currentVectorStyle();
+
         // Background related
         bool isDarkBackground();
         UBPageBackground pageBackground();
@@ -448,6 +452,7 @@ class UBSettings : public QObject
         void setEraserStrongWidth(qreal width);
 
         void setLineStyleIndex(int index);
+        void setVectorStyleIndex(int index);
 
          void setStylusPaletteVisible(bool visible);
 

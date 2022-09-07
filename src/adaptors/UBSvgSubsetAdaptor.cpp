@@ -1794,18 +1794,17 @@ void UBSvgSubsetAdaptor::UBSvgSubsetWriter::vectorItemToSvgVector(UBGraphicsVect
         mXmlWriter.writeAttribute("stroke-opacity", QString::number(alpha, 'f', 2));
     mXmlWriter.writeAttribute("stroke-linecap", "round");
 
-    /*   VectorStyle
-    switch (vectorItem->style())
+    switch (vectorItem->getStyle())
     {
-    case Qt::PenStyle::DotLine:
-        mXmlWriter.writeAttribute("line-style", "2");
+    case UBVectorStyle::From:
+        mXmlWriter.writeAttribute("vector-style", "1");
         break;
-     case Qt::PenStyle::DashLine:
-        mXmlWriter.writeAttribute("line-style", "1");
+     case UBVectorStyle::FromTo:
+        mXmlWriter.writeAttribute("vector-style", "2");
         break;
     default:
-        mXmlWriter.writeAttribute("line-style", "0");
-    }*/
+        mXmlWriter.writeAttribute("vector-style", "0");
+    }
 
     if (!groupHoldsInfo)
     {
@@ -2329,17 +2328,17 @@ UBGraphicsVectorItem* UBSvgSubsetAdaptor::UBSvgSubsetReader::vectorItemFromVecto
     }
 
     vectorItem->setColor(penColor);
-    /* VectorStyle
+
     if (style == 2)
     {
-        vectorItem->setStyle(Qt::PenStyle::DotLine);
+        vectorItem->setStyle(UBVectorStyle::FromTo);
     } else if (style == 1)
     {
-        lineItem->setStyle(Qt::PenStyle::DashLine);
+        vectorItem->setStyle(UBVectorStyle::From);
     } else
     {
-        lineItem->setStyle(Qt::PenStyle::SolidLine);
-    }*/
+        vectorItem->setStyle(UBVectorStyle::To);
+    }
 
     QStringRef ubFillOnDarkBackground = mXmlReader.attributes().value(mNamespaceUri, "fill-on-dark-background");
 

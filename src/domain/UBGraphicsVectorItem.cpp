@@ -63,13 +63,32 @@ void UBGraphicsVectorItem::initialize()
 
 void UBGraphicsVectorItem::setSublines()
 {
-    QLineF thisLine = QLineF(this->line().p2().x(), this->line().p2().y(),this->line().p2().x()+this->line().length()/10, this->line().p2().y());
-    thisLine.setAngle(this->line().angle() - 135);
-    sublines.push_back(new QGraphicsLineItem(thisLine));
+    for(int i = 0; i < sublines.length(); ++i)
+    {
+        delete sublines[i];
+    }
+    if ((style == UBVectorStyle::To) || (style == UBVectorStyle::FromTo))
+    {
+        QLineF thisLine = QLineF(this->line().p2().x(), this->line().p2().y(),this->line().p2().x()+this->line().length()/10, this->line().p2().y());
+        thisLine.setAngle(this->line().angle() - 135);
+        sublines.push_back(new QGraphicsLineItem(thisLine));
 
-    thisLine = QLineF(this->line().p2().x(), this->line().p2().y(),this->line().p2().x()+this->line().length()/10, this->line().p2().y());
-    thisLine.setAngle(this->line().angle() + 135);
-    sublines.push_back(new QGraphicsLineItem(thisLine));
+        thisLine = QLineF(this->line().p2().x(), this->line().p2().y(),this->line().p2().x()+this->line().length()/10, this->line().p2().y());
+        thisLine.setAngle(this->line().angle() + 135);
+        sublines.push_back(new QGraphicsLineItem(thisLine));
+    }
+
+    if ((style == UBVectorStyle::From) || (style == UBVectorStyle::FromTo))
+    {
+        QLineF thisLine = QLineF(this->line().p1().x(), this->line().p1().y(),this->line().p1().x()+this->line().length()/10, this->line().p1().y());
+        thisLine.setAngle(this->line().angle() - 45);
+        sublines.push_back(new QGraphicsLineItem(thisLine));
+
+        thisLine = QLineF(this->line().p1().x(), this->line().p1().y(),this->line().p1().x()+this->line().length()/10, this->line().p1().y());
+        thisLine.setAngle(this->line().angle() + 45);
+        sublines.push_back(new QGraphicsLineItem(thisLine));
+    }
+
 }
 
 void UBGraphicsVectorItem::setUuid(const QUuid &pUuid)
@@ -88,7 +107,6 @@ UBGraphicsVectorItem::~UBGraphicsVectorItem()
 void UBGraphicsVectorItem::setColor(const QColor& pColor)
 {
     QPen pen = QPen(pColor);
-    pen.setStyle(style());
     pen.setCapStyle(Qt::PenCapStyle::RoundCap);
     pen.setWidth(mOriginalWidth);
     QGraphicsLineItem::setPen(pen);
@@ -103,20 +121,12 @@ QColor UBGraphicsVectorItem::color() const
     return QGraphicsLineItem::pen().color();
 }
 
-void UBGraphicsVectorItem::setStyle(const Qt::PenStyle& style)
+void UBGraphicsVectorItem::setStyle(const UBVectorStyle::Enum& _style)
 {
-    QPen pen = QPen(color());
-    pen.setStyle(style);
-    pen.setCapStyle(Qt::PenCapStyle::RoundCap);
-    pen.setWidth(mOriginalWidth);
-    QGraphicsLineItem::setPen(pen);
+    style = _style;
+    setSublines();
     for (int i = 0; i < sublines.size(); ++i)
-        sublines[i]->setPen(pen);
-}
-
-Qt::PenStyle UBGraphicsVectorItem::style() const
-{
-    return QGraphicsLineItem::pen().style();
+        sublines[i]->setPen(this->pen());
 }
 
 QList<QPointF> UBGraphicsVectorItem::linePoints()

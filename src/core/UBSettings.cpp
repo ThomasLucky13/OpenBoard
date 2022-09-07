@@ -820,6 +820,36 @@ Qt::PenStyle UBSettings::currentLineStyle()
     return style;
 }
 
+int UBSettings::vectorStyleIndex()
+{
+    return value("Board/VectorStyleIndex", 0).toInt();
+}
+
+void UBSettings::setVectorStyleIndex(int index)
+{
+    setValue("Board/VectorStyleIndex", index);
+}
+UBVectorStyle::Enum UBSettings::currentVectorStyle()
+{
+    switch (vectorStyleIndex())
+    {
+        case UBVectorStyle::To:
+            return UBVectorStyle::To;
+            break;
+        case UBVectorStyle::From:
+            return UBVectorStyle::From;
+            break;
+        case UBVectorStyle::FromTo:
+            return UBVectorStyle::FromTo;
+            break;
+        default:
+            Q_ASSERT(false);
+            return UBVectorStyle::To;
+            break;
+    }
+    return UBVectorStyle::To;
+}
+
 bool UBSettings::isDarkBackground()
 {
     return value("Board/DarkBackground", 0).toBool();

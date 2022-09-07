@@ -399,6 +399,28 @@ void UBBoardController::setupToolbar()
 
     //-----------------------------------------------------------//
 
+    // Setup vector style choice widget
+    QList<QAction *> vectorStyleActions;
+    vectorStyleActions.append(mMainWindow->actionVectorTo);
+    vectorStyleActions.append(mMainWindow->actionVectorFrom);
+    vectorStyleActions.append(mMainWindow->actionVectorFromTo);
+
+    UBToolbarButtonGroup *vectorStyleChoice =
+        new UBToolbarButtonGroup(mMainWindow->boardToolBar, vectorStyleActions);
+
+    connect(settings->appToolBarDisplayText, SIGNAL(changed(QVariant)), vectorStyleChoice, SLOT(displayText(QVariant)));
+
+    connect(vectorStyleChoice, SIGNAL(activated(int)),
+        UBDrawingController::drawingController(), SLOT(setVectorStyleIndex(int)));
+
+    vectorStyleChoice->displayText(QVariant(settings->appToolBarDisplayText->get().toBool()));
+    newPropertyPaletteWidget = mMainWindow->boardToolBar->insertWidget(mMainWindow->actionBackgrounds, vectorStyleChoice);
+    vectorStyleChoice->setCurrentIndex(settings->vectorStyleIndex());
+    vectorStyleActions.at(settings->vectorStyleIndex())->setChecked(true);
+    mPropertyPaletteWidgets.insert(vectorStyle, newPropertyPaletteWidget);
+
+    //-----------------------------------------------------------//
+
     UBApplication::app()->insertSpaceToToolbarBeforeAction(mMainWindow->boardToolBar, mMainWindow->actionBackgrounds);
     UBApplication::app()->insertSpaceToToolbarBeforeAction(mMainWindow->boardToolBar, mMainWindow->actionBoard, 40);
     UBApplication::app()->decorateActionMenu(mMainWindow->actionMenu);
@@ -2233,6 +2255,7 @@ void UBBoardController::stylusToolChanged(int tool)
             mPropertyPaletteWidgets[lineWidth]->setVisible(true);
             mPropertyPaletteWidgets[eraserWidth]->setVisible(false);
             mPropertyPaletteWidgets[lineStyle]->setVisible(false);
+            mPropertyPaletteWidgets[vectorStyle]->setVisible(false);
         } else
         if (eTool == UBStylusTool::Eraser)
         {
@@ -2240,6 +2263,7 @@ void UBBoardController::stylusToolChanged(int tool)
             mPropertyPaletteWidgets[lineWidth]->setVisible(false);
             mPropertyPaletteWidgets[eraserWidth]->setVisible(true);
             mPropertyPaletteWidgets[lineStyle]->setVisible(false);
+            mPropertyPaletteWidgets[vectorStyle]->setVisible(false);
         } else
         if (eTool == UBStylusTool::Line)
         {
@@ -2247,6 +2271,7 @@ void UBBoardController::stylusToolChanged(int tool)
             mPropertyPaletteWidgets[lineWidth]->setVisible(true);
             mPropertyPaletteWidgets[eraserWidth]->setVisible(false);
             mPropertyPaletteWidgets[lineStyle]->setVisible(true);
+            mPropertyPaletteWidgets[vectorStyle]->setVisible(false);
         } else
         if (eTool == UBStylusTool::Vector)
         {
@@ -2254,12 +2279,14 @@ void UBBoardController::stylusToolChanged(int tool)
             mPropertyPaletteWidgets[lineWidth]->setVisible(true);
             mPropertyPaletteWidgets[eraserWidth]->setVisible(false);
             mPropertyPaletteWidgets[lineStyle]->setVisible(false);
+            mPropertyPaletteWidgets[vectorStyle]->setVisible(true);
         } else
         {
             mPropertyPaletteWidgets[color]->setVisible(false);
             mPropertyPaletteWidgets[lineWidth]->setVisible(false);
             mPropertyPaletteWidgets[eraserWidth]->setVisible(false);
             mPropertyPaletteWidgets[lineStyle]->setVisible(false);
+            mPropertyPaletteWidgets[vectorStyle]->setVisible(false);
         }
 
 

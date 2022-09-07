@@ -95,6 +95,16 @@ struct UBLineStyle
     };
 };
 
+struct UBVectorStyle
+{
+    enum Enum
+    {
+        To = 0,
+        From = 1,
+        FromTo = 2
+    };
+};
+
 struct UBZoom
 {
     enum Enum

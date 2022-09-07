@@ -27,10 +27,13 @@ public:
       void setUuid(const QUuid &pUuid);
 
       void setColor(const QColor& color);
-      void setStyle(const Qt::PenStyle& style);
+      void setStyle(const UBVectorStyle::Enum& _style);
+      UBVectorStyle::Enum getStyle()
+      {
+          return style;
+      }
 
       QColor color() const;
-      Qt::PenStyle style() const;
 
       virtual UBGraphicsScene* scene();
 
@@ -102,6 +105,7 @@ public:
       QColor mColorOnDarkBackground;
       QColor mColorOnLightBackground;
       QList<QGraphicsLineItem *> sublines;
+      UBVectorStyle::Enum style;
 };
 
 #endif // UBGRAPHICSVECTORITEM_H

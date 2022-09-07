@@ -289,6 +289,11 @@ void UBDrawingController::setLineStyleIndex(int index)
     UBSettings::settings()->setLineStyleIndex(index);
 }
 
+void UBDrawingController::setVectorStyleIndex(int index)
+{
+    UBSettings::settings()->setVectorStyleIndex(index);
+}
+
 void UBDrawingController::setPenColor(bool onDarkBackground, const QColor& color, int pIndex)
 {
     if (onDarkBackground)

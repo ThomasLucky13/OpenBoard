@@ -1769,6 +1769,54 @@
     <string>Ctrl+J</string>
    </property>
   </action>
+  <action name="actionVectorTo">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../OpenBoard.qrc">
+     <normaloff>:/images/toolbar/solidLine.svg</normaloff>:/images/toolbar/solidLine.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Vector Style</string>
+   </property>
+   <property name="toolTip">
+    <string>To Style</string>
+   </property>
+  </action>
+  <action name="actionVectorFrom">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../OpenBoard.qrc">
+     <normaloff>:/images/toolbar/dashedLine.svg</normaloff>:/images/toolbar/dashedLine.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Vector Style</string>
+   </property>
+   <property name="toolTip">
+    <string>From Style</string>
+   </property>
+  </action>
+  <action name="actionVectorFromTo">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../OpenBoard.qrc">
+     <normaloff>:/images/toolbar/dottedLine.svg</normaloff>:/images/toolbar/dottedLine.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Vector Style</string>
+   </property>
+   <property name="toolTip">
+    <string>FromTo Style</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../OpenBoard.qrc"/>

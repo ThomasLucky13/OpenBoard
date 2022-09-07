@@ -82,6 +82,7 @@ class UBDrawingController : public QObject
         void setColorIndex(int index);
         void setEraserWidthIndex(int index);
         void setLineStyleIndex(int index);
+        void setVectorStyleIndex(int index);
 
     signals:
         void stylusToolChanged(int tool, int previousTool = -1);

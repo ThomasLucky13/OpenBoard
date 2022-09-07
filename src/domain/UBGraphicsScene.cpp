@@ -1439,6 +1439,7 @@ void UBGraphicsScene::initVectorItem(UBGraphicsVectorItem* vectorItem)
     }
     vectorItem->setColorOnDarkBackground(colorOnDarkBG);
     vectorItem->setColorOnLightBackground(colorOnLightBG);
+    vectorItem->setStyle(UBSettings::settings()->currentVectorStyle());
 
     vectorItem->setData(UBGraphicsItemData::ItemLayerType, QVariant(UBItemLayerType::Graphic));
 }
