@@ -2292,7 +2292,7 @@ UBGraphicsVectorItem* UBSvgSubsetAdaptor::UBSvgSubsetReader::vectorItemFromVecto
     }
     else
     {
-        qWarning() << "cannot make sense of 'line' value";
+        qWarning() << "cannot make sense of 'vector' value";
         return 0;
     }
 
