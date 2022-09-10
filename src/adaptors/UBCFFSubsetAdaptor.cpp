@@ -729,7 +729,16 @@ bool UBCFFSubsetAdaptor::UBCFFSubsetReader::parseSvgVector(const QDomElement &el
         QTransform transform;
         QString textTransform = element.attribute(aTransform);
 
-        //graphicsVector->setStyle(style);
+        if (style == 2)
+        {
+            graphicsVector->setStyle(UBVectorStyle::FromTo);
+        } else if (style == 1)
+        {
+            graphicsVector->setStyle(UBVectorStyle::From);
+        } else
+        {
+            graphicsVector->setStyle(UBVectorStyle::To);
+        }
 
         graphicsVector->resetTransform();
         if (!textTransform.isNull()) {
