@@ -59,6 +59,15 @@ void UBGraphicsVectorItem::initialize()
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setSublines();
+
+    mStrokeGroup = new UBGraphicsStrokesGroup();
+    mStrokeGroup->setTransform(this->transform());
+    UBGraphicsItem::assignZValue(mStrokeGroup, this->zValue());
+
+    if(this->transform().isIdentity())
+        this->setTransform(mStrokeGroup->transform());
+
+    mStrokeGroup->addToGroup(this);
 }
 
 void UBGraphicsVectorItem::setSublines()

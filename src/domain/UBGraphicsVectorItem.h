@@ -3,6 +3,7 @@
 
 #include <QtGui>
 #include "core/UB.h"
+#include "domain/UBGraphicsStrokesGroup.h"
 #include "UBItem.h"
 
 class UBItem;
@@ -89,6 +90,11 @@ public:
           return sublines;
       }
 
+      UBGraphicsStrokesGroup* StrokeGroup()
+      {
+          return mStrokeGroup;
+      }
+
   protected:
       void paint ( QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget);
       virtual QVariant itemChange(GraphicsItemChange change, const QVariant &value);
@@ -106,6 +112,8 @@ public:
       QColor mColorOnLightBackground;
       QList<QGraphicsLineItem *> sublines;
       UBVectorStyle::Enum style;
+
+      UBGraphicsStrokesGroup* mStrokeGroup;
 };
 
 #endif // UBGRAPHICSVECTORITEM_H

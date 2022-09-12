@@ -1043,10 +1043,10 @@ void UBGraphicsScene::addVectorItemToCurrentStroke(UBGraphicsVectorItem* vectorI
     vectorItem->SetDelegate();
 
     mpLastVector = vectorItem;
-    mAddedItems.insert(vectorItem);
+    mAddedItems.insert(vectorItem->StrokeGroup());
 
     // Here we add the item to the scene
-    addItem(vectorItem);
+    addItem(vectorItem->StrokeGroup());
 
 }
 
