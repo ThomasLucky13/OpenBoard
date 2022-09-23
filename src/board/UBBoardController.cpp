@@ -178,6 +178,10 @@ void UBBoardController::initBackgroundGridSize()
 
     //qDebug() << "dpi: " << dpi;
 
+    int gridSize;
+
+    if(UBSettings::settings()->backgroundGridSize()==-1)
+    {
     // The display manager isn't initialized yet so we have to just assume the control view is on the main display
     qreal screenY = desktop->screenGeometry(mControlView).height();
     qreal documentY = mActiveScene->nominalSize().height();
@@ -185,7 +189,9 @@ void UBBoardController::initBackgroundGridSize()
 
     //qDebug() << "resolution ratio: " << resolutionRatio;
 
-    int gridSize = (resolutionRatio * 10. * dpi) / UBGeometryUtils::inchSize;
+    gridSize = (resolutionRatio * 10. * dpi) / UBGeometryUtils::inchSize;
+    } else
+        gridSize = UBSettings::settings()->backgroundGridSize();
 
     UBSettings::settings()->crossSize = gridSize;
     UBSettings::settings()->defaultCrossSize = gridSize;
