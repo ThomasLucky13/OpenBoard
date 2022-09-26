@@ -825,6 +825,16 @@ void UBSettings::setPageBackground(UBPageBackground background)
     setValue("Board/PageBackground", val);
 }
 
+void UBSettings::setBackgroundGridSize(int value)
+{
+    crossSize = value;
+    setValue("Board/BackgroundGridSize", value);
+}
+
+int UBSettings::backgroundGridSize()
+{
+    return value("Board/BackgroundGridSize", -1).toInt();
+}
 
 void UBSettings::setPenPressureSensitive(bool sensitive)
 {
