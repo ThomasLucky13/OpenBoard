@@ -100,6 +100,10 @@ void UBGraphicsVectorItem::setSublines()
         sublines.push_back(new QGraphicsLineItem(thisLine));
     }
 
+    for(int i = 0; i < sublines.length(); ++i)
+    {
+        sublines[i]->setParentItem(this);
+    }
 }
 
 void UBGraphicsVectorItem::setUuid(const QUuid &pUuid)
