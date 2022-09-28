@@ -744,7 +744,7 @@ bool UBCFFSubsetAdaptor::UBCFFSubsetReader::parseSvgVector(const QDomElement &el
         if (!textTransform.isNull()) {
             transform = transformFromString(textTransform, graphicsVector);
         }
-        mCurrentScene->addItem(graphicsVector);
+        mCurrentScene->addItem(graphicsVector->StrokeGroup());
 
         graphicsVector->setUuid(itemUuid);
         mRefToUuidMap.insert(element.attribute(aId), itemUuid.toString());

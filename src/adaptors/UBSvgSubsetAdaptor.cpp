@@ -693,10 +693,10 @@ UBGraphicsScene* UBSvgSubsetAdaptor::UBSvgSubsetReader::loadScene(UBDocumentProx
                     if(vectorItem->transform().isIdentity())
                         vectorItem->setTransform(group->transform());
 
-                    group->addToGroup(vectorItem);
-
+                    //group->addToGroup(vectorItem);
+                    mScene->addItem(vectorItem->StrokeGroup());
                     vectorItem->show();
-                    group->addToGroup(vectorItem);
+                    //group->addToGroup(vectorItem);
                 }
             }
             else if (mXmlReader.name() == "polyline")
