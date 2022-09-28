@@ -74,8 +74,10 @@ void UBGraphicsVectorItem::setSublines()
 {
     for(int i = 0; i < sublines.length(); ++i)
     {
+        sublines[i]->hide();
         delete sublines[i];
     }
+    sublines.clear();
     if ((style == UBVectorStyle::To) || (style == UBVectorStyle::FromTo))
     {
         QLineF thisLine = QLineF(this->line().p2().x(), this->line().p2().y(),this->line().p2().x()+this->line().length()/10, this->line().p2().y());
