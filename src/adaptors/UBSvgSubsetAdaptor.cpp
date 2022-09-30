@@ -41,6 +41,7 @@
 #include "domain/UBGraphicsProxyWidget.h"
 #include "domain/UBGraphicsPolygonItem.h"
 #include "domain/UBGraphicsLineItem.h"
+#include "domain/UBGraphicsVectorItem.h"
 #include "domain/UBGraphicsMediaItem.h"
 #include "domain/UBGraphicsWidgetItem.h"
 #include "domain/UBGraphicsPDFItem.h"
@@ -657,6 +658,45 @@ UBGraphicsScene* UBSvgSubsetAdaptor::UBSvgSubsetReader::loadScene(UBDocumentProx
 
                     lineItem->show();
                     group->addToGroup(lineItem);
+                }
+            }
+            else if (mXmlReader.name() == "vector")
+            {
+                UBGraphicsVectorItem* vectorItem = 0;
+
+                QString parentId = mXmlReader.attributes().value(mNamespaceUri, "parent").toString();
+
+                vectorItem = vectorItemFromVectorSvg(mScene->isDarkBackground() ? Qt::white : Qt::black);
+
+                if(parentId.isEmpty() && strokesGroup)
+                    parentId = strokesGroup->uuid().toString();
+
+                if(parentId.isEmpty())
+                    parentId = QUuid::createUuid().toString();
+                if (vectorItem)
+                {
+                    vectorItem->setData(UBGraphicsItemData::ItemLayerType, QVariant(UBItemLayerType::Graphic));
+
+                    UBGraphicsStrokesGroup* group;
+                    if(!mStrokesList.contains(parentId)){
+                        group = new UBGraphicsStrokesGroup();
+                        mStrokesList.insert(parentId,group);
+                        group->setTransform(vectorItem->transform());
+                        UBGraphicsItem::assignZValue(group, vectorItem->zValue());
+                    }
+                    else
+                        group = mStrokesList.value(parentId);
+
+                    if (!currentStroke)
+                        currentStroke = new UBGraphicsStroke();
+
+                    if(vectorItem->transform().isIdentity())
+                        vectorItem->setTransform(group->transform());
+
+                    //group->addToGroup(vectorItem);
+                    mScene->addItem(vectorItem->StrokeGroup());
+                    vectorItem->show();
+                    //group->addToGroup(vectorItem);
                 }
             }
             else if (mXmlReader.name() == "polyline")
@@ -1384,6 +1424,48 @@ bool UBSvgSubsetAdaptor::UBSvgSubsetWriter::persistScene(UBDocumentProxy* proxy,
             continue;
         }
 
+        // Is the item a vector?
+        UBGraphicsVectorItem *vectorItem = qgraphicsitem_cast<UBGraphicsVectorItem*> (item);
+        if (vectorItem && vectorItem->isVisible())
+        {
+            mXmlWriter.writeStartElement("g");
+
+            QColor colorOnDarkBackground = vectorItem->colorOnDarkBackground();
+            QColor colorOnLightBackground = vectorItem->colorOnLightBackground();
+            if (colorOnDarkBackground.isValid() && colorOnLightBackground.isValid())
+            {
+                mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri, "z-value"
+                                          , QString("%1").arg(vectorItem->zValue()));
+
+                mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri
+                                          , "fill-on-dark-background", colorOnDarkBackground.name());
+                mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri
+                                          , "fill-on-light-background", colorOnLightBackground.name());
+
+                mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri, "uuid", UBStringUtils::toCanonicalUuid(vectorItem->uuid()));
+
+                QVariant locked = vectorItem->data(UBGraphicsItemData::ItemLocked);
+
+                if (!locked.isNull() && locked.toBool())
+                    mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri, "locked", xmlTrue);
+
+                QVariant layer = vectorItem->data(UBGraphicsItemData::ItemLayerType);
+                mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri, "layer", QString("%1").arg(layer.toInt()));
+
+                QMatrix matrix = vectorItem->sceneMatrix();
+                if (!matrix.isIdentity())
+                    mXmlWriter.writeAttribute("transform", toSvgTransform(matrix));
+
+                qDebug() << "Attributes written";
+
+                groupHoldsInfo = true;
+            }
+
+            vectorItemToSvgVector(vectorItem, groupHoldsInfo);
+
+            continue;
+        }
+
         if (openStroke)
         {
             mXmlWriter.writeEndElement(); //g
@@ -1681,6 +1763,54 @@ void UBSvgSubsetAdaptor::UBSvgSubsetWriter::lineItemToSvgLine(UBGraphicsLineItem
         mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri, "z-value", QString("%1").arg(lineItem->zValue()));
         mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri, "fill-on-dark-background", lineItem->colorOnDarkBackground().name());
         mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri, "fill-on-light-background", lineItem->colorOnLightBackground().name());
+    }
+
+    mXmlWriter.writeEndElement();
+
+}
+
+void UBSvgSubsetAdaptor::UBSvgSubsetWriter::vectorItemToSvgVector(UBGraphicsVectorItem* vectorItem, bool groupHoldsInfo)
+{
+    mXmlWriter.writeStartElement("vector");
+
+    QLineF line = vectorItem->originalLine();
+
+    mXmlWriter.writeAttribute("x1", QString::number(line.p1().x(), 'f', 2));
+    mXmlWriter.writeAttribute("y1", QString::number(line.p1().y(), 'f', 2));
+
+    // SVG renderers (Chrome) do not like line where (x1, y1) == (x2, y2)
+    qreal x2 = line.p2().x();
+    if (line.p1() == line.p2())
+        x2 += 0.01;
+
+    mXmlWriter.writeAttribute("x2", QString::number(x2, 'f', 2));
+    mXmlWriter.writeAttribute("y2", QString::number(line.p2().y(), 'f', 2));
+
+    mXmlWriter.writeAttribute("stroke-width", QString::number(vectorItem->originalWidth(), 'f', -1));
+    mXmlWriter.writeAttribute("stroke", vectorItem->pen().color().name());
+
+    qreal alpha = vectorItem->pen().color().alphaF();
+    if (alpha < 1.0)
+        mXmlWriter.writeAttribute("stroke-opacity", QString::number(alpha, 'f', 2));
+    mXmlWriter.writeAttribute("stroke-linecap", "round");
+
+    switch (vectorItem->getStyle())
+    {
+    case UBVectorStyle::From:
+        mXmlWriter.writeAttribute("vector-style", "1");
+        break;
+     case UBVectorStyle::FromTo:
+        mXmlWriter.writeAttribute("vector-style", "2");
+        break;
+    default:
+        mXmlWriter.writeAttribute("vector-style", "0");
+    }
+
+    if (!groupHoldsInfo)
+    {
+        mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri, "z-value", QString("%1").arg(vectorItem->zValue()));
+        mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri, "fill-on-dark-background", vectorItem->colorOnDarkBackground().name());
+        mXmlWriter.writeAttribute(UBSettings::uniboardDocumentNamespaceUri, "fill-on-light-background", vectorItem->colorOnLightBackground().name());
     }
 
     mXmlWriter.writeEndElement();
@@ -2138,6 +2268,116 @@ UBGraphicsLineItem* UBSvgSubsetAdaptor::UBSvgSubsetReader::lineItemFromLineSvg(c
     }
 
     return lineItem;
+}
+
+UBGraphicsVectorItem* UBSvgSubsetAdaptor::UBSvgSubsetReader::vectorItemFromVectorSvg(const QColor& pDefaultColor)
+{
+    QStringRef svgX1 = mXmlReader.attributes().value("x1");
+    QStringRef svgY1 = mXmlReader.attributes().value("y1");
+    QStringRef svgX2 = mXmlReader.attributes().value("x2");
+    QStringRef svgY2 = mXmlReader.attributes().value("y2");
+
+    qreal style = mXmlReader.attributes().value("vector-style").toDouble();
+
+    QLineF line;
+
+    if (!svgX1.isNull() && !svgY1.isNull() && !svgX2.isNull() && !svgY2.isNull())
+    {
+        qreal x1 = svgX1.toString().toFloat();
+        qreal y1 = svgY1.toString().toFloat();
+        qreal x2 = svgX2.toString().toFloat();
+        qreal y2 = svgY2.toString().toFloat();
+
+        line.setLine(x1, y1, x2, y2);
+    }
+    else
+    {
+        qWarning() << "cannot make sense of 'vector' value";
+        return 0;
+    }
+
+    QStringRef strokeWidth = mXmlReader.attributes().value("stroke-width");
+
+    qreal lineWidth = 1.;
+
+    if (!strokeWidth.isNull())
+    {
+        lineWidth = strokeWidth.toString().toFloat();
+    }
+
+    UBGraphicsVectorItem* vectorItem = new UBGraphicsVectorItem(line, lineWidth);
+    graphicsItemFromSvg(vectorItem);
+
+    QStringRef svgStroke = mXmlReader.attributes().value("stroke");
+
+    QColor penColor = pDefaultColor;
+
+    if (!svgStroke.isNull())
+    {
+        penColor.setNamedColor(svgStroke.toString());
+
+    }
+
+    QStringRef svgStrokeOpacity = mXmlReader.attributes().value("stroke-opacity");
+    qreal opacity = 1.0;
+
+    if (!svgStrokeOpacity.isNull())
+    {
+        opacity = svgStrokeOpacity.toString().toFloat();
+        penColor.setAlphaF(opacity);
+    }
+
+    vectorItem->setColor(penColor);
+
+    if (style == 2)
+    {
+        vectorItem->setStyle(UBVectorStyle::FromTo);
+    } else if (style == 1)
+    {
+        vectorItem->setStyle(UBVectorStyle::From);
+    } else
+    {
+        vectorItem->setStyle(UBVectorStyle::To);
+    }
+
+    QStringRef ubFillOnDarkBackground = mXmlReader.attributes().value(mNamespaceUri, "fill-on-dark-background");
+
+    if (!ubFillOnDarkBackground.isNull())
+    {
+        QColor color;
+        color.setNamedColor(ubFillOnDarkBackground.toString());
+        if (!color.isValid())
+            color = Qt::white;
+
+        color.setAlphaF(opacity);
+        vectorItem->setColorOnDarkBackground(color);
+    }
+    else
+    {
+        QColor color = mGroupDarkBackgroundColor;
+        color.setAlphaF(opacity);
+        vectorItem->setColorOnDarkBackground(color);
+    }
+
+    QStringRef ubFillOnLightBackground = mXmlReader.attributes().value(mNamespaceUri, "fill-on-light-background");
+
+    if (!ubFillOnLightBackground.isNull())
+    {
+        QColor color;
+        color.setNamedColor(ubFillOnLightBackground.toString());
+        if (!color.isValid())
+            color = Qt::black;
+        color.setAlphaF(opacity);
+        vectorItem->setColorOnLightBackground(color);
+    }
+    else
+    {
+        QColor color = mGroupLightBackgroundColor;
+        color.setAlphaF(opacity);
+        vectorItem->setColorOnLightBackground(color);
+    }
+
+    return vectorItem;
 }
 
 QList<UBGraphicsPolygonItem*> UBSvgSubsetAdaptor::UBSvgSubsetReader::polygonItemsFromPolylineSvg(const QColor& pDefaultColor)

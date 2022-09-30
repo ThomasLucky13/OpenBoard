@@ -72,6 +72,7 @@ struct UBStylusTool
         Pointer,
         Line,
         Text,
+        Vector,
         Capture
     };
 };
@@ -91,6 +92,16 @@ struct UBLineStyle
         Solid = 0,
         Dashed = 1,
         Dotted = 2
+    };
+};
+
+struct UBVectorStyle
+{
+    enum Enum
+    {
+        To = 0,
+        From = 1,
+        FromTo = 2
     };
 };
 
@@ -184,6 +195,7 @@ struct UBGraphicsItemType
         UserTypesCount,                                 //65557
         AxesItemType,                                   //65558
         LineItemType,                                   //65559
+        VectorItemType,                                 //65560
         SelectionFrameType                              // this line must be the last line in this enum because it is types counter.
     };
 };

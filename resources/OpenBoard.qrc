@@ -388,5 +388,10 @@
         <file>images/trash-delete-folder.png</file>
         <file>images/trash-document.png</file>
         <file>images/trash-document-page.png</file>
+        <file>images/toolbar/vectorFrom.svg</file>
+        <file>images/toolbar/vectorFromTo.svg</file>
+        <file>images/toolbar/vectorTo.svg</file>
+        <file>images/stylusPalette/vector.svg</file>
+        <file>images/stylusPalette/vectorOn.svg</file>
     </qresource>
 </RCC>

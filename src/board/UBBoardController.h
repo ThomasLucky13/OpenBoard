@@ -327,7 +327,8 @@ class UBBoardController : public UBDocumentContainer
             color,
             lineWidth,
             eraserWidth,
-            lineStyle
+            lineStyle,
+            vectorStyle
         };
         QMap<PropertyPalette, QAction*> mPropertyPaletteWidgets;
 

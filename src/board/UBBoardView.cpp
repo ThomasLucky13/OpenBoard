@@ -368,7 +368,7 @@ void UBBoardView::tabletEvent (QTabletEvent * event)
     QPointF scenePos = viewportTransform ().inverted ().map (tabletPos);
 
     qreal pressure = 1.0;
-    if (((currentTool == UBStylusTool::Pen || currentTool == UBStylusTool::Line) && mPenPressureSensitive) ||
+    if (((currentTool == UBStylusTool::Pen || currentTool == UBStylusTool::Line || currentTool == UBStylusTool::Vector) && mPenPressureSensitive) ||
             (currentTool == UBStylusTool::Marker && mMarkerPressureSensitive))
         pressure = event->pressure ();
     else{
@@ -1821,6 +1821,9 @@ void UBBoardView::setToolCursor (int tool)
         controlViewport->setCursor (UBResources::resources ()->playCursor);
         break;
     case UBStylusTool::Line:
+        controlViewport->setCursor (UBResources::resources ()->penCursor);
+        break;
+    case UBStylusTool::Vector:
         controlViewport->setCursor (UBResources::resources ()->penCursor);
         break;
     case UBStylusTool::Text:

@@ -39,6 +39,7 @@
 class UBGraphicsSvgItem;
 class UBGraphicsPolygonItem;
 class UBGraphicsLineItem;
+class UBGraphicsVectorItem;
 class UBGraphicsPixmapItem;
 class UBGraphicsPDFItem;
 class UBGraphicsWidgetItem;
@@ -128,6 +129,8 @@ class UBSvgSubsetAdaptor
 
                 UBGraphicsLineItem* lineItemFromLineSvg(const QColor& pDefaultPenColor);
 
+                UBGraphicsVectorItem* vectorItemFromVectorSvg(const QColor& pDefaultPenColor);
+
                 UBGraphicsPixmapItem* pixmapItemFromSvg();
 
                 UBGraphicsSvgItem* svgItemFromSvg();
@@ -199,6 +202,7 @@ class UBSvgSubsetAdaptor
                 void polygonItemToSvgPolygon(UBGraphicsPolygonItem* polygonItem, bool groupHoldsInfo);
                 void polygonItemToSvgLine(UBGraphicsPolygonItem* polygonItem, bool groupHoldsInfo);
                 void lineItemToSvgLine(UBGraphicsLineItem* lineItem, bool groupHoldsInfo);
+                void vectorItemToSvgVector(UBGraphicsVectorItem* vectorItem, bool groupHoldsInfo);
                 void strokeToSvgPolyline(UBGraphicsStroke* stroke, bool groupHoldsInfo);
                 void strokeToSvgPolygon(UBGraphicsStroke* stroke, bool groupHoldsInfo);
 
