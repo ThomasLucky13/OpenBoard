@@ -144,8 +144,12 @@ UBGraphicsVideoItem::UBGraphicsVideoItem(const QUrl &pMediaFileUrl, QGraphicsIte
     setMinimumSize(QSize(320, 240));
     setSize(320, 240);
 
+    /*
+     * I commented this to allow the video takes it's saved size
+     *
     connect(mVideoItem, SIGNAL(nativeSizeChanged(QSizeF)),
             this, SLOT(videoSizeChanged(QSizeF)));
+     */
 
     connect(mMediaObject, SIGNAL(videoAvailableChanged(bool)),
             this, SLOT(hasVideoChanged(bool)));
