@@ -175,6 +175,8 @@ void UBPreferencesController::wire()
     //On light background
     QPalette lightBackgroundPalette = QApplication::palette();
     lightBackgroundPalette.setColor(QPalette::Window, Qt::white);
+    lightBackgroundPalette.setColor(QPalette::ButtonText, Qt::black);
+    lightBackgroundPalette.setColor(QPalette::WindowText, Qt::black);
 
     mPreferencesUI->crossColorLightBackgroundFrame->setAutoFillBackground(true);
     mPreferencesUI->crossColorLightBackgroundFrame->setPalette(lightBackgroundPalette);
@@ -683,6 +685,8 @@ UBBrushPropertiesFrame::UBBrushPropertiesFrame(QFrame* owner, const QList<QColor
 
     QPalette lightBackgroundPalette = QApplication::palette();
     lightBackgroundPalette.setColor(QPalette::Window, Qt::white);
+    lightBackgroundPalette.setColor(QPalette::ButtonText, Qt::black);
+    lightBackgroundPalette.setColor(QPalette::WindowText, Qt::black);
 
     lightBackgroundFrame->setAutoFillBackground(true);
     lightBackgroundFrame->setPalette(lightBackgroundPalette);
