@@ -598,7 +598,12 @@ void UBKeyButton::paintContent(QPainter& painter)
     {
         QString text(QChar(shifted() ? keybt->symbol2 : keybt->symbol1));
         QRect textRect(rect().x()+2, rect().y()+2, rect().width()-4, rect().height()-4);
+        QPen prevPen = painter.pen();
+        QPen copyPen = prevPen;
+        copyPen.setColor(Qt::black);
+        painter.setPen(copyPen);
         painter.drawText(textRect, Qt::AlignCenter, text);
+        painter.setPen(prevPen);
     }
 }
 
@@ -630,7 +635,12 @@ void UBCntrlButton::paintContent(QPainter& painter)
 {
     if(!label.isEmpty())
     {
+        QPen prevPen = painter.pen();
+        QPen copyPen = prevPen;
+        copyPen.setColor(Qt::black);
+        painter.setPen(copyPen);
         painter.drawText(rect(), Qt::AlignCenter, label);
+        painter.setPen(prevPen);
     }
     else
     if(imgContent != NULL)
@@ -669,7 +679,14 @@ void UBCapsLockButton::paintContent(QPainter& painter)
             imgContent->m_btnContent, 0,0, imgContent->m_btnContent.width(), imgContent->m_btnContent.height());
     }
     else
+    {
+        QPen prevPen = painter.pen();
+        QPen copyPen = prevPen;
+        copyPen.setColor(Qt::black);
+        painter.setPen(copyPen);
         painter.drawText(rect(), Qt::AlignCenter, "^");
+        painter.setPen(prevPen);
+    }
 }
 
 UBShiftButton::UBShiftButton(UBKeyboardPalette* parent, const QString _contentImagePath)
@@ -702,7 +719,14 @@ void UBShiftButton::paintContent(QPainter& painter)
             imgContent->m_btnContent, 0,0, imgContent->m_btnContent.width(), imgContent->m_btnContent.height());
     }
     else
+    {
+        QPen prevPen = painter.pen();
+        QPen copyPen = prevPen;
+        copyPen.setColor(Qt::black);
+        painter.setPen(copyPen);
         painter.drawText(rect(), Qt::AlignCenter, "^");
+        painter.setPen(prevPen);
+    }
 }
 
 
@@ -746,5 +770,13 @@ void UBLocaleButton::paintContent(QPainter& painter)
 {
     const QString* localeName = keyboard->getLocaleName();
     if (localeName!=NULL)
+    {
+        QPen prevPen = painter.pen();
+        QPen copyPen = prevPen;
+        copyPen.setColor(Qt::black);
+        painter.setPen(copyPen);
         painter.drawText(rect(), Qt::AlignCenter, *localeName);
+        painter.setPen(prevPen);
+    }
+
 }
