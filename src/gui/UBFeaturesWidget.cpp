@@ -410,6 +410,7 @@ void UBFeaturesWidget::importImage(const QImage &image, const QString &fileName)
 UBFeaturesListView::UBFeaturesListView( QWidget* parent, const char* name )
     : QListView(parent)
 {
+    this->setStyleSheet("background-color: rgb(64, 68, 73);");
     setObjectName(name);
 }
 
@@ -524,6 +525,9 @@ UBFeaturesCentralWidget::UBFeaturesCentralWidget(QWidget *parent) : QWidget(pare
     mStackedWidget->addWidget(webView);
     mStackedWidget->setCurrentIndex(MainList);
     mStackedWidget->setContentsMargins(0, 0, 0, 0);
+    QString styleSheet = mStackedWidget->styleSheet();
+    styleSheet += "\nbackground-color: rgb(64, 68, 73);";
+    mStackedWidget->setStyleSheet(styleSheet);
 
 
     mAdditionalDataContainer = new QStackedWidget(this);

@@ -66,6 +66,7 @@ UBDocumentNavigator::UBDocumentNavigator(QWidget *parent, const char *name):QGra
   , mDropBar(new QGraphicsRectItem())
   , mLongPressInterval(350)
 {
+    this->setStyleSheet("background-color: rgb(64, 68, 73);");
     setObjectName(name);
     mScene = new QGraphicsScene(this);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

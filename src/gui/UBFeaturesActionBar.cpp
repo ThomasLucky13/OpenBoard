@@ -60,7 +60,7 @@ UBFeaturesActionBar::UBFeaturesActionBar( UBFeaturesController *controller, QWid
 
     mButtonGroup = new QButtonGroup(this);
     mSearchBar = new QLineEdit(this);
-    mSearchBar->setStyleSheet(QString("background-color:white; border-radius : 10px; padding : 2px;"));
+    mSearchBar->setStyleSheet(QString("background-color:white; color:black; border-radius : 10px; padding : 2px;"));
 
     mLayout = new QHBoxLayout();
     setLayout(mLayout);
