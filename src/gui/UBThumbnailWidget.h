@@ -223,6 +223,7 @@ class UBThumbnailTextItem : public QGraphicsTextItem
             , mIsHighlighted(false)
         {
 
+            this->setDefaultTextColor(Qt::black);
         }
 
         UBThumbnailTextItem(const QString& text)
@@ -232,6 +233,7 @@ class UBThumbnailTextItem : public QGraphicsTextItem
             , mIsHighlighted(false)
         {
             setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
+            this->setDefaultTextColor(Qt::black);
         }
 
         QRectF boundingRect() const { return QRectF(QPointF(0.0, 0.0), QSize(mWidth, QFontMetricsF(font()).height() + 5));}
