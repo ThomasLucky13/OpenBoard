@@ -2338,7 +2338,10 @@ void UBSvgSubsetAdaptor::UBSvgSubsetReader::graphicsItemFromSvg(QGraphicsItem* g
         // In the firsts zvalue implemenations values outside the boudaries have been used.
         // No boundaries specified on documentation but to small values are not correctly handled.
         qreal zValue = ubZValue.toString().toFloat();
-        while(zValue < -999999) zValue /= 10.;
+        if (zValue > std::numeric_limits<qreal>::min())
+        {
+            while(zValue < -999999) zValue /= 10.;
+        }
         UBGraphicsItem::assignZValue(gItem, zValue);
     }
 
