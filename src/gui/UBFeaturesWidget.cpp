@@ -410,6 +410,7 @@ void UBFeaturesWidget::importImage(const QImage &image, const QString &fileName)
 UBFeaturesListView::UBFeaturesListView( QWidget* parent, const char* name )
     : QListView(parent)
 {
+    this->setStyleSheet("color: white;");
     setObjectName(name);
 }
 
