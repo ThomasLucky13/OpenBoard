@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en_US">
+<TS version="2.1" language="ru_RU">
 <context>
     <name>BlackoutWidget</name>
     <message>
@@ -1208,6 +1208,7 @@
         <translation type="vanished">
             <numerusform>Вы уверены, что хотите удалить %n страницу из выбранного документа &apos;%1&apos;?</numerusform>
             <numerusform>Вы уверены, что хотите удалить %n страниц из выбранного документа &apos;%1&apos;?</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -1224,6 +1225,7 @@
         <translation>
             <numerusform>продублировано %1 страницы</numerusform>
             <numerusform>продублировано %1 страниц</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -1342,6 +1344,7 @@ Providing a new name will create a new document.</source>
         <translation>
             <numerusform>%1 страницы скопировано</numerusform>
             <numerusform>%1 страниц скопировано</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -1356,6 +1359,7 @@ Providing a new name will create a new document.</source>
         <translation>
             <numerusform>%1 страницы скопировано</numerusform>
             <numerusform>%1 страниц скопировано</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -1386,6 +1390,7 @@ Providing a new name will create a new document.</source>
         <translation type="vanished">
             <numerusform>%1 страницы скопировано</numerusform>
             <numerusform>%1 страниц скопировано</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
 </context>
@@ -1639,6 +1644,69 @@ Providing a new name will create a new document.</source>
     <message>
         <source>Rescan file system</source>
         <translation>Пересканировать библиотеку</translation>
+    </message>
+</context>
+<context>
+    <name>UBFeaturesComputingThread</name>
+    <message>
+        <source>Calculator</source>
+        <translation>Калькулятор</translation>
+    </message>
+    <message>
+        <source>ColorPicker</source>
+        <translation>Выбор цвета</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Заметки</translation>
+    </message>
+    <message>
+        <source>VideoPicker</source>
+        <translation>Просмотр видео</translation>
+    </message>
+    <message>
+        <source>AnyEmbed</source>
+        <translation>Встраивание</translation>
+    </message>
+    <message>
+        <source>GeoInfo</source>
+        <translation>Географический источник информации</translation>
+    </message>
+    <message>
+        <source>GraphMe</source>
+        <translation>Построение графиков</translation>
+    </message>
+    <message>
+        <source>Horloge</source>
+        <translation>Часы</translation>
+    </message>
+    <message>
+        <source>Html</source>
+        <translation>Html-редактор</translation>
+    </message>
+    <message>
+        <source>iCell</source>
+        <translation>Строение клетки</translation>
+    </message>
+    <message>
+        <source>WebBrowser</source>
+        <translation>Браузер</translation>
+    </message>
+    <message>
+        <source>Papier</source>
+        <translation>Тетрадный лист</translation>
+    </message>
+    <message>
+        <source>Stopwatch</source>
+        <translation>Таймер</translation>
+    </message>
+    <message>
+        <source>Wikipedia</source>
+        <translation>Википедия</translation>
+    </message>
+    <message>
+        <source>Wiktionnairy</source>
+        <translation>Викисловарь</translation>
     </message>
 </context>
 <context>
