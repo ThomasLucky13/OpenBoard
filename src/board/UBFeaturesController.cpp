@@ -85,7 +85,6 @@ void UBFeaturesComputingThread::scanFS(const QUrl & currentPath, const QString &
         if ( fullFileName.contains(".thumbnail."))
             continue;
 
-        std::string l = "Calculator";
         UBFeature testFeature(currVirtualPath + "/" + fileName, icon, tr(fileName.split('.')[0].toLocal8Bit()), QUrl::fromLocalFile(fullFileName), featureType);
 
         emit sendFeature(testFeature);

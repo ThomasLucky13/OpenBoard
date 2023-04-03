@@ -1708,6 +1708,98 @@ Providing a new name will create a new document.</source>
         <source>Wiktionnairy</source>
         <translation>Викисловарь</translation>
     </message>
+    <message>
+        <source>Ass audio</source>
+        <translation>Задание с аудио</translation>
+    </message>
+    <message>
+        <source>Ass images</source>
+        <translation>Задание с изображением</translation>
+    </message>
+    <message>
+        <source>Calculation</source>
+        <translation>Задание на вычисление</translation>
+    </message>
+    <message>
+        <source>Cat pict</source>
+        <translation>Распределение изображений</translation>
+    </message>
+    <message>
+        <source>Cat text</source>
+        <translation>Распределение текста</translation>
+    </message>
+    <message>
+        <source>Choose</source>
+        <translation>Вопррос с выбором ответа</translation>
+    </message>
+    <message>
+        <source>Dice</source>
+        <translation>Кости</translation>
+    </message>
+    <message>
+        <source>Envelope</source>
+        <translation>Конверт</translation>
+    </message>
+    <message>
+        <source>Magic Box</source>
+        <translation>Магическая коробка</translation>
+    </message>
+    <message>
+        <source>Memory</source>
+        <translation>Игра на память</translation>
+    </message>
+    <message>
+        <source>Order Letters</source>
+        <translation>Порядок букв</translation>
+    </message>
+    <message>
+        <source>Order Pictures</source>
+        <translation>Верный порядок</translation>
+    </message>
+    <message>
+        <source>Order Sentence</source>
+        <translation>Порядок фраз</translation>
+    </message>
+    <message>
+        <source>Order Words</source>
+        <translation>Порядок слов</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation>Весы</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation>Выбрать верное</translation>
+    </message>
+    <message>
+        <source>Slider</source>
+        <translation>Слайдер</translation>
+    </message>
+    <message>
+        <source>Split Sentence</source>
+        <translation>Разделить фразу</translation>
+    </message>
+    <message>
+        <source>Split Text</source>
+        <translation>Разделить текст</translation>
+    </message>
+    <message>
+        <source>Syllables</source>
+        <translation>Разделить слово</translation>
+    </message>
+    <message>
+        <source>Tables</source>
+        <translation>Таблица умножения</translation>
+    </message>
+    <message>
+        <source>Tic Tac Toe</source>
+        <translation>Крестики-нолики</translation>
+    </message>
+    <message>
+        <source>Train</source>
+        <translation>Поезд</translation>
+    </message>
 </context>
 <context>
     <name>UBFeaturesController</name>
