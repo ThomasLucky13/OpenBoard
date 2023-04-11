@@ -198,7 +198,7 @@ void UBGraphicsItemDelegate::createControls()
         connect(mDeleteButton, SIGNAL(clicked()), this, SLOT(remove()));
         if (testUBFlags(GF_DUPLICATION_ENABLED)){
             mDuplicateButton = new DelegateButton(":/images/duplicate.svg", mDelegated, mFrame, Qt::TopLeftSection);
-            mDuplicateButton->setToolTip("Дублировать");
+            mDuplicateButton->setToolTip(tr("duplicate"));
             connect(mDuplicateButton, SIGNAL(clicked(bool)), this, SLOT(duplicate()));
             mButtons << mDuplicateButton;
         }
@@ -212,7 +212,7 @@ void UBGraphicsItemDelegate::createControls()
 
     if (!mZOrderUpButton) {
         mZOrderUpButton = new DelegateButton(":/images/z_layer_up.svg", mDelegated, mFrame, Qt::BottomLeftSection);
-        mZOrderUpButton->setToolTip("На передний план");
+        mZOrderUpButton->setToolTip(tr("layer up"));
         mZOrderUpButton->setShowProgressIndicator(true);
         connect(mZOrderUpButton, SIGNAL(clicked()), this, SLOT(increaseZLevelUp()));
         connect(mZOrderUpButton, SIGNAL(longClicked()), this, SLOT(increaseZlevelTop()));
@@ -221,7 +221,7 @@ void UBGraphicsItemDelegate::createControls()
 
     if (!mZOrderDownButton) {
         mZOrderDownButton = new DelegateButton(":/images/z_layer_down.svg", mDelegated, mFrame, Qt::BottomLeftSection);
-        mZOrderDownButton->setToolTip("На задний план");
+        mZOrderDownButton->setToolTip(tr("layer down"));
         mZOrderDownButton->setShowProgressIndicator(true);
         connect(mZOrderDownButton, SIGNAL(clicked()), this, SLOT(increaseZLevelDown()));
         connect(mZOrderDownButton, SIGNAL(longClicked()), this, SLOT(increaseZlevelBottom()));

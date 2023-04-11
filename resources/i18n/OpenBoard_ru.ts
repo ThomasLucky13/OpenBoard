@@ -2968,4 +2968,19 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>UBGraphicsItemDelegate</name>
+    <message>
+        <source>duplicate</source>
+        <translation>Дублировать</translation>
+    </message>
+    <message>
+        <source>layer up</source>
+        <translation>На передний план</translation>
+    </message>
+    <message>
+        <source>layer down</source>
+        <translation>На задний план</translation>
+    </message>
+</context>
 </TS>
