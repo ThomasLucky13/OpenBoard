@@ -1710,15 +1710,15 @@ Providing a new name will create a new document.</source>
     </message>
     <message>
         <source>Ass audio</source>
-        <translation>Задание с аудио</translation>
+        <translation>Аудио</translation>
     </message>
     <message>
         <source>Ass images</source>
-        <translation>Задание с изображением</translation>
+        <translation>Изображение</translation>
     </message>
     <message>
         <source>Calculation</source>
-        <translation>Задание на вычисление</translation>
+        <translation>Вычисления</translation>
     </message>
     <message>
         <source>Cat pict</source>
@@ -1799,6 +1799,14 @@ Providing a new name will create a new document.</source>
     <message>
         <source>Train</source>
         <translation>Поезд</translation>
+    </message>
+    <message>
+        <source>Constrast</source>
+        <translation>Контраст</translation>
+    </message>
+    <message>
+        <source>Dial</source>
+        <translation>Телефон</translation>
     </message>
 </context>
 <context>
