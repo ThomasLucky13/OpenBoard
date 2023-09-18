@@ -1714,10 +1714,10 @@
      <normaloff>:/images/toolbar/solidLine.svg</normaloff>:/images/toolbar/solidLine.svg</iconset>
    </property>
    <property name="text">
-    <string>Line Style</string>
+    <string>Стиль линии</string>
    </property>
    <property name="toolTip">
-    <string>Solid Line</string>
+    <string>Сплошная линия</string>
    </property>
   </action>
   <action name="actionLineDashed">
@@ -1732,10 +1732,10 @@
      <normaloff>:/images/toolbar/dashedLine.svg</normaloff>:/images/toolbar/dashedLine.svg</iconset>
    </property>
    <property name="text">
-    <string>Line Style</string>
+    <string>Стиль линии</string>
    </property>
    <property name="toolTip">
-    <string>Dashed Line</string>
+    <string>Пунктирная линия</string>
    </property>
   </action>
   <action name="actionLineDotted">
@@ -1750,10 +1750,10 @@
      <normaloff>:/images/toolbar/dottedLine.svg</normaloff>:/images/toolbar/dottedLine.svg</iconset>
    </property>
    <property name="text">
-    <string>Line Style</string>
+    <string>Стиль линии</string>
    </property>
    <property name="toolTip">
-    <string>Dotted Line</string>
+    <string>Точечная линия</string>
    </property>
   </action>
   <action name="actionVector">
@@ -1766,10 +1766,10 @@
      <normalon>:/images/stylusPalette/vectorOn.svg</normalon>:/images/stylusPalette/vector.svg</iconset>
    </property>
    <property name="text">
-    <string>Vector</string>
+    <string>Вектор</string>
    </property>
    <property name="toolTip">
-    <string>Draw Vectors</string>
+    <string>Нарисовать вектор</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+J</string>
@@ -1787,10 +1787,10 @@
      <normaloff>:/images/toolbar/vectorTo.svg</normaloff>:/images/toolbar/vectorTo.svg</iconset>
    </property>
    <property name="text">
-    <string>Vector Style</string>
+    <string>Направление вектора</string>
    </property>
    <property name="toolTip">
-    <string>Vector To</string>
+    <string>К</string>
    </property>
   </action>
   <action name="actionVectorFrom">
@@ -1805,10 +1805,10 @@
      <normaloff>:/images/toolbar/vectorFrom.svg</normaloff>:/images/toolbar/vectorFrom.svg</iconset>
    </property>
    <property name="text">
-    <string>Vector Style</string>
+    <string>Направление вектора</string>
    </property>
    <property name="toolTip">
-    <string>Vector From</string>
+    <string>От</string>
    </property>
   </action>
   <action name="actionVectorFromTo">
@@ -1823,10 +1823,10 @@
      <normaloff>:/images/toolbar/vectorFromTo.svg</normaloff>:/images/toolbar/vectorFromTo.svg</iconset>
    </property>
    <property name="text">
-    <string>Vector Style</string>
+    <string>Направление вектора</string>
    </property>
    <property name="toolTip">
-    <string>Vector From To</string>
+    <string>От К</string>
    </property>
   </action>
  </widget>
