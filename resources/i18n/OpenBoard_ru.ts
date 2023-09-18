@@ -1208,6 +1208,7 @@
         <translation type="vanished">
             <numerusform>Вы уверены, что хотите удалить %n страницу из выбранного документа &apos;%1&apos;?</numerusform>
             <numerusform>Вы уверены, что хотите удалить %n страниц из выбранного документа &apos;%1&apos;?</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -1224,6 +1225,7 @@
         <translation>
             <numerusform>продублировано %1 страницы</numerusform>
             <numerusform>продублировано %1 страниц</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -1342,6 +1344,7 @@ Providing a new name will create a new document.</source>
         <translation>
             <numerusform>%1 страницы скопировано</numerusform>
             <numerusform>%1 страниц скопировано</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -1356,6 +1359,7 @@ Providing a new name will create a new document.</source>
         <translation>
             <numerusform>%1 страницы скопировано</numerusform>
             <numerusform>%1 страниц скопировано</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -1386,6 +1390,7 @@ Providing a new name will create a new document.</source>
         <translation type="vanished">
             <numerusform>%1 страницы скопировано</numerusform>
             <numerusform>%1 страниц скопировано</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
 </context>
@@ -1639,6 +1644,169 @@ Providing a new name will create a new document.</source>
     <message>
         <source>Rescan file system</source>
         <translation>Пересканировать библиотеку</translation>
+    </message>
+</context>
+<context>
+    <name>UBFeaturesComputingThread</name>
+    <message>
+        <source>Calculator</source>
+        <translation>Калькулятор</translation>
+    </message>
+    <message>
+        <source>ColorPicker</source>
+        <translation>Выбор цвета</translation>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation>Заметки</translation>
+    </message>
+    <message>
+        <source>VideoPicker</source>
+        <translation>Просмотр видео</translation>
+    </message>
+    <message>
+        <source>AnyEmbed</source>
+        <translation>Встраивание</translation>
+    </message>
+    <message>
+        <source>GeoInfo</source>
+        <translation>Географический источник информации</translation>
+    </message>
+    <message>
+        <source>GraphMe</source>
+        <translation>Построение графиков</translation>
+    </message>
+    <message>
+        <source>Horloge</source>
+        <translation>Часы</translation>
+    </message>
+    <message>
+        <source>Html</source>
+        <translation>Html-редактор</translation>
+    </message>
+    <message>
+        <source>iCell</source>
+        <translation>Строение клетки</translation>
+    </message>
+    <message>
+        <source>WebBrowser</source>
+        <translation>Браузер</translation>
+    </message>
+    <message>
+        <source>Papier</source>
+        <translation>Тетрадный лист</translation>
+    </message>
+    <message>
+        <source>Stopwatch</source>
+        <translation>Таймер</translation>
+    </message>
+    <message>
+        <source>Wikipedia</source>
+        <translation>Википедия</translation>
+    </message>
+    <message>
+        <source>Wiktionnairy</source>
+        <translation>Викисловарь</translation>
+    </message>
+    <message>
+        <source>Ass audio</source>
+        <translation>Аудио</translation>
+    </message>
+    <message>
+        <source>Ass images</source>
+        <translation>Изображение</translation>
+    </message>
+    <message>
+        <source>Calculation</source>
+        <translation>Вычисления</translation>
+    </message>
+    <message>
+        <source>Cat pict</source>
+        <translation>Распределение изображений</translation>
+    </message>
+    <message>
+        <source>Cat text</source>
+        <translation>Распределение текста</translation>
+    </message>
+    <message>
+        <source>Choose</source>
+        <translation>Вопррос с выбором ответа</translation>
+    </message>
+    <message>
+        <source>Dice</source>
+        <translation>Кости</translation>
+    </message>
+    <message>
+        <source>Envelope</source>
+        <translation>Конверт</translation>
+    </message>
+    <message>
+        <source>Magic Box</source>
+        <translation>Магическая коробка</translation>
+    </message>
+    <message>
+        <source>Memory</source>
+        <translation>Игра на память</translation>
+    </message>
+    <message>
+        <source>Order Letters</source>
+        <translation>Порядок букв</translation>
+    </message>
+    <message>
+        <source>Order Pictures</source>
+        <translation>Верный порядок</translation>
+    </message>
+    <message>
+        <source>Order Sentence</source>
+        <translation>Порядок фраз</translation>
+    </message>
+    <message>
+        <source>Order Words</source>
+        <translation>Порядок слов</translation>
+    </message>
+    <message>
+        <source>Scale</source>
+        <translation>Весы</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation>Выбрать верное</translation>
+    </message>
+    <message>
+        <source>Slider</source>
+        <translation>Слайдер</translation>
+    </message>
+    <message>
+        <source>Split Sentence</source>
+        <translation>Разделить фразу</translation>
+    </message>
+    <message>
+        <source>Split Text</source>
+        <translation>Разделить текст</translation>
+    </message>
+    <message>
+        <source>Syllables</source>
+        <translation>Разделить слово</translation>
+    </message>
+    <message>
+        <source>Tables</source>
+        <translation>Таблица умножения</translation>
+    </message>
+    <message>
+        <source>Tic Tac Toe</source>
+        <translation>Крестики-нолики</translation>
+    </message>
+    <message>
+        <source>Train</source>
+        <translation>Поезд</translation>
+    </message>
+    <message>
+        <source>Constrast</source>
+        <translation>Контраст</translation>
+    </message>
+    <message>
+        <source>Dial</source>
+        <translation>Телефон</translation>
     </message>
 </context>
 <context>
@@ -2968,4 +3136,19 @@ p, li { white-space: pre-wrap; }
         <translation>Выберите содержимое для захвата</translation>
     </message>
 </context>
+<context>
+    <name>UBGraphicsItemDelegate</name>
+    <message>
+        <source>duplicate</source>
+        <translation>Дублировать</translation>
+    </message>
+    <message>
+        <source>layer up</source>
+        <translation>На передний план</translation>
+    </message>
+    <message>
+        <source>layer down</source>
+        <translation>На задний план</translation>
+    </message>
+</context> 
 </TS>
