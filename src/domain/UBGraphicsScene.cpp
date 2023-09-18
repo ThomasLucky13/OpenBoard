@@ -402,6 +402,7 @@ bool UBGraphicsScene::inputDevicePress(const QPointF& scenePos, const qreal& pre
 {
     bool accepted = false;
 
+    UBApplication::showMessage("Press");
     if (mInputDeviceIsPressed) {
         qWarning() << "scene received input device pressed, without input device release, muting event as input device move";
         accepted = inputDeviceMove(scenePos, pressure);
