@@ -403,6 +403,27 @@ void UBBoardController::setupToolbar()
     lineStyleActions.at(settings->lineStyleIndex())->setChecked(true);
     mPropertyPaletteWidgets.insert(lineStyle, newPropertyPaletteWidget);
     //-----------------------------------------------------------//
+    // Setup vector style choice widget
+    QList<QAction *> vectorStyleActions;
+    vectorStyleActions.append(mMainWindow->actionVectorTo);
+    vectorStyleActions.append(mMainWindow->actionVectorFrom);
+    vectorStyleActions.append(mMainWindow->actionVectorFromTo);
+
+    UBToolbarButtonGroup *vectorStyleChoice =
+    new UBToolbarButtonGroup(mMainWindow->boardToolBar, vectorStyleActions);
+
+    connect(settings->appToolBarDisplayText, SIGNAL(changed(QVariant)), vectorStyleChoice, SLOT(displayText(QVariant)));
+
+    connect(vectorStyleChoice, SIGNAL(activated(int)),
+    UBDrawingController::drawingController(), SLOT(setVectorStyleIndex(int)));
+
+    vectorStyleChoice->displayText(QVariant(settings->appToolBarDisplayText->get().toBool()));
+    newPropertyPaletteWidget = mMainWindow->boardToolBar->insertWidget(mMainWindow->actionBackgrounds, vectorStyleChoice);
+    vectorStyleChoice->setCurrentIndex(settings->vectorStyleIndex());
+    vectorStyleActions.at(settings->vectorStyleIndex())->setChecked(true);
+    mPropertyPaletteWidgets.insert(vectorStyle, newPropertyPaletteWidget);
+
+    //-----------------------------------------------------------//
 
     UBApplication::app()->insertSpaceToToolbarBeforeAction(mMainWindow->boardToolBar, mMainWindow->actionBackgrounds);
     UBApplication::app()->insertSpaceToToolbarBeforeAction(mMainWindow->boardToolBar, mMainWindow->actionBoard, 40);
@@ -2011,6 +2032,7 @@ void UBBoardController::setColorIndex(int pColorIndex)
 
     if (UBDrawingController::drawingController()->stylusTool() != UBStylusTool::Marker &&
             UBDrawingController::drawingController()->stylusTool() != UBStylusTool::Line &&
+            UBDrawingController::drawingController()->stylusTool() != UBStylusTool::Vector &&
             UBDrawingController::drawingController()->stylusTool() != UBStylusTool::Text &&
             UBDrawingController::drawingController()->stylusTool() != UBStylusTool::Selector)
     {
@@ -2019,6 +2041,7 @@ void UBBoardController::setColorIndex(int pColorIndex)
 
     if (UBDrawingController::drawingController()->stylusTool() == UBStylusTool::Pen ||
             UBDrawingController::drawingController()->stylusTool() == UBStylusTool::Line ||
+            UBDrawingController::drawingController()->stylusTool() == UBStylusTool::Vector ||
             UBDrawingController::drawingController()->stylusTool() == UBStylusTool::Text ||
             UBDrawingController::drawingController()->stylusTool() == UBStylusTool::Selector)
     {
@@ -2237,6 +2260,7 @@ void UBBoardController::stylusToolChanged(int tool)
             mPropertyPaletteWidgets[lineWidth]->setVisible(true);
             mPropertyPaletteWidgets[eraserWidth]->setVisible(false);
             mPropertyPaletteWidgets[lineStyle]->setVisible(false);
+            mPropertyPaletteWidgets[vectorStyle]->setVisible(false);
         } else
         if (eTool == UBStylusTool::Eraser)
         {
@@ -2244,6 +2268,7 @@ void UBBoardController::stylusToolChanged(int tool)
             mPropertyPaletteWidgets[lineWidth]->setVisible(false);
             mPropertyPaletteWidgets[eraserWidth]->setVisible(true);
             mPropertyPaletteWidgets[lineStyle]->setVisible(false);
+            mPropertyPaletteWidgets[vectorStyle]->setVisible(false);
         } else
         if (eTool == UBStylusTool::Line)
         {
@@ -2251,12 +2276,22 @@ void UBBoardController::stylusToolChanged(int tool)
             mPropertyPaletteWidgets[lineWidth]->setVisible(true);
             mPropertyPaletteWidgets[eraserWidth]->setVisible(false);
             mPropertyPaletteWidgets[lineStyle]->setVisible(true);
+            mPropertyPaletteWidgets[vectorStyle]->setVisible(false);
+        } else
+        if (eTool == UBStylusTool::Vector)
+        {
+            mPropertyPaletteWidgets[color]->setVisible(true);
+            mPropertyPaletteWidgets[lineWidth]->setVisible(true);
+            mPropertyPaletteWidgets[eraserWidth]->setVisible(false);
+            mPropertyPaletteWidgets[lineStyle]->setVisible(false);
+            mPropertyPaletteWidgets[vectorStyle]->setVisible(true);
         } else
         {
             mPropertyPaletteWidgets[color]->setVisible(false);
             mPropertyPaletteWidgets[lineWidth]->setVisible(false);
             mPropertyPaletteWidgets[eraserWidth]->setVisible(false);
             mPropertyPaletteWidgets[lineStyle]->setVisible(false);
+            mPropertyPaletteWidgets[vectorStyle]->setVisible(false);
         }
 
 }
