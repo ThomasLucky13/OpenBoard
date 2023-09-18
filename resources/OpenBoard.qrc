@@ -628,5 +628,8 @@
         <file>images/toolbar/record.svg</file>
         <file>images/toolbar/updates.svg</file>
         <file>images/toolbar/tutorial.svg</file>
+        <file>images/toolbar/solidLine.svg</file>
+        <file>images/toolbar/dottedLine.svg</file>
+        <file>images/toolbar/dashedLine.svg</file>
     </qresource>
 </RCC>
