@@ -36,6 +36,9 @@
 
 #include "frameworks/UBFileSystemUtils.h"
 #include "core/memcheck.h"
+/* RunInWindow patch */
+#include "core/UBSettings.h"
+/* end patch */
 
 void UBPlatformUtils::init()
 {
@@ -436,7 +439,14 @@ void UBPlatformUtils::setFrontProcess()
 
 void UBPlatformUtils::showFullScreen(QWidget *pWidget)
 {
-    pWidget->showFullScreen();
+    /* RunInWindow patch */
+    /* pWidget->showFullScreen(); */
+    if (UBSettings::settings()->appRunInWindow->get().toBool()) {
+       pWidget->showNormal();
+    } else {
+       pWidget->showFullScreen();
+    }
+    /* end patch */
 }
 
 void UBPlatformUtils::showOSK(bool show)

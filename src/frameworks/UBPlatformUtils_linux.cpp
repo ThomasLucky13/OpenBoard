@@ -36,7 +36,9 @@
 #include <X11/keysym.h>
 
 #include "frameworks/UBFileSystemUtils.h"
-
+/* RunInWindow patch */
+#include "core/UBSettings.h"
+/* end patch */
 
 void UBPlatformUtils::init()
 {
@@ -439,7 +441,14 @@ void UBPlatformUtils::setFrontProcess()
 
 void UBPlatformUtils::showFullScreen(QWidget *pWidget)
 {
-    pWidget->showFullScreen();
+    /* RunInWindow patch */
+    /* pWidget->showFullScreen(); */
+    if (UBSettings::settings()->appRunInWindow->get().toBool()) {
+       pWidget->showNormal();
+    } else {
+       pWidget->showFullScreen();
+    }
+    /* end patch */
 }
 
 void UBPlatformUtils::showOSK(bool show)
