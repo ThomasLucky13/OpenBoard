@@ -100,6 +100,7 @@ class UBSettings : public QObject
         void setPageBackground(UBPageBackground background);
         void setBackgroundGridSize(int value);
         int backgroundGridSize();
+        bool isCompassNormolizePos();
 
         // Stylus palette related
         bool isStylusPaletteVisible();

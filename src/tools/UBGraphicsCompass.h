@@ -69,6 +69,8 @@ class UBGraphicsCompass: public QObject, public QGraphicsRectItem, public UBItem
         virtual void   hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
         virtual void    hoverMoveEvent(QGraphicsSceneHoverEvent *event);
 
+        void normalizeSize();
+
     private slots:
         void penColorChanged();
         void lineWidthChanged();

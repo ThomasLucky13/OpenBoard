@@ -33,6 +33,7 @@
 #include "core/UBSettings.h"
 #include "gui/UBResources.h"
 #include "domain/UBGraphicsScene.h"
+#include "core/UBSettings.h"
 
 #include "board/UBBoardController.h" // TODO UB 4.x clean that dependency
 #include "board/UBDrawingController.h" // TODO UB 4.x clean that dependency
@@ -90,6 +91,9 @@ UBGraphicsCompass::UBGraphicsCompass()
 
     connect(UBApplication::boardController, SIGNAL(penColorChanged()), this, SLOT(penColorChanged()));
     connect(UBDrawingController::drawingController(), SIGNAL(lineWidthIndexChanged(int)), this, SLOT(lineWidthChanged()));
+
+    if (UBSettings::settings()->isCompassNormolizePos())
+        normalizeSize();
 }
 
 UBGraphicsCompass::~UBGraphicsCompass()
@@ -290,9 +294,22 @@ void UBGraphicsCompass::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         UBDrawingController::drawingController ()->stylusTool() != UBStylusTool::Play)
         return;
 
+
+    if (!mResizing && !mRotating && !mDrawing && UBSettings::settings()->isCompassNormolizePos())
+    {
+        int gridSize = UBSettings::settings()->crossSize;
+        int divGrid = pos().x()/gridSize;
+        qreal x, y;
+        x = divGrid*gridSize;
+        divGrid = pos().y()/gridSize;
+        y = divGrid*gridSize;
+        setPos(x, y);
+    }
     if (mResizing)
     {
         event->accept();
+        if (UBSettings::settings()->isCompassNormolizePos())
+            normalizeSize();
     }
     else if (mRotating)
     {
@@ -804,4 +821,11 @@ void UBGraphicsCompass::lineWidthChanged()
 {
     QRect pencilRect(rect().right() - sPencilLength, rect().top(), sPencilLength, rect().height());
     update(pencilRect);
+}
+
+void UBGraphicsCompass::normalizeSize()
+{
+    int gridSize = UBSettings::settings()->crossSize;
+    int divGrid = rect().width()/gridSize;
+    setRect(QRectF(rect().topLeft(), QSizeF(gridSize*divGrid,rect().height())));
 }

@@ -906,6 +906,11 @@ int UBSettings::backgroundGridSize()
     return value("Board/BackgroundGridSize", -1).toInt();
 }
 
+bool UBSettings::isCompassNormolizePos()
+{
+    return value("Board/CompassNormolizePos", 0).toBool();
+}
+
 void UBSettings::setPenPressureSensitive(bool sensitive)
 {
     boardPenPressureSensitive->set(sensitive);
