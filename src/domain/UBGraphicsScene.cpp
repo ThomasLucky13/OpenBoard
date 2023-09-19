@@ -2476,7 +2476,7 @@ void UBGraphicsScene::addCompass(QPointF center)
 
     QRectF rect = compass->rect();
     QPointF comPos = center;
-    if(UBSettings::settings()->isCompassNormolizePos())
+    if(UBSettings::settings()->isCompassNormolizePos() && ((UBSettings::settings()->pageBackground()==UBPageBackground::crossed)))
             comPos = nearPointFromGrid(center);
     compass->setRect(comPos.x(), comPos.y() - rect.height() / 2, rect.width(), rect.height());
 

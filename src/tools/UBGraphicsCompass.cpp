@@ -92,7 +92,7 @@ UBGraphicsCompass::UBGraphicsCompass()
     connect(UBApplication::boardController, SIGNAL(penColorChanged()), this, SLOT(penColorChanged()));
     connect(UBDrawingController::drawingController(), SIGNAL(lineWidthIndexChanged(int)), this, SLOT(lineWidthChanged()));
 
-    if (UBSettings::settings()->isCompassNormolizePos())
+    if (UBSettings::settings()->isCompassNormolizePos() && (UBSettings::settings()->pageBackground()==UBPageBackground::crossed))
         normalizeSize();
 }
 
@@ -295,9 +295,9 @@ void UBGraphicsCompass::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         return;
 
 
-    if (!mResizing && !mRotating && !mDrawing && UBSettings::settings()->isCompassNormolizePos())
+    if (!mResizing && !mRotating && !mDrawing && UBSettings::settings()->isCompassNormolizePos() && (UBSettings::settings()->pageBackground()==UBPageBackground::crossed))
     {
-        int gridSize = UBSettings::settings()->crossSize;
+        int gridSize = UBSettings::settings()->backgroundGridSize();
         int divGrid = pos().x()/gridSize;
         qreal x, y;
         x = divGrid*gridSize;
@@ -308,7 +308,7 @@ void UBGraphicsCompass::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     if (mResizing)
     {
         event->accept();
-        if (UBSettings::settings()->isCompassNormolizePos())
+        if (UBSettings::settings()->isCompassNormolizePos() && (UBSettings::settings()->pageBackground()==UBPageBackground::crossed))
             normalizeSize();
     }
     else if (mRotating)
@@ -825,7 +825,7 @@ void UBGraphicsCompass::lineWidthChanged()
 
 void UBGraphicsCompass::normalizeSize()
 {
-    int gridSize = UBSettings::settings()->crossSize;
+    int gridSize = UBSettings::settings()->backgroundGridSize();
     int divGrid = rect().width()/gridSize;
     setRect(QRectF(rect().topLeft(), QSizeF(gridSize*divGrid,rect().height())));
 }
