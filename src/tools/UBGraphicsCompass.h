@@ -32,6 +32,7 @@
 
 #include <QtGui>
 #include <QtSvg>
+#include <QMenu>
 
 #include "core/UB.h"
 #include "domain/UBItem.h"
@@ -69,11 +70,12 @@ class UBGraphicsCompass: public QObject, public QGraphicsRectItem, public UBItem
         virtual void   hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
         virtual void    hoverMoveEvent(QGraphicsSceneHoverEvent *event);
 
-        void normalizeSize();
-
     private slots:
         void penColorChanged();
         void lineWidthChanged();
+        void setNormalizePos(bool);
+        void setNormalizeSize(bool);
+        void setMenuActions();
 
     private:
         // Helpers
@@ -84,6 +86,11 @@ class UBGraphicsCompass: public QObject, public QGraphicsRectItem, public UBItem
         void           updateResizeCursor();
         void             updateDrawCursor();
         void             paintCenterCross();
+        void                normalizePos();
+        void                normalizeSize();
+        QPointF         nearPointFromGrid(QPointF point);
+        void                 showSettings();
+        void         decorateSettingsMenu(QMenu* menu);
 
         QCursor                moveCursor() const;
         QCursor              resizeCursor() const;
@@ -95,6 +102,7 @@ class UBGraphicsCompass: public QObject, public QGraphicsRectItem, public UBItem
         QPointF            pencilPosition() const;
         QRectF            closeButtonRect() const;
         QRectF           resizeButtonRect() const;
+        QRectF         settingsButtonRect() const;
         virtual QPainterPath        shape() const;
         QPainterPath          needleShape() const;
         QPainterPath          pencilShape() const;
@@ -123,8 +131,14 @@ class UBGraphicsCompass: public QObject, public QGraphicsRectItem, public UBItem
         bool mDrewCircle;
         QGraphicsSvgItem* mCloseSvgItem;
         QGraphicsSvgItem* mResizeSvgItem;
+        QGraphicsSvgItem* mSettingsSvgItem;
         qreal mAntiScaleRatio;
         bool mDrewCenterCross;
+        bool mNormalizePos;
+        bool mNormalizeSize;
+        QMenu* mSettingsMenu;
+        QAction *mNormalizePosAction;
+        QAction *mNormalizeSizeAction;
 
         // Constants
         static const int                      sNeedleLength = 12;

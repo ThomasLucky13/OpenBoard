@@ -37,6 +37,7 @@
 
 #include "board/UBBoardController.h" // TODO UB 4.x clean that dependency
 #include "board/UBDrawingController.h" // TODO UB 4.x clean that dependency
+#include "board/UBBoardView.h" // TODO UB 4.x clean that dependency
 
 #include "core/memcheck.h"
 
@@ -50,7 +51,7 @@ const QColor UBGraphicsCompass::sDarkBackgroundDrawColor = QColor(0xff, 0xff, 0x
 
 const int UBGraphicsCompass::sMinRadius = UBGraphicsCompass::sNeedleLength + UBGraphicsCompass::sNeedleBaseLength
         + 24 + UBGraphicsCompass::sDefaultRect.height() + 24 + UBGraphicsCompass::sPencilBaseLength
-        + UBGraphicsCompass::sPencilLength;
+        + UBGraphicsCompass::sPencilLength + 48;
 
 UBGraphicsCompass::UBGraphicsCompass()
     : QGraphicsRectItem()
@@ -62,8 +63,10 @@ UBGraphicsCompass::UBGraphicsCompass()
     , mDrewCircle(false)
     , mCloseSvgItem(0)
     , mResizeSvgItem(0)
+    , mSettingsSvgItem(0)
     , mAntiScaleRatio(1.0)
     , mDrewCenterCross(false)
+    , mSettingsMenu(0)
 {
     setRect(sDefaultRect);
 
@@ -81,6 +84,10 @@ UBGraphicsCompass::UBGraphicsCompass()
     mResizeSvgItem->setVisible(false);
     mResizeSvgItem->setData(UBGraphicsItemData::ItemLayerType, QVariant(UBItemLayerType::Control));
 
+    mSettingsSvgItem = new QGraphicsSvgItem(":/images/settingsCompass.svg", this);
+    mSettingsSvgItem->setVisible(false);
+    mSettingsSvgItem->setData(UBGraphicsItemData::ItemLayerType, QVariant(UBItemLayerType::Control));
+
     updateResizeCursor();
     updateDrawCursor();
 
@@ -91,9 +98,11 @@ UBGraphicsCompass::UBGraphicsCompass()
 
     connect(UBApplication::boardController, SIGNAL(penColorChanged()), this, SLOT(penColorChanged()));
     connect(UBDrawingController::drawingController(), SIGNAL(lineWidthIndexChanged(int)), this, SLOT(lineWidthChanged()));
+    connect(UBSettings::settings(), SIGNAL(pageBackgroundChanged()), this, SLOT(setMenuActions()));
 
-    if (UBSettings::settings()->isCompassNormolizePos() && (UBSettings::settings()->pageBackground()==UBPageBackground::crossed))
-        normalizeSize();
+
+    mNormalizePos = false;
+    mNormalizeSize  = false;
 }
 
 UBGraphicsCompass::~UBGraphicsCompass()
@@ -145,6 +154,11 @@ void UBGraphicsCompass::paint(QPainter *painter, const QStyleOptionGraphicsItem 
         resizeButtonRect().center().x() - mResizeSvgItem->boundingRect().width() * mAntiScaleRatio / 2,
         resizeButtonRect().center().y() - mResizeSvgItem->boundingRect().height() * mAntiScaleRatio / 2);
 
+    mSettingsSvgItem->setTransform(antiScaleTransform);
+    mSettingsSvgItem->setPos(
+                settingsButtonRect().center().x() - mSettingsSvgItem->boundingRect().width() * mAntiScaleRatio / 2,
+                settingsButtonRect().center().y() - mSettingsSvgItem->boundingRect().height() * mAntiScaleRatio / 2);
+
     painter->setPen(drawColor());
     painter->drawRoundedRect(hingeRect(), sCornerRadius, sCornerRadius);
     painter->fillPath(hingeShape(), middleFillColor());
@@ -194,6 +208,7 @@ QVariant UBGraphicsCompass::itemChange(GraphicsItemChange change, const QVariant
     {
         mCloseSvgItem->setParentItem(this);
         mResizeSvgItem->setParentItem(this);
+        mSettingsSvgItem->setParent(this);
     }
 
     return QGraphicsRectItem::itemChange(change, value);
@@ -205,6 +220,7 @@ void UBGraphicsCompass::mousePressEvent(QGraphicsSceneMouseEvent *event)
         UBDrawingController::drawingController ()->stylusTool() != UBStylusTool::Play)
         return;
 
+    bool setting = false;
     bool closing = false;
 
     if (resizeButtonRect().contains(event->pos()))
@@ -220,6 +236,10 @@ void UBGraphicsCompass::mousePressEvent(QGraphicsSceneMouseEvent *event)
         mResizing = false;
         event->accept();
         qDebug() << "hinge";
+    }
+    else if (settingsButtonRect().contains(event->pos()))
+    {
+        setting = true;
     }
     else if (!closeButtonRect().contains(event->pos()))
     {
@@ -241,6 +261,7 @@ void UBGraphicsCompass::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     mResizeSvgItem->setVisible(mShowButtons && mResizing);
     mCloseSvgItem->setVisible(mShowButtons && closing);
+    mSettingsSvgItem->setVisible(mShowButtons && setting);
 }
 
 void UBGraphicsCompass::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
@@ -295,20 +316,14 @@ void UBGraphicsCompass::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         return;
 
 
-    if (!mResizing && !mRotating && !mDrawing && UBSettings::settings()->isCompassNormolizePos() && (UBSettings::settings()->pageBackground()==UBPageBackground::crossed))
+    if (!mResizing && !mRotating && !mDrawing && mNormalizePos && (UBSettings::settings()->pageBackground()==UBPageBackground::crossed))
     {
-        int gridSize = UBSettings::settings()->backgroundGridSize();
-        int divGrid = pos().x()/gridSize;
-        qreal x, y;
-        x = divGrid*gridSize;
-        divGrid = pos().y()/gridSize;
-        y = divGrid*gridSize;
-        setPos(x, y);
+        normalizePos();
     }
     if (mResizing)
     {
         event->accept();
-        if (UBSettings::settings()->isCompassNormolizePos() && (UBSettings::settings()->pageBackground()==UBPageBackground::crossed))
+        if (mNormalizeSize && (UBSettings::settings()->pageBackground()==UBPageBackground::crossed))
             normalizeSize();
     }
     else if (mRotating)
@@ -328,6 +343,10 @@ void UBGraphicsCompass::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     {
         hide();
         event->accept();
+    }
+    else if (settingsButtonRect().contains(event->pos()))
+    {
+        showSettings();
     }
     else
     {
@@ -353,6 +372,8 @@ void UBGraphicsCompass::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 
     mCloseSvgItem->setParentItem(this);
     mResizeSvgItem->setParentItem(this);
+    mSettingsSvgItem->setParent(this);
+
 
     mCloseSvgItem->setVisible(mShowButtons);
     if (mShowButtons)
@@ -364,6 +385,8 @@ void UBGraphicsCompass::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
         else if (resizeButtonRect().contains(event->pos()))
             setCursor(resizeCursor());
         else if (closeButtonRect().contains(event->pos()))
+            setCursor(closeCursor());
+        else if (settingsButtonRect().contains(event->pos()))
             setCursor(closeCursor());
         else
             setCursor(moveCursor());
@@ -381,6 +404,7 @@ void UBGraphicsCompass::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
     mShowButtons = false;
     mCloseSvgItem->setVisible(mShowButtons);
     mResizeSvgItem->setVisible(mShowButtons);
+    mSettingsSvgItem->setVisible(mShowButtons);
     unsetCursor();
     event->accept();
     update();
@@ -395,6 +419,7 @@ void UBGraphicsCompass::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
     mShowButtons = shape().contains(event->pos());
     mCloseSvgItem->setVisible(mShowButtons);
     mResizeSvgItem->setVisible(mShowButtons);
+    mSettingsSvgItem->setVisible(mShowButtons);
     if (mShowButtons)
     {
         if (hingeRect().contains(event->pos()))
@@ -404,6 +429,8 @@ void UBGraphicsCompass::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
         else if (resizeButtonRect().contains(event->pos()))
             setCursor(resizeCursor());
         else if (closeButtonRect().contains(event->pos()))
+            setCursor(closeCursor());
+        else if (settingsButtonRect().contains(event->pos()))
             setCursor(closeCursor());
         else
             setCursor(moveCursor());
@@ -546,6 +573,24 @@ QRectF UBGraphicsCompass::resizeButtonRect() const
     return resizeRect;
 }
 
+QRectF UBGraphicsCompass::settingsButtonRect() const
+{
+    QPixmap settingsPixmap(":/images/settingsCompass.svg");
+
+    QSizeF settingsRectSize(
+        settingsPixmap.width() * mAntiScaleRatio,
+        settingsPixmap.height() * mAntiScaleRatio);
+
+    QPointF settingsRectTopLeft(
+        rect().width()/2 - hingeRect().width()/2 - settingsRectSize.width() - 2,
+        (rect().height() - settingsRectSize.height()) / 2);
+
+    QRectF settingsRect(settingsRectTopLeft, settingsRectSize);
+    settingsRect.translate(rect().topLeft());
+
+    return settingsRect;
+}
+
 void UBGraphicsCompass::rotateAroundNeedle(qreal angle)
 {
     QTransform transform;
@@ -607,6 +652,32 @@ void UBGraphicsCompass::paintCenterCross()
     scene()->drawLineTo(QPointF(needleCrossCenter.x(), needleCrossCenter.y() + 5), 1,
         UBDrawingController::drawingController()->stylusTool() == UBStylusTool::Line
                         ||UBDrawingController::drawingController()->stylusTool() == UBStylusTool::Vector);
+}
+
+void UBGraphicsCompass::showSettings()
+{
+    if (!mSettingsMenu)
+    {
+        mSettingsMenu = new QMenu(UBApplication::boardController->controlView());
+        decorateSettingsMenu(mSettingsMenu);
+    }
+
+    UBBoardView* cv = UBApplication::boardController->controlView();
+    QRect pinPos = cv->mapFromScene(mSettingsSvgItem->sceneBoundingRect()).boundingRect();
+
+    mSettingsMenu->exec(cv->mapToGlobal(pinPos.bottomRight()));
+}
+
+void UBGraphicsCompass::decorateSettingsMenu(QMenu* menu)
+{
+    mNormalizePosAction = menu->addAction(tr("Normalize Position"), this, SLOT(setNormalizePos(bool)));
+    mNormalizePosAction->setCheckable(true);
+    mNormalizePosAction->setChecked(mNormalizePos);
+
+    mNormalizeSizeAction = menu->addAction(tr("Normalize Size"), this, SLOT(setNormalizeSize(bool)));
+    mNormalizeSizeAction->setCheckable(true);
+    mNormalizeSizeAction->setChecked(mNormalizeSize);
+    setMenuActions();
 }
 
 QPointF UBGraphicsCompass::needlePosition() const
@@ -823,9 +894,78 @@ void UBGraphicsCompass::lineWidthChanged()
     update(pencilRect);
 }
 
+void UBGraphicsCompass::setNormalizePos(bool isNormalize)
+{
+    mNormalizePos = isNormalize;
+    if (isNormalize)
+        normalizePos();
+}
+void UBGraphicsCompass::setNormalizeSize(bool isNormalize)
+{
+    mNormalizeSize = isNormalize;
+    if (isNormalize)
+        normalizeSize();
+}
+
+void UBGraphicsCompass::setMenuActions()
+{
+    mNormalizePosAction->setEnabled(UBSettings::settings()->pageBackground()==UBPageBackground::crossed);
+    mNormalizeSizeAction->setEnabled(UBSettings::settings()->pageBackground()==UBPageBackground::crossed);
+}
+
+void UBGraphicsCompass::normalizePos()
+{
+    QPointF newPos = nearPointFromGrid(QPointF(pos().x()+rect().x(),
+                                               pos().y()+rect().height() / 2 + rect().y()));
+    setRect(newPos.x(), newPos.y() - rect().height() / 2, rect().width(), rect().height());
+    setPos(0,0);
+}
+
 void UBGraphicsCompass::normalizeSize()
 {
     int gridSize = UBSettings::settings()->backgroundGridSize();
     int divGrid = rect().width()/gridSize;
+    if ((rect().toRect().width()%gridSize)>(gridSize/2))
+        ++divGrid;
     setRect(QRectF(rect().topLeft(), QSizeF(gridSize*divGrid,rect().height())));
+}
+
+QPointF UBGraphicsCompass::nearPointFromGrid(QPointF point)
+{
+    QPointF result = point;
+    QList<QPointF> gridPoints;
+    int sceneHeight = UBApplication::boardController->activeScene()->sceneSize().height(),
+        sceneWidth = UBApplication::boardController->activeScene()->sceneSize().width(),
+        gridSize = UBSettings::settings()->backgroundGridSize();
+    for (int i = 0; i >= sceneWidth/-2; i -= gridSize)
+    {
+        for (int j = 0; j >= sceneHeight/-2; j -=gridSize)
+            gridPoints.push_back(QPointF(i,j));
+        for (int j = 0; j <= sceneHeight/2; j +=gridSize)
+            gridPoints.push_back(QPointF(i,j));
+    }
+    for (int i = 0; i <= sceneWidth/2; i += gridSize)
+    {
+        for (int j = 0; j >= sceneHeight/-2; j -=gridSize)
+            gridPoints.push_back(QPointF(i,j));
+        for (int j = 0; j <= sceneHeight/2; j +=gridSize)
+            gridPoints.push_back(QPointF(i,j));
+    }
+    if (gridPoints.count() > 0)
+    {
+        result = gridPoints[0];
+        QLineF checkLine = QLineF(point, result);
+        float length = qSqrt(qPow(checkLine.dx(),2) + qPow(checkLine.dy(),2));
+        for (int i = 1; i < gridPoints.count(); ++i)
+        {
+            checkLine = QLineF(point, gridPoints[i]);
+            float checkLength = qSqrt(qPow(checkLine.dx(),2) + qPow(checkLine.dy(),2));
+            if (checkLength<length)
+            {
+                length = checkLength;
+                result = gridPoints[i];
+            }
+        }
+    }
+    return result;
 }

@@ -893,6 +893,7 @@ void UBSettings::setPageBackground(UBPageBackground background)
         val = "plain";
 
     setValue("Board/PageBackground", val);
+    emit(pageBackgroundChanged());
 }
 
 void UBSettings::setBackgroundGridSize(int value)
@@ -904,11 +905,6 @@ void UBSettings::setBackgroundGridSize(int value)
 int UBSettings::backgroundGridSize()
 {
     return value("Board/BackgroundGridSize", -1).toInt();
-}
-
-bool UBSettings::isCompassNormolizePos()
-{
-    return value("Board/CompassNormolizePos", 0).toBool();
 }
 
 void UBSettings::setPenPressureSensitive(bool sensitive)

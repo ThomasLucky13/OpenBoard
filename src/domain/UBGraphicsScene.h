@@ -356,9 +356,6 @@ class UBGraphicsScene: public UBCoreGraphicsScene, public UBItem
 
         QRectF annotationsBoundingRect() const;
 
-
-        QPointF nearPointFromGrid(QPointF point);
-
 public slots:
         void updateSelectionFrame();
         void updateSelectionFrameWrapper(int);
@@ -503,9 +500,6 @@ public slots:
         bool mDrawWithCompass;
         UBGraphicsPolygonItem *mCurrentPolygon;
         UBSelectionFrame *mSelectionFrame;
-
-        QList<QPointF> mGridPoints;
-        void setGridPoints();
 };
 
 

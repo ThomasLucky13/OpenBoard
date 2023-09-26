@@ -636,5 +636,6 @@
         <file>images/toolbar/vectorFromTo.svg</file>
         <file>images/stylusPalette/vector.svg</file>
         <file>images/stylusPalette/vectorOn.svg</file>
+        <file>images/settingsCompass.svg</file>
     </qresource>
 </RCC>

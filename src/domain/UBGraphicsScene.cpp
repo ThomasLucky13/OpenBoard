@@ -361,7 +361,6 @@ UBGraphicsScene::UBGraphicsScene(UBDocumentProxy* parent, bool enableUndoRedoSta
 
     mBackgroundGridSize = UBSettings::settings()->crossSize;
     mIntermediateLines = UBSettings::settings()->intermediateLines;
-    setGridPoints();
 
 //    Just for debug. Do not delete please
 //    connect(this, SIGNAL(selectionChanged()), this, SLOT(selectionChangedProcessing()));
@@ -1180,8 +1179,6 @@ void UBGraphicsScene::setBackgroundGridSize(int pSize)
 
         foreach(QGraphicsView* view, views())
             view->resetCachedContent();
-
-        setGridPoints();
     }
 }
 
@@ -1192,26 +1189,6 @@ void UBGraphicsScene::setIntermediateLines(bool checked)
 
     foreach(QGraphicsView* view, views())
         view->resetCachedContent();
-}
-
-void UBGraphicsScene::setGridPoints()
-{
-    mGridPoints.clear();
-    for (int i = 0; i >= sceneSize().width()/-2; i -= mBackgroundGridSize)
-    {
-        for (int j = 0; j >= sceneSize().height()/-2; j -=mBackgroundGridSize)
-            mGridPoints.push_back(QPointF(i,j));
-        for (int j = 0; j <= sceneSize().height()/2; j +=mBackgroundGridSize)
-            mGridPoints.push_back(QPointF(i,j));
-    }
-
-    for (int i = 0; i <= sceneSize().width()/2; i += mBackgroundGridSize)
-    {
-        for (int j = 0; j >= sceneSize().height()/-2; j -=mBackgroundGridSize)
-            mGridPoints.push_back(QPointF(i,j));
-        for (int j = 0; j <= sceneSize().height()/2; j +=mBackgroundGridSize)
-            mGridPoints.push_back(QPointF(i,j));
-    }
 }
 
 void UBGraphicsScene::setDrawingMode(bool bModeDesktop)
@@ -2475,10 +2452,7 @@ void UBGraphicsScene::addCompass(QPointF center)
     addItem(compass);
 
     QRectF rect = compass->rect();
-    QPointF comPos = center;
-    if(UBSettings::settings()->isCompassNormolizePos() && ((UBSettings::settings()->pageBackground()==UBPageBackground::crossed)))
-            comPos = nearPointFromGrid(center);
-    compass->setRect(comPos.x(), comPos.y() - rect.height() / 2, rect.width(), rect.height());
+    compass->setRect(center.x(), center.y() - rect.height() / 2, rect.width(), rect.height());
 
     compass->setData(UBGraphicsItemData::ItemLayerType, QVariant(UBItemLayerType::Tool));
 
@@ -3099,26 +3073,4 @@ void UBGraphicsScene::setToolCursor(int tool)
 void UBGraphicsScene::initStroke()
 {
     mCurrentStroke = new UBGraphicsStroke(this);
-}
-
-QPointF UBGraphicsScene::nearPointFromGrid(QPointF point)
-{
-    QPointF result = point;
-    if (mGridPoints.count() > 0)
-    {
-        result = mGridPoints[0];
-        QLineF checkLine = QLineF(point, result);
-        float length = qSqrt(qPow(checkLine.dx(),2) + qPow(checkLine.dy(),2));
-        for (int i = 1; i < mGridPoints.count(); ++i)
-        {
-            checkLine = QLineF(point, mGridPoints[i]);
-            float checkLength = qSqrt(qPow(checkLine.dx(),2) + qPow(checkLine.dy(),2));
-            if (checkLength<length)
-            {
-                length = checkLength;
-                result = mGridPoints[i];
-            }
-        }
-    }
-    return result;
 }
