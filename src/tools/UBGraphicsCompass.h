@@ -103,6 +103,7 @@ class UBGraphicsCompass: public QObject, public QGraphicsRectItem, public UBItem
         QRectF            closeButtonRect() const;
         QRectF           resizeButtonRect() const;
         QRectF         settingsButtonRect() const;
+        QRectF       rightAngleButtonRect() const;
         virtual QPainterPath        shape() const;
         QPainterPath          needleShape() const;
         QPainterPath          pencilShape() const;
@@ -132,6 +133,7 @@ class UBGraphicsCompass: public QObject, public QGraphicsRectItem, public UBItem
         QGraphicsSvgItem* mCloseSvgItem;
         QGraphicsSvgItem* mResizeSvgItem;
         QGraphicsSvgItem* mSettingsSvgItem;
+        QGraphicsSvgItem* mRihtAngleSvgItem;
         qreal mAntiScaleRatio;
         bool mDrewCenterCross;
         bool mNormalizePos;

@@ -352,7 +352,6 @@
         <file>images/flags/vi.svg</file>
         <file>images/flags/zh-hans.svg</file>
         <file>images/flags/zh-hant.svg</file>
-
         <file>images/libpalette/notFound.png</file>
         <file>images/libpalette/trash_favorite.svg</file>
         <file>images/libpalette/back.png</file>
@@ -637,5 +636,6 @@
         <file>images/stylusPalette/vector.svg</file>
         <file>images/stylusPalette/vectorOn.svg</file>
         <file>images/settingsCompass.svg</file>
+        <file>images/rightAngleCompass.svg</file>
     </qresource>
 </RCC>

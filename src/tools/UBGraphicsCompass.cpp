@@ -51,7 +51,7 @@ const QColor UBGraphicsCompass::sDarkBackgroundDrawColor = QColor(0xff, 0xff, 0x
 
 const int UBGraphicsCompass::sMinRadius = UBGraphicsCompass::sNeedleLength + UBGraphicsCompass::sNeedleBaseLength
         + 24 + UBGraphicsCompass::sDefaultRect.height() + 24 + UBGraphicsCompass::sPencilBaseLength
-        + UBGraphicsCompass::sPencilLength + 48;
+        + UBGraphicsCompass::sPencilLength + 48 + 48;
 
 UBGraphicsCompass::UBGraphicsCompass()
     : QGraphicsRectItem()
@@ -64,6 +64,7 @@ UBGraphicsCompass::UBGraphicsCompass()
     , mCloseSvgItem(0)
     , mResizeSvgItem(0)
     , mSettingsSvgItem(0)
+    , mRihtAngleSvgItem(0)
     , mAntiScaleRatio(1.0)
     , mDrewCenterCross(false)
     , mSettingsMenu(0)
@@ -87,6 +88,10 @@ UBGraphicsCompass::UBGraphicsCompass()
     mSettingsSvgItem = new QGraphicsSvgItem(":/images/settingsCompass.svg", this);
     mSettingsSvgItem->setVisible(false);
     mSettingsSvgItem->setData(UBGraphicsItemData::ItemLayerType, QVariant(UBItemLayerType::Control));
+
+    mRihtAngleSvgItem = new QGraphicsSvgItem(":/images/rightAngleCompass.svg", this);
+    mRihtAngleSvgItem->setVisible(false);
+    mRihtAngleSvgItem->setData(UBGraphicsItemData::ItemLayerType, QVariant(UBItemLayerType::Control));
 
     updateResizeCursor();
     updateDrawCursor();
@@ -158,6 +163,10 @@ void UBGraphicsCompass::paint(QPainter *painter, const QStyleOptionGraphicsItem 
     mSettingsSvgItem->setPos(
                 settingsButtonRect().center().x() - mSettingsSvgItem->boundingRect().width() * mAntiScaleRatio / 2,
                 settingsButtonRect().center().y() - mSettingsSvgItem->boundingRect().height() * mAntiScaleRatio / 2);
+    mRihtAngleSvgItem->setTransform(antiScaleTransform);
+    mRihtAngleSvgItem->setPos(
+                rightAngleButtonRect().center().x() - mRihtAngleSvgItem->boundingRect().width() * mAntiScaleRatio / 2,
+                rightAngleButtonRect().center().y() - mRihtAngleSvgItem->boundingRect().height() * mAntiScaleRatio /2);
 
     painter->setPen(drawColor());
     painter->drawRoundedRect(hingeRect(), sCornerRadius, sCornerRadius);
@@ -209,6 +218,7 @@ QVariant UBGraphicsCompass::itemChange(GraphicsItemChange change, const QVariant
         mCloseSvgItem->setParentItem(this);
         mResizeSvgItem->setParentItem(this);
         mSettingsSvgItem->setParent(this);
+        mRihtAngleSvgItem->setParent(this);
     }
 
     return QGraphicsRectItem::itemChange(change, value);
@@ -221,6 +231,7 @@ void UBGraphicsCompass::mousePressEvent(QGraphicsSceneMouseEvent *event)
         return;
 
     bool setting = false;
+    bool rightAngle = false;
     bool closing = false;
 
     if (resizeButtonRect().contains(event->pos()))
@@ -240,6 +251,10 @@ void UBGraphicsCompass::mousePressEvent(QGraphicsSceneMouseEvent *event)
     else if (settingsButtonRect().contains(event->pos()))
     {
         setting = true;
+    }
+    else if (rightAngleButtonRect().contains(event->pos()))
+    {
+        rightAngle = true;
     }
     else if (!closeButtonRect().contains(event->pos()))
     {
@@ -262,6 +277,7 @@ void UBGraphicsCompass::mousePressEvent(QGraphicsSceneMouseEvent *event)
     mResizeSvgItem->setVisible(mShowButtons && mResizing);
     mCloseSvgItem->setVisible(mShowButtons && closing);
     mSettingsSvgItem->setVisible(mShowButtons && setting);
+    mRihtAngleSvgItem->setVisible(mShowButtons && rightAngle);
 }
 
 void UBGraphicsCompass::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
@@ -348,6 +364,18 @@ void UBGraphicsCompass::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     {
         showSettings();
     }
+    else if (rightAngleButtonRect().contains(event->pos()))
+    {
+        qreal rotateAngle = angleInDegrees();
+        if (angleInDegrees() < 270)
+        {
+            int neededAngle = 90;
+            while (angleInDegrees() >= neededAngle)
+                neededAngle += 90;
+            rotateAngle -= neededAngle;
+        }
+        rotateAroundNeedle(rotateAngle);
+    }
     else
     {
         QGraphicsRectItem::mouseReleaseEvent(event);
@@ -373,6 +401,7 @@ void UBGraphicsCompass::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
     mCloseSvgItem->setParentItem(this);
     mResizeSvgItem->setParentItem(this);
     mSettingsSvgItem->setParent(this);
+    mRihtAngleSvgItem->setParent(this);
 
 
     mCloseSvgItem->setVisible(mShowButtons);
@@ -384,9 +413,9 @@ void UBGraphicsCompass::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
             setCursor(drawCursor());
         else if (resizeButtonRect().contains(event->pos()))
             setCursor(resizeCursor());
-        else if (closeButtonRect().contains(event->pos()))
-            setCursor(closeCursor());
-        else if (settingsButtonRect().contains(event->pos()))
+        else if (closeButtonRect().contains(event->pos())
+                 || settingsButtonRect().contains(event->pos())
+                 || rightAngleButtonRect().contains(event->pos()))
             setCursor(closeCursor());
         else
             setCursor(moveCursor());
@@ -405,6 +434,7 @@ void UBGraphicsCompass::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
     mCloseSvgItem->setVisible(mShowButtons);
     mResizeSvgItem->setVisible(mShowButtons);
     mSettingsSvgItem->setVisible(mShowButtons);
+    mRihtAngleSvgItem->setVisible(mShowButtons);
     unsetCursor();
     event->accept();
     update();
@@ -420,6 +450,7 @@ void UBGraphicsCompass::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
     mCloseSvgItem->setVisible(mShowButtons);
     mResizeSvgItem->setVisible(mShowButtons);
     mSettingsSvgItem->setVisible(mShowButtons);
+    mRihtAngleSvgItem->setVisible(mShowButtons);
     if (mShowButtons)
     {
         if (hingeRect().contains(event->pos()))
@@ -428,9 +459,9 @@ void UBGraphicsCompass::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
             setCursor(drawCursor());
         else if (resizeButtonRect().contains(event->pos()))
             setCursor(resizeCursor());
-        else if (closeButtonRect().contains(event->pos()))
-            setCursor(closeCursor());
-        else if (settingsButtonRect().contains(event->pos()))
+        else if (closeButtonRect().contains(event->pos())
+                 || settingsButtonRect().contains(event->pos())
+                 || rightAngleButtonRect().contains(event->pos()))
             setCursor(closeCursor());
         else
             setCursor(moveCursor());
@@ -589,6 +620,24 @@ QRectF UBGraphicsCompass::settingsButtonRect() const
     settingsRect.translate(rect().topLeft());
 
     return settingsRect;
+}
+
+QRectF UBGraphicsCompass::rightAngleButtonRect() const
+{
+    QPixmap rightAnglePixmap(":/images/rightAngleCompass.svg");
+
+    QSizeF rightAngleRectSize(
+        rightAnglePixmap.width() * mAntiScaleRatio,
+        rightAnglePixmap.height() * mAntiScaleRatio);
+
+    QPointF rightAngleRectTopLeft(
+        rect().width()/2 - hingeRect().width()/2 - rightAngleRectSize.width() - settingsButtonRect().width() - 6,
+        (rect().height() - rightAngleRectSize.height()) / 2);
+
+    QRectF rightAngleRect(rightAngleRectTopLeft, rightAngleRectSize);
+    rightAngleRect.translate(rect().topLeft());
+
+    return rightAngleRect;
 }
 
 void UBGraphicsCompass::rotateAroundNeedle(qreal angle)
