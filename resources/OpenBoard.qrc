@@ -637,5 +637,6 @@
         <file>images/stylusPalette/vectorOn.svg</file>
         <file>images/settingsCompass.svg</file>
         <file>images/rightAngleCompass.svg</file>
+        <file>images/angleRotateCompass.svg</file>
     </qresource>
 </RCC>

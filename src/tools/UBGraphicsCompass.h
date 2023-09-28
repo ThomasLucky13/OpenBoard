@@ -33,11 +33,31 @@
 #include <QtGui>
 #include <QtSvg>
 #include <QMenu>
+#include <QCheckBox>
+#include <QDoubleSpinBox>
 
 #include "core/UB.h"
 #include "domain/UBItem.h"
 
 class UBGraphicsScene;
+
+class UBCompassAngleRotateDialog: public QDialog
+{
+    Q_OBJECT
+
+    public:
+        explicit UBCompassAngleRotateDialog(QWidget *parent = nullptr);
+        bool isDrawing();
+        bool isAbsolutely();
+        qreal Angle();
+    private:
+        QCheckBox* mDrawingCheckBox;
+        QDoubleSpinBox* mAngleSpinBox;
+        bool mIsAbsolutely;
+    protected slots:
+        void RotateAbsolutely();
+        void RotateRelative();
+};
 
 class UBGraphicsCompass: public QObject, public QGraphicsRectItem, public UBItem
 {
@@ -91,6 +111,7 @@ class UBGraphicsCompass: public QObject, public QGraphicsRectItem, public UBItem
         QPointF         nearPointFromGrid(QPointF point);
         void                 showSettings();
         void         decorateSettingsMenu(QMenu* menu);
+        void        showAngleRotateDialog();
 
         QCursor                moveCursor() const;
         QCursor              resizeCursor() const;
@@ -104,6 +125,7 @@ class UBGraphicsCompass: public QObject, public QGraphicsRectItem, public UBItem
         QRectF           resizeButtonRect() const;
         QRectF         settingsButtonRect() const;
         QRectF       rightAngleButtonRect() const;
+        QRectF      angleRotateButtonRect() const;
         virtual QPainterPath        shape() const;
         QPainterPath          needleShape() const;
         QPainterPath          pencilShape() const;
@@ -134,6 +156,7 @@ class UBGraphicsCompass: public QObject, public QGraphicsRectItem, public UBItem
         QGraphicsSvgItem* mResizeSvgItem;
         QGraphicsSvgItem* mSettingsSvgItem;
         QGraphicsSvgItem* mRihtAngleSvgItem;
+        QGraphicsSvgItem* mAngleRotateSvgItem;
         qreal mAntiScaleRatio;
         bool mDrewCenterCross;
         bool mNormalizePos;

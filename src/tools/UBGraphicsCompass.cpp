@@ -24,7 +24,7 @@
  * along with OpenBoard. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
+#include <QVBoxLayout>
 
 
 #include "tools/UBGraphicsCompass.h"
@@ -65,6 +65,7 @@ UBGraphicsCompass::UBGraphicsCompass()
     , mResizeSvgItem(0)
     , mSettingsSvgItem(0)
     , mRihtAngleSvgItem(0)
+    , mAngleRotateSvgItem(0)
     , mAntiScaleRatio(1.0)
     , mDrewCenterCross(false)
     , mSettingsMenu(0)
@@ -92,6 +93,10 @@ UBGraphicsCompass::UBGraphicsCompass()
     mRihtAngleSvgItem = new QGraphicsSvgItem(":/images/rightAngleCompass.svg", this);
     mRihtAngleSvgItem->setVisible(false);
     mRihtAngleSvgItem->setData(UBGraphicsItemData::ItemLayerType, QVariant(UBItemLayerType::Control));
+
+    mAngleRotateSvgItem = new QGraphicsSvgItem(":/images/angleRotateCompass.svg", this);
+    mAngleRotateSvgItem->setVisible(false);
+    mAngleRotateSvgItem->setData(UBGraphicsItemData::ItemLayerType, QVariant(UBItemLayerType::Control));
 
     updateResizeCursor();
     updateDrawCursor();
@@ -163,10 +168,16 @@ void UBGraphicsCompass::paint(QPainter *painter, const QStyleOptionGraphicsItem 
     mSettingsSvgItem->setPos(
                 settingsButtonRect().center().x() - mSettingsSvgItem->boundingRect().width() * mAntiScaleRatio / 2,
                 settingsButtonRect().center().y() - mSettingsSvgItem->boundingRect().height() * mAntiScaleRatio / 2);
+
     mRihtAngleSvgItem->setTransform(antiScaleTransform);
     mRihtAngleSvgItem->setPos(
                 rightAngleButtonRect().center().x() - mRihtAngleSvgItem->boundingRect().width() * mAntiScaleRatio / 2,
                 rightAngleButtonRect().center().y() - mRihtAngleSvgItem->boundingRect().height() * mAntiScaleRatio /2);
+
+    mAngleRotateSvgItem->setTransform(antiScaleTransform);
+    mAngleRotateSvgItem->setPos(
+                angleRotateButtonRect().center().x() -  mAngleRotateSvgItem->boundingRect().width() * mAntiScaleRatio /2,
+                angleRotateButtonRect().center().y() -  mAngleRotateSvgItem->boundingRect().height() * mAntiScaleRatio /2);
 
     painter->setPen(drawColor());
     painter->drawRoundedRect(hingeRect(), sCornerRadius, sCornerRadius);
@@ -219,6 +230,7 @@ QVariant UBGraphicsCompass::itemChange(GraphicsItemChange change, const QVariant
         mResizeSvgItem->setParentItem(this);
         mSettingsSvgItem->setParent(this);
         mRihtAngleSvgItem->setParent(this);
+        mAngleRotateSvgItem->setParent(this);
     }
 
     return QGraphicsRectItem::itemChange(change, value);
@@ -232,6 +244,7 @@ void UBGraphicsCompass::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     bool setting = false;
     bool rightAngle = false;
+    bool angleRotate = false;
     bool closing = false;
 
     if (resizeButtonRect().contains(event->pos()))
@@ -256,6 +269,10 @@ void UBGraphicsCompass::mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
         rightAngle = true;
     }
+    else if (angleRotateButtonRect().contains((event->pos())))
+    {
+        angleRotate = true;
+    }
     else if (!closeButtonRect().contains(event->pos()))
     {
         qDebug() << "the rest";
@@ -278,6 +295,7 @@ void UBGraphicsCompass::mousePressEvent(QGraphicsSceneMouseEvent *event)
     mCloseSvgItem->setVisible(mShowButtons && closing);
     mSettingsSvgItem->setVisible(mShowButtons && setting);
     mRihtAngleSvgItem->setVisible(mShowButtons && rightAngle);
+    mAngleRotateSvgItem->setVisible(mShowButtons && angleRotate);
 }
 
 void UBGraphicsCompass::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
@@ -335,12 +353,13 @@ void UBGraphicsCompass::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     if (!mResizing && !mRotating && !mDrawing && mNormalizePos && (UBSettings::settings()->pageBackground()==UBPageBackground::crossed))
     {
         normalizePos();
+        event->accept();
     }
     if (mResizing)
     {
-        event->accept();
         if (mNormalizeSize && (UBSettings::settings()->pageBackground()==UBPageBackground::crossed))
             normalizeSize();
+        event->accept();
     }
     else if (mRotating)
     {
@@ -363,6 +382,7 @@ void UBGraphicsCompass::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     else if (settingsButtonRect().contains(event->pos()))
     {
         showSettings();
+        event->accept();
     }
     else if (rightAngleButtonRect().contains(event->pos()))
     {
@@ -375,6 +395,12 @@ void UBGraphicsCompass::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             rotateAngle -= neededAngle;
         }
         rotateAroundNeedle(rotateAngle);
+        event->accept();
+    }
+    else if (angleRotateButtonRect().contains(event->pos()))
+    {
+        showAngleRotateDialog();
+        event->accept();
     }
     else
     {
@@ -402,6 +428,7 @@ void UBGraphicsCompass::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
     mResizeSvgItem->setParentItem(this);
     mSettingsSvgItem->setParent(this);
     mRihtAngleSvgItem->setParent(this);
+    mAngleRotateSvgItem->setParent(this);
 
 
     mCloseSvgItem->setVisible(mShowButtons);
@@ -415,7 +442,8 @@ void UBGraphicsCompass::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
             setCursor(resizeCursor());
         else if (closeButtonRect().contains(event->pos())
                  || settingsButtonRect().contains(event->pos())
-                 || rightAngleButtonRect().contains(event->pos()))
+                 || rightAngleButtonRect().contains(event->pos())
+                 || angleRotateButtonRect().contains(event->pos()))
             setCursor(closeCursor());
         else
             setCursor(moveCursor());
@@ -435,6 +463,7 @@ void UBGraphicsCompass::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
     mResizeSvgItem->setVisible(mShowButtons);
     mSettingsSvgItem->setVisible(mShowButtons);
     mRihtAngleSvgItem->setVisible(mShowButtons);
+    mAngleRotateSvgItem->setVisible(mShowButtons);
     unsetCursor();
     event->accept();
     update();
@@ -451,6 +480,7 @@ void UBGraphicsCompass::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
     mResizeSvgItem->setVisible(mShowButtons);
     mSettingsSvgItem->setVisible(mShowButtons);
     mRihtAngleSvgItem->setVisible(mShowButtons);
+    mAngleRotateSvgItem->setVisible(mShowButtons);
     if (mShowButtons)
     {
         if (hingeRect().contains(event->pos()))
@@ -461,7 +491,8 @@ void UBGraphicsCompass::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
             setCursor(resizeCursor());
         else if (closeButtonRect().contains(event->pos())
                  || settingsButtonRect().contains(event->pos())
-                 || rightAngleButtonRect().contains(event->pos()))
+                 || rightAngleButtonRect().contains(event->pos())
+                 || angleRotateButtonRect().contains(event->pos()))
             setCursor(closeCursor());
         else
             setCursor(moveCursor());
@@ -640,6 +671,24 @@ QRectF UBGraphicsCompass::rightAngleButtonRect() const
     return rightAngleRect;
 }
 
+QRectF UBGraphicsCompass::angleRotateButtonRect() const
+{
+    QPixmap angleRotatePixmap(":/images/angleRotateCompass.svg");
+
+    QSizeF angleRotateRectSize(
+        angleRotatePixmap.width() * mAntiScaleRatio,
+        angleRotatePixmap.height() * mAntiScaleRatio);
+
+    QPointF angleRotateRectTopLeft(
+        rect().width()/2 + hingeRect().width()/2 + angleRotateRectSize.width()/2,
+        (rect().height() - angleRotateRectSize.height()) / 2);
+
+    QRectF angleRotateRect(angleRotateRectTopLeft, angleRotateRectSize);
+    angleRotateRect.translate(rect().topLeft());
+
+    return angleRotateRect;
+}
+
 void UBGraphicsCompass::rotateAroundNeedle(qreal angle)
 {
     QTransform transform;
@@ -727,6 +776,44 @@ void UBGraphicsCompass::decorateSettingsMenu(QMenu* menu)
     mNormalizeSizeAction->setCheckable(true);
     mNormalizeSizeAction->setChecked(mNormalizeSize);
     setMenuActions();
+}
+
+void UBGraphicsCompass::showAngleRotateDialog()
+{
+    UBCompassAngleRotateDialog angleRotationDialog(static_cast<QGraphicsView*>(UBApplication::boardController->controlView()));
+
+    if (angleRotationDialog.exec() == QDialog::Accepted)
+    {
+        qreal rotateAngle = -angleRotationDialog.Angle();
+        qreal drawingAngle = rotateAngle;
+        if (angleRotationDialog.isAbsolutely())
+            rotateAroundNeedle(angleInDegrees());
+        else
+            drawingAngle -= angleInDegrees();
+
+
+        mSceneArcStartPoint = mapToScene(pencilPosition());
+        rotateAroundNeedle(rotateAngle);
+
+        if (angleRotationDialog.isDrawing())
+        {
+            if (!mDrewCenterCross)
+            {
+                paintCenterCross();
+                mDrewCenterCross = true;
+                scene()->moveTo(mSceneArcStartPoint);
+            }
+            QPointF sceneNeedlePosition = mapToScene(needlePosition());
+            qreal arcSpanAngle = drawingAngle;
+            if (!mDrewCircle || (-360 != arcSpanAngle && 360 != arcSpanAngle))
+            {
+                mDrewCircle = (-360 == arcSpanAngle || 360 == arcSpanAngle);
+                scene()->drawArcTo(sceneNeedlePosition, arcSpanAngle);
+            }
+        }
+        updateResizeCursor();
+        updateDrawCursor();
+    }
 }
 
 QPointF UBGraphicsCompass::needlePosition() const
@@ -1017,4 +1104,83 @@ QPointF UBGraphicsCompass::nearPointFromGrid(QPointF point)
         }
     }
     return result;
+}
+
+
+UBCompassAngleRotateDialog::UBCompassAngleRotateDialog(QWidget *parent) :
+    QDialog(parent)
+{
+    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    window()->setWindowTitle(tr("Compass angle rotation"));
+    window()->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+
+    mAngleSpinBox = new QDoubleSpinBox(this);
+    mAngleSpinBox->setMaximum(359);
+    QHBoxLayout* hLayout = new QHBoxLayout(this);
+    QLabel* angleLabel = new QLabel(this);
+    angleLabel->setText(tr("Angle:"));
+    angleLabel->setAlignment(Qt::AlignVCenter);
+    angleLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
+    hLayout->addWidget(angleLabel);
+    hLayout->addWidget(mAngleSpinBox);
+    hLayout->addSpacerItem(new QSpacerItem(26,20, QSizePolicy::Expanding, QSizePolicy::Preferred));
+    QWidget* angleFrame = new QWidget(this);
+    angleFrame->setLayout(hLayout);
+    angleFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    mainLayout->addWidget(angleFrame);
+
+    mDrawingCheckBox = new QCheckBox(this);
+    mDrawingCheckBox->setText(tr("With drawing"));
+    mDrawingCheckBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    QWidget* drawingCheckBoxWidget = new QWidget(this);
+    drawingCheckBoxWidget->setLayout(new QHBoxLayout(this));
+    drawingCheckBoxWidget->layout()->addWidget(mDrawingCheckBox);
+    mainLayout->addWidget(drawingCheckBoxWidget);
+
+    mainLayout->addSpacerItem(new QSpacerItem(26,20, QSizePolicy::Preferred, QSizePolicy::Expanding));
+
+    QWidget* buttonsWidget = new QWidget(this);
+    QPushButton* absolutButton = new QPushButton(this);
+    absolutButton->setText(tr("Rotate absolutely"));
+    absolutButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+    QHBoxLayout* hLayout2 = new QHBoxLayout(this);
+    hLayout2->addWidget(absolutButton);
+    hLayout2->addSpacerItem(new QSpacerItem(26,20, QSizePolicy::Expanding, QSizePolicy::Preferred));
+    QPushButton* relativeButton = new QPushButton(this);
+    relativeButton->setText(tr("Rotate relative"));
+    relativeButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+    hLayout2->addWidget(relativeButton);
+    buttonsWidget->setLayout(hLayout2);
+    mainLayout->addWidget(buttonsWidget);
+    setLayout(mainLayout);
+
+    connect(absolutButton, SIGNAL(clicked()), this, SLOT(RotateAbsolutely()));
+    connect(relativeButton, SIGNAL(clicked()), this, SLOT(RotateRelative()));
+}
+
+void UBCompassAngleRotateDialog::RotateAbsolutely()
+{
+    mIsAbsolutely = true;
+    accept();
+}
+
+void UBCompassAngleRotateDialog::RotateRelative()
+{
+    mIsAbsolutely = false;
+    accept();
+}
+
+bool UBCompassAngleRotateDialog::isDrawing()
+{
+    return mDrawingCheckBox->isChecked();
+}
+
+bool UBCompassAngleRotateDialog::isAbsolutely()
+{
+    return mIsAbsolutely;
+}
+
+qreal UBCompassAngleRotateDialog::Angle()
+{
+    return mAngleSpinBox->value();
 }
