@@ -184,7 +184,7 @@ void UBGraphicsRuler::paintGraduations(QPainter *painter)
     int rulerLengthInMillimeters = (rect().width() - sLeftEdgeMargin - sRoundingRadius)/pixelsPerMillimeter;
 
     // When a "centimeter" is too narrow, we only display every 5th number, and every 5th millimeter mark
-    double numbersWidth = fontMetrics.width("00");
+    double numbersWidth = fontMetrics.horizontalAdvance("00");
     bool shouldDisplayAllNumbers = (numbersWidth <= (sPixelsPerCentimeter - 5));
 
     for (int millimeters(0); millimeters < rulerLengthInMillimeters; millimeters++) {
@@ -213,8 +213,8 @@ void UBGraphicsRuler::paintGraduations(QPainter *painter)
         {
             QString text = QString("%1").arg((int)(millimeters / UBGeometryUtils::millimetersPerCentimeter));
 
-            if (graduationX + fontMetrics.width(text) / 2 < rect().right()) {
-                qreal textWidth = fontMetrics.width(text);
+            if (graduationX + fontMetrics.horizontalAdvance(text) / 2 < rect().right()) {
+                qreal textWidth = fontMetrics.horizontalAdvance(text);
                 qreal textHeight = fontMetrics.tightBoundingRect(text).height() + 5;
                 painter->drawText(
                     QRectF(graduationX - textWidth / 2, rect().top() + 5 + UBGeometryUtils::centimeterGraduationHeight, textWidth, textHeight),
@@ -420,9 +420,6 @@ void UBGraphicsRuler::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
     UBStylusTool::Enum currentTool = (UBStylusTool::Enum)UBDrawingController::drawingController ()->stylusTool ();
 
-    if (UBDrawingController::drawingController()->mActiveRuler == nullptr)
-        UBDrawingController::drawingController()->mActiveRuler = this;
-
     if (currentTool == UBStylusTool::Selector ||
         currentTool == UBStylusTool::Play)
     {
@@ -453,6 +450,7 @@ void UBGraphicsRuler::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
     else if (UBDrawingController::drawingController()->isDrawingTool())
     {
         setCursor(drawRulerLineCursor());
+        UBDrawingController::drawingController()->setActiveRuler(this);
         event->accept();
     }
 }
@@ -464,16 +462,17 @@ void UBGraphicsRuler::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
     mCloseSvgItem->setVisible(mShowButtons);
     mResizeSvgItem->setVisible(mShowButtons);
     mRotateSvgItem->setVisible(mShowButtons);
-    UBDrawingController::drawingController()->mActiveRuler = nullptr;
+    UBDrawingController::drawingController()->setActiveRuler(nullptr);
     event->accept();
     update();
 }
 
 
 
-UBGraphicsScene* UBGraphicsRuler::scene() const
+std::shared_ptr<UBGraphicsScene> UBGraphicsRuler::scene() const
 {
-    return static_cast<UBGraphicsScene*>(QGraphicsRectItem::scene());
+    auto scenePtr = dynamic_cast<UBGraphicsScene*>(QGraphicsRectItem::scene());
+    return scenePtr ? scenePtr->shared_from_this() : nullptr;
 }
 
 void UBGraphicsRuler::StartLine(const QPointF& scenePos, qreal width)

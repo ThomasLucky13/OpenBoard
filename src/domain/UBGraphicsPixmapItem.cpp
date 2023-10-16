@@ -162,15 +162,17 @@ void UBGraphicsPixmapItem::copyItemParameters(UBItem *copy) const
         cp->setFlag(QGraphicsItem::ItemIsSelectable, true);
         cp->setData(UBGraphicsItemData::ItemLayerType, this->data(UBGraphicsItemData::ItemLayerType));
         cp->setData(UBGraphicsItemData::ItemLocked, this->data(UBGraphicsItemData::ItemLocked));
+        cp->setData(UBGraphicsItemData::ItemIsHiddenOnDisplay, this->data(UBGraphicsItemData::ItemIsHiddenOnDisplay));
         cp->setSourceUrl(this->sourceUrl());
 
         cp->setZValue(this->zValue());
     }
 }
 
-UBGraphicsScene* UBGraphicsPixmapItem::scene()
+std::shared_ptr<UBGraphicsScene> UBGraphicsPixmapItem::scene()
 {
-    return qobject_cast<UBGraphicsScene*>(QGraphicsItem::scene());
+    auto scenePtr = dynamic_cast<UBGraphicsScene*>(QGraphicsItem::scene());
+    return scenePtr ? scenePtr->shared_from_this() : nullptr;
 }
 
 
@@ -188,7 +190,11 @@ qreal UBGraphicsPixmapItem::opacity() const
 
 void UBGraphicsPixmapItem::clearSource()
 {
-    QString fileName = UBPersistenceManager::imageDirectory + "/" + uuid().toString() + ".png";
-    QString diskPath =  UBApplication::boardController->selectedDocument()->persistencePath() + "/" + fileName;
-    UBFileSystemUtils::deleteFile(diskPath);
+    QDir imageDir = UBApplication::boardController->selectedDocument()->persistencePath() + "/" + UBPersistenceManager::imageDirectory;
+    const QStringList imageFiles = imageDir.entryList({uuid().toString() + ".*"});
+
+    for (const auto& imageFile : imageFiles)
+    {
+        UBFileSystemUtils::deleteFile(imageFile);
+    }
 }

@@ -34,8 +34,8 @@
 
 #include "core/memcheck.h"
 
-UBThumbnailView::UBThumbnailView(UBGraphicsScene *scene, QWidget* parent)
-    : QGraphicsView(scene, parent)
+UBThumbnailView::UBThumbnailView(std::shared_ptr<UBGraphicsScene> scene, QWidget* parent)
+    : QGraphicsView(scene.get(), parent)
     , mHBoxLayout(new QHBoxLayout(this))
 {
     setAcceptDrops(true);

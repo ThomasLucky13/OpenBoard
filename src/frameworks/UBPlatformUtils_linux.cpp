@@ -25,18 +25,26 @@
  */
 
 
-
+#define QT_IMPLICIT_QCHAR_CONSTRUCTION
 
 #include "UBPlatformUtils.h"
 
 #include <QtGui>
 #include <QApplication>
+#include <QDBusConnectionInterface>
+#include <QDBusInterface>
+#include <QDBusMetaType>
 
 #include <unistd.h>
 #include <X11/keysym.h>
 
 #include "frameworks/UBFileSystemUtils.h"
+#include "core/UBApplication.h"
+#include "core/UBDisplayManager.h"
+#include "core/UBSettings.h"
+#include "gui/UBMainWindow.h"
 
+static OnboardListener* listener = nullptr;
 
 void UBPlatformUtils::init()
 {
@@ -72,13 +80,23 @@ void UBPlatformUtils::fadeDisplayIn()
     // NOOP
 }
 
+bool UBPlatformUtils::hasSystemOnScreenKeyboard()
+{
+    QProcess oskTestProcess;
+    oskTestProcess.start("which", QStringList() << "onboard");
+
+    return oskTestProcess.waitForFinished() &&
+                    oskTestProcess.exitStatus() == QProcess::NormalExit &&
+                    oskTestProcess.readAll() != "";
+}
+
 QStringList UBPlatformUtils::availableTranslations()
 {
     QString translationsPath = applicationResourcesDirectory() + "/" + "i18n" + "/";
     QStringList translationsList = UBFileSystemUtils::allFiles(translationsPath);
-    QRegExp sankoreTranslationFiles(".*OpenBoard_.*.qm");
-    translationsList=translationsList.filter(sankoreTranslationFiles);
-    return translationsList.replaceInStrings(QRegExp("(.*)OpenBoard_(.*).qm"),"\\2");
+    static const QRegularExpression sankoreTranslationFiles("(.*)OpenBoard_(.*).qm");
+    translationsList = translationsList.filter(sankoreTranslationFiles);
+    return translationsList.replaceInStrings(sankoreTranslationFiles, "\\2");
 }
 
 QString UBPlatformUtils::translationPath(QString pFilePrefix,QString pLanguage)
@@ -123,10 +141,9 @@ void UBPlatformUtils::setWindowNonActivableFlag(QWidget* widget, bool nonAcivabl
 
 
 
-void UBPlatformUtils::setDesktopMode(bool desktop)
+void UBPlatformUtils::hideMenuBarAndDock()
 {
     // NOOP
-    Q_UNUSED(desktop);
 }
 
 #define KEYBTDECL(s1, s2, clSwitch, code) KEYBT(s1, s2, clSwitch, 0, 0, KEYCODE(s1, code, 0), KEYCODE(s2, code, 1))
@@ -439,18 +456,75 @@ void UBPlatformUtils::setFrontProcess()
 
 void UBPlatformUtils::showFullScreen(QWidget *pWidget)
 {
-    pWidget->showFullScreen();
+    if (UBSettings::settings()->appRunInWindow->get().toBool() &&
+            pWidget == UBApplication::displayManager->widget(ScreenRole::Control)) {
+        pWidget->show();
+    } else {
+        pWidget->showFullScreen();
+    }
 }
 
 void UBPlatformUtils::showOSK(bool show)
 {
-    QProcess oskProcess;
-
     if (show)
-        oskProcess.startDetached("/usr/bin/env onboard");
+    {
+        QDBusInterface dbus("org.onboard.Onboard", "/org/onboard/Onboard/Keyboard");
 
+        if (dbus.isValid())
+        {
+            dbus.call("Show");
+
+            if (!listener)
+            {
+                listener = new OnboardListener(dbus.connection(), qApp);
+            }
+        }
+        else
+        {
+            qDebug() << "onboard not registered/installed";
+        }
+    }
+    // avoid starting onboard just to hide it, so check first if it's running
+    else if (QDBusConnection::sessionBus().interface()->isServiceRegistered("org.onboard.Onboard"))
+    {
+        QDBusInterface dbus("org.onboard.Onboard", "/org/onboard/Onboard/Keyboard");
+
+        if (dbus.isValid())
+        {
+            dbus.call("Hide");
+        }
+    }
     else
-        /* Not exactly a great solution, but it isn't possible to just
-         * close onboard through wmctrl or xdotool */
-        oskProcess.startDetached("pkill -3 onboard");
+    {
+        qDebug() << "onboard not registered/installed";
+    }
+}
+
+OnboardListener::OnboardListener(const QDBusConnection& connection, QObject* parent)
+        : QObject{parent}
+        , mConnection{connection}
+{
+    qDBusRegisterMetaType<QMap<QString, QVariant>>();
+    const auto ok = mConnection.connect(
+                "org.onboard.Onboard", "/org/onboard/Onboard/Keyboard",
+                "org.freedesktop.DBus.Properties", "PropertiesChanged",
+                this, SLOT(onboardPropertiesChanged(QString,QMap<QString,QVariant>)));
+    if (!ok)
+    {
+        qDebug() << "Could not connect to DBus service listening for onboard properties";
+    }
+}
+
+void OnboardListener::onboardPropertiesChanged(QString interface, QMap<QString, QVariant> properties) const
+{
+    if (interface == "org.onboard.Onboard.Keyboard" && properties.contains("Visible"))
+    {
+        const auto onboardVisible = properties.value("Visible").toBool();
+        const auto oskAction = UBApplication::mainWindow->actionVirtualKeyboard;
+
+        if (oskAction->isChecked() != onboardVisible)
+        {
+            oskAction->trigger();
+        }
+    }
 }

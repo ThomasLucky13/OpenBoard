@@ -9,41 +9,107 @@
     </message>
 </context>
 <context>
-    <name>DownloadDialog</name>
+    <name>BrowserWindow</name>
+    <message>
+        <source>Navigation</source>
+        <translation>Navigáció</translation>
+    </message>
+    <message>
+        <source>Show downloads</source>
+        <translation>Letöltések megjelenítése</translation>
+    </message>
+</context>
+<context>
+    <name>CertificateErrorDialog</name>
+    <message>
+        <source>Dialog</source>
+        <translation>Párbeszéd</translation>
+    </message>
+    <message>
+        <source>Icon</source>
+        <translation>Ikon</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>Hiba</translation>
+    </message>
+    <message>
+        <source>If you wish so, you may continue with an unverified certificate. Accepting an unverified certificate mean you may not be connected with the host you tried to connect to.
+
+Do you wish to override the security check and continue ?   </source>
+        <translation>Ha kívánja, folytathatja egy ellenőrizetlen tanúsítvánnyal. Ellenőrizetlen tanúsítvány elfogadása azt jelenti, hogy előfordulhat, hogy nincs kapcsolatban azzal a gazdagéppel, amelyhez csatlakozni próbált.
+
+Felülírja a biztonsági ellenőrzést, és folytatja?</translation>
+    </message>
+</context>
+<context>
+    <name>DownloadManagerWidget</name>
     <message>
         <source>Downloads</source>
         <translation>Letöltések</translation>
     </message>
     <message>
-        <source>Clean Up</source>
-        <translation>Takarítás</translation>
+        <source>No downloads</source>
+        <translation>Nincsenek letöltések</translation>
     </message>
     <message>
-        <source>0 Items</source>
-        <translation>0 elem</translation>
+        <source>Save as</source>
+        <translation>Mentés másként</translation>
     </message>
 </context>
 <context>
-    <name>DownloadItem</name>
+    <name>DownloadWidget</name>
     <message>
-        <source>Form</source>
-        <translation>Űrlap</translation>
+        <source>TextLabel</source>
+        <translation>Szövegcímke</translation>
     </message>
     <message>
-        <source>Filename</source>
-        <translation>Fájlnév</translation>
+        <source>Open file</source>
+        <translation>Fájl megnyitása</translation>
     </message>
     <message>
-        <source>Try Again</source>
-        <translation>Újra</translation>
+        <source>%L1 B</source>
+        <translation>%L1 bájt</translation>
     </message>
     <message>
-        <source>Stop</source>
-        <translation>Állj</translation>
+        <source>%L1 KiB</source>
+        <translation>%L1 Kibájt</translation>
     </message>
     <message>
-        <source>Open</source>
-        <translation>Megnyitás</translation>
+        <source>%L1 MiB</source>
+        <translation>%L1 Mibájt</translation>
+    </message>
+    <message>
+        <source>%L1 GiB</source>
+        <translation>%L1 Gibájt</translation>
+    </message>
+    <message>
+        <source>%p% - %1 of %2 downloaded - %3/s</source>
+        <translation>%p% – %1/%2 letöltve – %3/másodperc</translation>
+    </message>
+    <message>
+        <source>unknown size - %1 downloaded - %2/s</source>
+        <translation>ismeretlen méretű – %1 letöltve – %2/másodperc</translation>
+    </message>
+    <message>
+        <source>completed - %1 downloaded - %2/s</source>
+        <translation>befejezve – %1 letöltve – %2/másodperc</translation>
+    </message>
+    <message>
+        <source>cancelled - %1 downloaded - %2/s</source>
+        <translation>visszavonta – %1 letöltve – %2/másodperc</translation>
+    </message>
+    <message>
+        <source>interrupted: %1</source>
+        <translation>megszakított: %1</translation>
+    </message>
+    <message>
+        <source>Stop downloading</source>
+        <translation>Letöltés leállítása</translation>
+    </message>
+    <message>
+        <source>Remove from list</source>
+        <translation>Eltávolítás a listáról</translation>
     </message>
 </context>
 <context>
@@ -137,7 +203,7 @@
     </message>
     <message>
         <source>Manage Documents</source>
-        <translation>Dokumentumok kezelése</translation>
+        <translation type="vanished">Dokumentumok kezelése</translation>
     </message>
     <message>
         <source>Ctrl+D</source>
@@ -145,7 +211,7 @@
     </message>
     <message>
         <source>Web Browsing</source>
-        <translation>Web böngészés</translation>
+        <translation type="vanished">Web böngészés</translation>
     </message>
     <message>
         <source>Ctrl+W</source>
@@ -265,7 +331,7 @@
     </message>
     <message>
         <source>Add to Working Document</source>
-        <translation>Hozzáadás a nyitott dokumentumhoz</translation>
+        <translation type="vanished">Hozzáadás a nyitott dokumentumhoz</translation>
     </message>
     <message>
         <source>Add Selected Content to Open Document</source>
@@ -424,20 +490,12 @@
         <translation>Vastag vonal</translation>
     </message>
     <message>
-        <source>Smalle Eraser</source>
-        <translation type="vanished">Kis radír</translation>
-    </message>
-    <message>
         <source>Medium Eraser</source>
         <translation>Közepes radír</translation>
     </message>
     <message>
         <source>Large Eraser</source>
         <translation>Nagy radír</translation>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation type="vanished">Szín</translation>
     </message>
     <message>
         <source>Reload Current Page</source>
@@ -457,7 +515,7 @@
     </message>
     <message>
         <source>Display Board</source>
-        <translation>Tábla megjelenítése</translation>
+        <translation type="vanished">Tábla megjelenítése</translation>
     </message>
     <message>
         <source>Erase Content</source>
@@ -473,7 +531,7 @@
     </message>
     <message>
         <source>Show Computer Desktop</source>
-        <translation>Számítógép Asztal megjelenítése</translation>
+        <translation type="vanished">Számítógép Asztal megjelenítése</translation>
     </message>
     <message>
         <source>Ctrl+Shift+H</source>
@@ -681,7 +739,7 @@
     </message>
     <message>
         <source>Import an External Page</source>
-        <translation>Külső oldal importálása</translation>
+        <translation type="vanished">Külső oldal importálása</translation>
     </message>
     <message>
         <source>Pause</source>
@@ -709,11 +767,11 @@
     </message>
     <message>
         <source>Web Trap</source>
-        <translation>Web rögzítése</translation>
+        <translation type="vanished">Web rögzítése</translation>
     </message>
     <message>
         <source>Trap Web Content</source>
-        <translation>Webes tartalom rögzítése</translation>
+        <translation type="vanished">Webes tartalom rögzítése</translation>
     </message>
     <message>
         <source>Capture Part of the Screen</source>
@@ -745,11 +803,11 @@
     </message>
     <message>
         <source>eduMedia</source>
-        <translation>eduMedia</translation>
+        <translation type="vanished">eduMedia</translation>
     </message>
     <message>
         <source>Import eduMedia simulation</source>
-        <translation>eduMedia szimuláció importálása</translation>
+        <translation type="vanished">eduMedia szimuláció importálása</translation>
     </message>
     <message>
         <source>Window Capture</source>
@@ -841,6 +899,82 @@
     </message>
     <message>
         <source>Capture Web Content</source>
+        <translation>Webtartalom rögzítése</translation>
+    </message>
+    <message>
+        <source>Documents Mode</source>
+        <translation>Dokumentumok üzemmód</translation>
+    </message>
+    <message>
+        <source>Web Mode</source>
+        <translation>Web üzemmód</translation>
+    </message>
+    <message>
+        <source>1</source>
+        <translation>1</translation>
+    </message>
+    <message>
+        <source>2</source>
+        <translation>2</translation>
+    </message>
+    <message>
+        <source>3</source>
+        <translation>3</translation>
+    </message>
+    <message>
+        <source>4</source>
+        <translation>4</translation>
+    </message>
+    <message>
+        <source>5</source>
+        <translation>5</translation>
+    </message>
+    <message>
+        <source>Board Mode</source>
+        <translation>Tábla üzemmód</translation>
+    </message>
+    <message>
+        <source>Desktop</source>
+        <translation>Asztali</translation>
+    </message>
+    <message>
+        <source>Desktop Mode</source>
+        <translation>Asztali üzemmód</translation>
+    </message>
+    <message>
+        <source>Add to document</source>
+        <translation>Hozzáadás a dokumentumhoz</translation>
+    </message>
+    <message>
+        <source>Seyes ruled Light Background</source>
+        <translation>Seyes uralkodott világos háttér</translation>
+    </message>
+    <message>
+        <source>Seyes ruled Dark Background</source>
+        <translation>Seyes uralkodott sötét háttér</translation>
+    </message>
+    <message>
+        <source>Import one or more pages (supported formats : jpg, png, svg, ubz, pdf)</source>
+        <translation>Egy vagy több oldal importálása (támogatott formátumok: jpg, pdf, png, svg, ubz)</translation>
+    </message>
+    <message>
+        <source>Add to favorites</source>
+        <translation type="vanished">Hozzáadás a kedvencekhez</translation>
+    </message>
+    <message>
+        <source>Add Document to favorites</source>
+        <translation>Dokumentum hozzáadása a kedvencekhez</translation>
+    </message>
+    <message>
+        <source>Hints and tips</source>
+        <translation>Tanácsok és tippek</translation>
+    </message>
+    <message>
+        <source>Open Hints and tips</source>
+        <translation>Tanácsok és tippek megnyitása</translation>
+    </message>
+    <message>
+        <source>Favorite</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -858,28 +992,13 @@
         <source>Password:</source>
         <translation>Jelszó:</translation>
     </message>
-</context>
-<context>
-    <name>ProxyDialog</name>
     <message>
-        <source>Proxy Authentication</source>
-        <translation>Proxy hitelesítés</translation>
+        <source>Icon</source>
+        <translation>Ikon</translation>
     </message>
     <message>
-        <source>Connect to Proxy</source>
-        <translation>Kapcsolódás a proxyhoz</translation>
-    </message>
-    <message>
-        <source>Username:</source>
-        <translation>Felhasználónév:</translation>
-    </message>
-    <message>
-        <source>Password:</source>
-        <translation>Jelszó:</translation>
-    </message>
-    <message>
-        <source>Save username and password for future use</source>
-        <translation>Felhasználónév és jelszó mentése</translation>
+        <source>Info</source>
+        <translation>Tajékoztatás</translation>
     </message>
 </context>
 <context>
@@ -890,7 +1009,7 @@
     </message>
     <message>
         <source>Are you sure you want to remove 1 page from the selected document &apos;%0&apos;?</source>
-        <translation>Biztosan szeretné eltávolítani 1 oldalt a kijelölt „%0”-dokumentumból?</translation>
+        <translation type="vanished">Biztosan szeretné eltávolítani 1 oldalt a kijelölt „%0”-dokumentumból?</translation>
     </message>
     <message>
         <source>Element ID = </source>
@@ -902,11 +1021,46 @@
     </message>
     <message>
         <source>Loading scene (%1/%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Jelenet betöltése (%1/%2)</translation>
     </message>
     <message>
         <source>Moving cached scenes (%1/%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Gyorsítótárazott jelenetek áthelyezése (%1/%2)</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove page %1 ?</source>
+        <translation>Biztosan eltávolítja a(z) %1. oldalt?</translation>
+    </message>
+</context>
+<context>
+    <name>TabWidget</name>
+    <message>
+        <source>New &amp;Tab</source>
+        <translation>Új fül &amp;T</translation>
+    </message>
+    <message>
+        <source>Clone Tab</source>
+        <translation>Fül másolása</translation>
+    </message>
+    <message>
+        <source>&amp;Close Tab</source>
+        <translation>Fül bezárása &amp;C</translation>
+    </message>
+    <message>
+        <source>Close &amp;Other Tabs</source>
+        <translation>Többi fül bezárása &amp;O</translation>
+    </message>
+    <message>
+        <source>Reload Tab</source>
+        <translation>Fül frissítése</translation>
+    </message>
+    <message>
+        <source>Reload All Tabs</source>
+        <translation>Minden fül frissítése</translation>
+    </message>
+    <message>
+        <source>(Untitled)</source>
+        <translation>(Névtelen)</translation>
     </message>
 </context>
 <context>
@@ -921,7 +1075,7 @@
     </message>
     <message>
         <source>Cannot open your UBX file directly. Please import it in Documents mode instead</source>
-        <translation type="unfinished"></translation>
+        <translation>Az UBX-fájl közvetlenül nem nyitható meg. Inkább dokumentumok üzemmódban importálja</translation>
     </message>
 </context>
 <context>
@@ -945,10 +1099,6 @@
     <message>
         <source>Update</source>
         <translation>Frissítés</translation>
-    </message>
-    <message>
-        <source>Board drawing...</source>
-        <translation type="vanished">Tábla rajzolása…</translation>
     </message>
 </context>
 <context>
@@ -1020,6 +1170,14 @@
         <source>Color</source>
         <translation>Szín</translation>
     </message>
+    <message>
+        <source>Untitled</source>
+        <translation>Névtelen</translation>
+    </message>
+    <message>
+        <source>Could not find document.</source>
+        <translation>A dokumentum nem található.</translation>
+    </message>
 </context>
 <context>
     <name>UBBoardPaletteManager</name>
@@ -1036,7 +1194,18 @@
     <name>UBBoardThumbnailsView</name>
     <message>
         <source>Loading page (%1/%2)</source>
-        <translation>Oldalak betöltése: %1/%2</translation>
+        <translation type="vanished">Oldalak betöltése: %1/%2</translation>
+    </message>
+</context>
+<context>
+    <name>UBBoardView</name>
+    <message>
+        <source>Is it for Board or Widget ?</source>
+        <translation>Táblára vagy vezérlőre való?</translation>
+    </message>
+    <message>
+        <source>Are you trying to drop the object(s) inside the widget ?</source>
+        <translation>Megpróbálja leejteni a tárgy(oka)t a vezérlőbe?</translation>
     </message>
 </context>
 <context>
@@ -1230,17 +1399,17 @@
     <message numerus="yes">
         <source>duplicated %1 page</source>
         <comment>duplicated %1 pages</comment>
-        <translation type="unfinished">
-            <numerusform>%1 oldal másolata</numerusform>
+        <translation>
+            <numerusform>Megkettőzött %1 oldal</numerusform>
         </translation>
     </message>
     <message>
         <source>Remove Item</source>
-        <translation>Elem eltávolítása</translation>
+        <translation type="vanished">Elem eltávolítása</translation>
     </message>
     <message>
         <source>Are you sure you want to remove the selected item(s) ?</source>
-        <translation>Biztosan szeretné eltávolítani a kijelölt elem(ek)et?</translation>
+        <translation type="vanished">Biztosan szeretné eltávolítani a kijelölt elem(ek)et?</translation>
     </message>
     <message>
         <source>Title page</source>
@@ -1248,7 +1417,91 @@
     </message>
     <message>
         <source>Refreshing Document Thumbnails View (%1/%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentum előképek nézetének frissítése (%1/%2)</translation>
+    </message>
+    <message>
+        <source>Complete deletion of %1 documents/folders</source>
+        <translation>%1 dokumentum/mappa teljes törlése</translation>
+    </message>
+    <message>
+        <source>You are about to permanantly delete %1 documents and/or folders. Are you sure ?</source>
+        <translation>%1 dokumentum és/vagy mappa végleges törlésére készül. Biztos benne?</translation>
+    </message>
+    <message>
+        <source>Complete deletion of folder &quot;%1&quot;</source>
+        <translation>„%1” mappa teljes törlése</translation>
+    </message>
+    <message>
+        <source>You are about to permanantly delete folder &quot;%1&quot;. Are you sure ?</source>
+        <translation>„%1” mappa végleges törlésére készül. Biztos benne?</translation>
+    </message>
+    <message>
+        <source>Complete deletion of document &quot;%1&quot;</source>
+        <translation>„%1” dokumentum teljes törlése</translation>
+    </message>
+    <message>
+        <source>You are about to permanantly delete document &quot;%1&quot;. Are you sure ?</source>
+        <translation>„%1” dokumentum végleges törlésére készül. Biztos benne?</translation>
+    </message>
+    <message>
+        <source>Emptying My Documents</source>
+        <translation>Saját dokumentumok kiürítése</translation>
+    </message>
+    <message>
+        <source>You are about to entirely empty the folder &quot;My Documents&quot;. All your documents will be moved to trash. Are you sure ?</source>
+        <translation>Arra készül, hogy teljesen kiürítse a „Saját dokumentumok” mappát. Minden dokumentuma a kukába kerül. Biztos benne?</translation>
+    </message>
+    <message>
+        <source>Emptying Trash</source>
+        <translation>Kuka ürítése</translation>
+    </message>
+    <message>
+        <source>You are about to entirely empty the trash. All documents and folders in it will be permanently deleted. Are you sure ?</source>
+        <translation>Arra készül, hogy teljesen kiürítse a kukát. A benne lévő összes dokumentum és mappa véglegesen törlődik. Biztos benne?</translation>
+    </message>
+    <message>
+        <source>Moving %1 elements to trash</source>
+        <translation>%1 elem áthelyezése a kukába</translation>
+    </message>
+    <message>
+        <source>You are about to move %1 documents and/or folders to trash. Are you sure ?</source>
+        <translation>Arra készül, hogy %1 dokumentumot és/vagy mappát a kukába helyezze. Biztos benne?</translation>
+    </message>
+    <message>
+        <source>Move folder &quot;%1&quot;to trash</source>
+        <translation>„%1” mappa áthelyezése a kukába</translation>
+    </message>
+    <message>
+        <source>You are about to move folder &quot;%1&quot; to trash. Are you sure ?</source>
+        <translation>Arra készül, hogy a(z) „%1” mappát a kukába helyezze. Biztos benne?</translation>
+    </message>
+    <message>
+        <source>Move document &quot;%1&quot;to trash</source>
+        <translation>„%1” dokumentum áthelyezése a kukába</translation>
+    </message>
+    <message>
+        <source>You are about to move document &quot;%1&quot; to trash. Are you sure ?</source>
+        <translation>Arra készül, hogy a(z) „%1” dokumentumot a kukába helyezze. Biztos benne?</translation>
+    </message>
+    <message>
+        <source>Open Supported File(s)</source>
+        <translation>Támogatott fájl(ok) megnyitása</translation>
+    </message>
+    <message>
+        <source>Moving %1 pages of the document &quot;%2&quot; to trash</source>
+        <translation>„%2” dokumentum %1 oldalának áthelyezése a kukába</translation>
+    </message>
+    <message>
+        <source>You are about to move %1 pages of the document &quot;%2&quot; to trash. Are you sure ?</source>
+        <translation>Arra készül, hogy a(z) „%2” dokumentum %1 oldalát a kukába helyezze. Biztos benne?</translation>
+    </message>
+    <message>
+        <source>Remove page %1</source>
+        <translation>%1 oldal eltávolítása</translation>
+    </message>
+    <message>
+        <source>You are about to remove page %1 of the document &quot;%2&quot;. Are you sure ?</source>
+        <translation>„%2” dokumentum %1 oldalának eltávolítására készül. Biztos benne?</translation>
     </message>
 </context>
 <context>
@@ -1267,7 +1520,7 @@
     </message>
     <message>
         <source>widgets</source>
-        <translation>minialkalmazások</translation>
+        <translation>vezérlők</translation>
     </message>
     <message>
         <source>All supported files (*.%1)</source>
@@ -1298,18 +1551,14 @@
     <name>UBDocumentNavigator</name>
     <message>
         <source>Page %0</source>
-        <translation>%0. oldal</translation>
-    </message>
-    <message>
-        <source>Generating thumbnails for board (%1/%2)</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">%0. oldal</translation>
     </message>
 </context>
 <context>
     <name>UBDocumentReplaceDialog</name>
     <message>
         <source>Accept</source>
-        <translation>Elfogadás</translation>
+        <translation type="vanished">Elfogadás</translation>
     </message>
     <message>
         <source>Replace</source>
@@ -1327,6 +1576,22 @@ Providing a new name will create a new document.</source>
 Ennek a névnek a megtartása helyettesíti a dokumentumot.
 Új név megadása új dokumentumot hoz létre.</translation>
     </message>
+    <message>
+        <source>Rename</source>
+        <translation>Átnevezés</translation>
+    </message>
+    <message>
+        <source>Replace all</source>
+        <translation>Az összes cserése</translation>
+    </message>
+    <message>
+        <source>Skip</source>
+        <translation>Kihagyás</translation>
+    </message>
+    <message>
+        <source>Skip all</source>
+        <translation>Az összes kihagyása</translation>
+    </message>
 </context>
 <context>
     <name>UBDocumentTreeModel</name>
@@ -1340,7 +1605,7 @@ Ennek a névnek a megtartása helyettesíti a dokumentumot.
     </message>
     <message numerus="yes">
         <source>%1 pages copied</source>
-        <translation type="unfinished">
+        <translation>
             <numerusform>%1 oldal másolva</numerusform>
         </translation>
     </message>
@@ -1353,17 +1618,17 @@ Ennek a névnek a megtartása helyettesíti a dokumentumot.
     </message>
     <message numerus="yes">
         <source>%1 pages copied</source>
-        <translation type="unfinished">
+        <translation>
             <numerusform>%1 oldal másolva</numerusform>
         </translation>
     </message>
     <message>
         <source>Remove Item</source>
-        <translation>Elem eltávolítása</translation>
+        <translation type="vanished">Elem eltávolítása</translation>
     </message>
     <message>
         <source>Are you sure you want to remove the selected item(s) ?</source>
-        <translation>Biztosan szeretné eltávolítani a kijelölt elem(ek)et?</translation>
+        <translation type="vanished">Biztosan szeretné eltávolítani a kijelölt elem(ek)et?</translation>
     </message>
 </context>
 <context>
@@ -1393,17 +1658,41 @@ Ennek a névnek a megtartása helyettesíti a dokumentumot.
     </message>
 </context>
 <context>
-    <name>UBDraggableThumbnail</name>
+    <name>UBDraggableLivePixmapItem</name>
     <message>
         <source>Page %0</source>
         <translation>%0. oldal</translation>
     </message>
 </context>
 <context>
+    <name>UBDraggableThumbnail</name>
+    <message>
+        <source>Page %0</source>
+        <translation type="vanished">%0. oldal</translation>
+    </message>
+</context>
+<context>
     <name>UBDraggableThumbnailView</name>
     <message>
         <source>Page %0</source>
-        <translation>Oldal %0</translation>
+        <translation type="vanished">Oldal %0</translation>
+    </message>
+</context>
+<context>
+    <name>UBEmbedController</name>
+    <message>
+        <source>Whole page</source>
+        <translation>Teljes oldal</translation>
+    </message>
+    <message>
+        <source>Web</source>
+        <translation>Web</translation>
+    </message>
+    <message>
+        <source>Application name can`t contain any of the following characters:<byte value="xd"/>
+</source>
+        <translation>Az alkalmazás neve nem tartalmazhatja a következő karakterek egyikét sem:<byte value="xd"/>
+</translation>
     </message>
 </context>
 <context>
@@ -1511,6 +1800,10 @@ Ennek a névnek a megtartása helyettesíti a dokumentumot.
     <message>
         <source>Export to PDF</source>
         <translation>Exportálás PDFbe</translation>
+    </message>
+    <message>
+        <source>The original PDF imported in OpenBoard seems not valid and could not be merged with your annotations. Please repair it and then reimport it in OpenBoard. The current export will be done with detailed (heavy) images of the pages of the original PDF instead, to avoid complete export failure.</source>
+        <translation>Úgy tűnik, hogy az OpenBoardba importált eredeti PDF érvénytelen, és nem egyesíthető a megjegyzésekkel. Kérjük, javítsa meg, majd importálja újra az OpenBoardba. A teljes exportálási hiba elkerülése érdekében az aktuális exportálás az eredeti PDF oldalainak részletes (súlyos) képeivel történik.</translation>
     </message>
 </context>
 <context>
@@ -1624,10 +1917,6 @@ Ennek a névnek a megtartása helyettesíti a dokumentumot.
         <translation>Képek</translation>
     </message>
     <message>
-        <source>Animations</source>
-        <translation type="vanished">Animációk</translation>
-    </message>
-    <message>
         <source>Interactivities</source>
         <translation>Interaktívok</translation>
     </message>
@@ -1684,6 +1973,10 @@ Ennek a névnek a megtartása helyettesíti a dokumentumot.
         <source>Visible on Extended Screen</source>
         <translation>Látható a kiterjesztett képernyőn</translation>
     </message>
+    <message>
+        <source>Hide on Extended Screen when selected</source>
+        <translation>Elrejtés a kiterjesztett képernyőn, ha kijelölve van</translation>
+    </message>
 </context>
 <context>
     <name>UBGraphicsItemDelegate</name>
@@ -1696,12 +1989,16 @@ Ennek a névnek a megtartása helyettesíti a dokumentumot.
         <translation>Látható a kiterjesztett képernyőn</translation>
     </message>
     <message>
-        <source>Go to Content Source</source>
-        <translation>Ugrás a tartalom forrásához</translation>
-    </message>
-    <message>
         <source>Set as background</source>
         <translation>Beállítás háttérként</translation>
+    </message>
+    <message>
+        <source>Web Inspector</source>
+        <translation>Webvizsgáló</translation>
+    </message>
+    <message>
+        <source>Hide on Extended Screen when selected</source>
+        <translation>Elrejtés a kiterjesztett képernyőn, ha kijelölve van</translation>
     </message>
 </context>
 <context>
@@ -1970,11 +2267,11 @@ Figyelmen kívül hagyja ezeket a hibákat ennél a hosztnál?</translation>
     </message>
     <message>
         <source>Renaming pages (%1/%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Oldalak átnevezése (%1/%2)</translation>
     </message>
     <message>
         <source>Retrieving all your documents (found : %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Az összes dokumentum lekérése (találva: %1)</translation>
     </message>
 </context>
 <context>
@@ -2073,39 +2370,9 @@ Figyelmen kívül hagyja ezeket a hibákat ennél a hosztnál?</translation>
         <source>Marker is pressure sensitive</source>
         <translation>A jelölőtoll nyomásérzékeny</translation>
     </message>
-</context>
-<context>
-    <name>UBProxyLoginDlg</name>
     <message>
-        <source>Proxy Login</source>
-        <translation type="vanished">Proxy bejelentkezés</translation>
-    </message>
-    <message>
-        <source>Username:</source>
-        <translation type="vanished">Felhasználónév:</translation>
-    </message>
-    <message>
-        <source>Password:</source>
-        <translation type="vanished">Jelszó:</translation>
-    </message>
-</context>
-<context>
-    <name>UBPublicationDlg</name>
-    <message>
-        <source>Publish document on the web</source>
-        <translation type="vanished">Dokumentum közzététele az interneten</translation>
-    </message>
-    <message>
-        <source>Title:</source>
-        <translation type="vanished">Cím:</translation>
-    </message>
-    <message>
-        <source>Description:</source>
-        <translation type="vanished">Leírás:</translation>
-    </message>
-    <message>
-        <source>Publish</source>
-        <translation type="vanished">Közzététel</translation>
+        <source>Use all available displays</source>
+        <translation>Az összes elérhető kijelző használata</translation>
     </message>
 </context>
 <context>
@@ -2140,12 +2407,8 @@ Figyelmen kívül hagyja ezeket a hibákat ennél a hosztnál?</translation>
         <translation>%1 előkép létrehozva…</translation>
     </message>
     <message>
-        <source>loading thumbnail of page %1</source>
-        <translation type="vanished">%1. oldal előképének betöltése</translation>
-    </message>
-    <message>
         <source>Loading thumbnail (%1/%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Indexkép betöltése (%1/%2)</translation>
     </message>
 </context>
 <context>
@@ -2188,17 +2451,6 @@ Figyelmen kívül hagyja ezeket a hibákat ennél a hosztnál?</translation>
     <message>
         <source>Axes</source>
         <translation>Tengelyek</translation>
-    </message>
-</context>
-<context>
-    <name>UBTrapFlashController</name>
-    <message>
-        <source>Whole page</source>
-        <translation>Teljes oldal</translation>
-    </message>
-    <message>
-        <source>Web</source>
-        <translation>Web</translation>
     </message>
 </context>
 <context>
@@ -2254,17 +2506,10 @@ Please reboot the application to access the updated documents.</source>
     </message>
 </context>
 <context>
-    <name>UBWebPluginWidget</name>
+    <name>UBWebEngineView</name>
     <message>
-        <source>Loading...</source>
-        <translation>Betöltés folyamatban van…</translation>
-    </message>
-</context>
-<context>
-    <name>UBWidgetUniboardAPI</name>
-    <message>
-        <source>%0 called (method=%1, status=%2)</source>
-        <translation>%0 called (method=%1, status=%2)</translation>
+        <source>Open Web Inspector</source>
+        <translation>Webvizsgáló megnyítása</translation>
     </message>
 </context>
 <context>
@@ -2353,85 +2598,6 @@ Please reboot the application to access the updated documents.</source>
     </message>
 </context>
 <context>
-    <name>WBClearButton</name>
-    <message>
-        <source>Clear</source>
-        <translation>Tisztítás</translation>
-    </message>
-</context>
-<context>
-    <name>WBDownloadItem</name>
-    <message>
-        <source>Save File</source>
-        <translation>Fájl mentése</translation>
-    </message>
-    <message>
-        <source>Download canceled: %1</source>
-        <translation>Letölés megszakítva: %1</translation>
-    </message>
-    <message>
-        <source>Error opening saved file: %1</source>
-        <translation>Hiba a mentett állomány megnyitása közben: %1</translation>
-    </message>
-    <message>
-        <source>Error saving: %1</source>
-        <translation>Hiba a mentés közben: %1</translation>
-    </message>
-    <message>
-        <source>Network Error: %1</source>
-        <translation>Hálózati hiba: %1</translation>
-    </message>
-    <message>
-        <source>seconds</source>
-        <translation>másodperc</translation>
-    </message>
-    <message>
-        <source>minutes</source>
-        <translation>perc</translation>
-    </message>
-    <message>
-        <source>- %4 %5 remaining</source>
-        <translation>- %4 %5 maradt</translation>
-    </message>
-    <message>
-        <source>%1 of %2 (%3/sec) %4</source>
-        <translation>%1/%2 (%3/mp) %4</translation>
-    </message>
-    <message>
-        <source>?</source>
-        <comment>unknown file size</comment>
-        <translation>?</translation>
-    </message>
-    <message>
-        <source>%1 of %2 - Stopped</source>
-        <translation>%1/%2 - Megállítva</translation>
-    </message>
-    <message>
-        <source>bytes</source>
-        <translation>byte</translation>
-    </message>
-    <message>
-        <source>KB</source>
-        <translation>KB</translation>
-    </message>
-    <message>
-        <source>MB</source>
-        <translation>MB</translation>
-    </message>
-</context>
-<context>
-    <name>WBDownloadManager</name>
-    <message>
-        <source>1 Download</source>
-        <translation>1 Letöltés</translation>
-    </message>
-    <message>
-        <source>%1 Downloads</source>
-        <comment>always &gt;= 2</comment>
-        <translation>%1 Letöltés</translation>
-    </message>
-</context>
-<context>
     <name>WBHistoryModel</name>
     <message>
         <source>Title</source>
@@ -2454,97 +2620,91 @@ Please reboot the application to access the updated documents.</source>
     </message>
 </context>
 <context>
-    <name>WBSearchLineEdit</name>
+    <name>WebPage</name>
     <message>
-        <source>Search</source>
-        <translation>Keresés</translation>
+        <source>Certificate Error</source>
+        <translation>Tanúsítványhiba</translation>
+    </message>
+    <message>
+        <source>Enter username and password for &quot;%1&quot; at %2</source>
+        <translation>A(z) „%1” felhasználóneve és jelszava megadása itt: %2</translation>
+    </message>
+    <message>
+        <source>Allow %1 to access your location information?</source>
+        <translation>Engedélyezi %1, hogy hozzáférjen a helyadataihoz?</translation>
+    </message>
+    <message>
+        <source>Allow %1 to access your microphone?</source>
+        <translation>Engedélyezi %1, hogy hozzáférjen a mikrofonhoz?</translation>
+    </message>
+    <message>
+        <source>Allow %1 to access your webcam?</source>
+        <translation>Engedélyezi %1, hogy hozzáférjen a kamerához?</translation>
+    </message>
+    <message>
+        <source>Allow %1 to access your microphone and webcam?</source>
+        <translation>Engedélyezi %1, hogy hozzáférjen a mikrofonhoz és a kamerához?</translation>
+    </message>
+    <message>
+        <source>Allow %1 to lock your mouse cursor?</source>
+        <translation>Engedélyezi %1, hogy zárolja az egérkurzort?</translation>
+    </message>
+    <message>
+        <source>Allow %1 to capture video of your desktop?</source>
+        <translation>Engedélyezi %1, hogy rögzítse az asztalán lévő videót?</translation>
+    </message>
+    <message>
+        <source>Allow %1 to capture audio and video of your desktop?</source>
+        <translation>Engedélyezi %1, hogy hangot és videót rögzítsen az asztaláról?</translation>
+    </message>
+    <message>
+        <source>Permission Request</source>
+        <translation>Engedélykérelem</translation>
+    </message>
+    <message>
+        <source>Connect to proxy &quot;%1&quot; using:</source>
+        <translation>Csatlakozás a &quot;%1&quot; proxyhoz a következő használatával:</translation>
+    </message>
+    <message>
+        <source>Allow %1 to open all %2 links?</source>
+        <translation>Engedélyezi %1, hogy megnyissa mind a(z) %2 hivatkozást?</translation>
     </message>
 </context>
 <context>
-    <name>WBTabBar</name>
+    <name>WebView</name>
     <message>
-        <source>New &amp;Tab</source>
-        <translation>Új &amp;Lap</translation>
+        <source>Render process normal exit</source>
+        <translation>Renderelési folyamat normál kilépése</translation>
     </message>
     <message>
-        <source>Clone Tab</source>
-        <translation>Lap másolása</translation>
+        <source>Render process abnormal exit</source>
+        <translation>Renderelési folyamat rendellenes kilépése</translation>
     </message>
     <message>
-        <source>&amp;Close Tab</source>
-        <translation>Fül bezárása &amp;C</translation>
+        <source>Render process crashed</source>
+        <translation>Renderelési folyamat összeomlott</translation>
     </message>
     <message>
-        <source>Close &amp;Other Tabs</source>
-        <translation>&amp;Többi lap bezárása</translation>
+        <source>Render process killed</source>
+        <translation>Renderelési folyamat megszakadt</translation>
     </message>
     <message>
-        <source>Reload Tab</source>
-        <translation>Lap újratöltése</translation>
+        <source>Render process exited with code: %1
+Do you want to reload the page ?</source>
+        <translation>A renderelési folyamat a következő kóddal fejeződött be: %1
+Újra szeretné tölteni az oldalt?</translation>
     </message>
     <message>
-        <source>Reload All Tabs</source>
-        <translation>Minden lap újratöltése</translation>
-    </message>
-</context>
-<context>
-    <name>WBTabWidget</name>
-    <message>
-        <source>Recently Closed Tabs</source>
-        <translation>Mostanában bezárt fülek</translation>
+        <source>Open Web Inspector in new window</source>
+        <translation>Webvizsgáló megnyítása új ablakban</translation>
     </message>
     <message>
-        <source>(Untitled)</source>
-        <translation>(Névtelen)</translation>
-    </message>
-</context>
-<context>
-    <name>WBToolbarSearch</name>
-    <message>
-        <source>Search</source>
-        <translation>Keresés</translation>
+        <source>Inspect element</source>
+        <translation>Elem vizsgálata</translation>
     </message>
     <message>
-        <source>No Recent Searches</source>
-        <translation>Nincs keresési előzmény</translation>
-    </message>
-    <message>
-        <source>Recent Searches</source>
-        <translation>Keresési előzmények</translation>
-    </message>
-    <message>
-        <source>Clear Recent Searches</source>
-        <translation>Keresési előzmények törlése</translation>
-    </message>
-</context>
-<context>
-    <name>WBWebPage</name>
-    <message>
-        <source>Download</source>
-        <translation>Letöltés</translation>
-    </message>
-    <message>
-        <source>Add to Current Document</source>
-        <translation>Hozzaadás a jelenlegi dokumentumhoz</translation>
-    </message>
-    <message>
-        <source>PDF</source>
-        <translation>PDF</translation>
-    </message>
-    <message>
-        <source>Error loading page: %1</source>
-        <translation>Hiba a %1 . oldal betöltése közben</translation>
-    </message>
-    <message>
-        <source>Download PDF Document: would you prefer to download the PDF file or add it to the current OpenBoard document?</source>
-        <translation>PDF letöltése: Jobban szeretné letölteni a PDF fájlt vagy hozzáadné az aktuális dokumentumhoz?</translation>
-    </message>
-</context>
-<context>
-    <name>WBWebView</name>
-    <message>
-        <source>Open in New Tab</source>
-        <translation>Megnyitás új fülön</translation>
+        <source>Add to board</source>
+        <translation>Hozzáadás a táblához</translation>
     </message>
 </context>
 <context>
@@ -2552,6 +2712,10 @@ Please reboot the application to access the updated documents.</source>
     <message>
         <source>Processing...</source>
         <translation>Feldolgozás folyamatban van…</translation>
+    </message>
+    <message>
+        <source>an error occured while trying to open the PDF file</source>
+        <translation>Hiba történt a PDF-fájl megnyitásakor</translation>
     </message>
 </context>
 <context>
@@ -2798,7 +2962,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Swap control display and view display</source>
-        <translation>Vezérlő és megjelenítő kijelző megcserélése</translation>
+        <translation type="vanished">Vezérlő és megjelenítő kijelző megcserélése</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -2862,7 +3026,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Swap first and second view displays</source>
-        <translation>Első és második kijelző megcserélése</translation>
+        <translation type="vanished">Első és második kijelző megcserélése</translation>
     </message>
     <message>
         <source>Documents Mode</source>
@@ -2882,18 +3046,38 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>PDF Rendering</source>
-        <translation>PDF-megjelenítő</translation>
+        <translation type="vanished">PDF-megjelenítő</translation>
     </message>
     <message>
         <source>Improve zoom execution time (can slightly affect rendering quality)</source>
         <translation>Nagyitás végrehajtási idő csökkentése (némileg befolyásolhatja a renderelés minőségét)</translation>
+    </message>
+    <message>
+        <source>PDF</source>
+        <translation>PDF</translation>
+    </message>
+    <message>
+        <source>Export background grid</source>
+        <translation>Háttérrács exportálása</translation>
+    </message>
+    <message>
+        <source>Export background color</source>
+        <translation>Háttérszín exportálása</translation>
+    </message>
+    <message>
+        <source>Documents</source>
+        <translation>Dokumentumok</translation>
+    </message>
+    <message>
+        <source>List of screens used for Control, Display and Previous pages</source>
+        <translation>A vezérléshez, megjelenítéshez és az előző oldalakhoz használt képernyők listája</translation>
     </message>
 </context>
 <context>
     <name>trapFlashDialog</name>
     <message>
         <source>Trap flash</source>
-        <translation>Flash rögzítése</translation>
+        <translation type="vanished">Flash rögzítése</translation>
     </message>
     <message>
         <source>Select a flash to trap</source>
@@ -2913,7 +3097,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Select a content to capture</source>
-        <translation type="unfinished"></translation>
+        <translation>Rögzítendő tartalom megjelölése</translation>
+    </message>
+    <message>
+        <source>Capture Web Content</source>
+        <translation>Webtartalom rögzítése</translation>
     </message>
 </context>
 </TS>

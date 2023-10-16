@@ -32,6 +32,7 @@
 
 #include <QtGui>
 #include <QDialog>
+#include <QLineEdit>
 
 class UBColorPicker;
 class UBApplication;
@@ -52,7 +53,7 @@ class UBPreferencesDialog : public QDialog
     Q_OBJECT;
 
 public:
-    UBPreferencesDialog(UBPreferencesController* prefController, QWidget* parent = 0,Qt::WindowFlags f = 0 );
+    UBPreferencesDialog(UBPreferencesController* prefController, QWidget* parent = 0, Qt::WindowFlags f = {} );
     ~UBPreferencesDialog();
 
 protected:
@@ -85,6 +86,7 @@ class UBPreferencesController : public QObject
         UBBrushPropertiesFrame* mMarkerProperties;
         UBColorPicker* mDarkBackgroundGridColorPicker;
         UBColorPicker* mLightBackgroundGridColorPicker;
+        QString mScreenConfigurationPath;
 
     protected slots:
 
@@ -105,14 +107,12 @@ class UBPreferencesController : public QObject
         void setPdfZoomBehavior(bool checked);
 
     private slots:
-        void adjustScreens(int screen);
+        void adjustScreensPreferences();
 
     private:
         static qreal sSliderRatio;
         static qreal sMinPenWidth;
         static qreal sMaxPenWidth;
-        QDesktopWidget* mDesktop;
-
 };
 
 class UBBrushPropertiesFrame : public Ui::brushProperties
@@ -126,6 +126,53 @@ class UBBrushPropertiesFrame : public Ui::brushProperties
         QList<UBColorPicker*> lightBackgroundColorPickers;
         QList<UBColorPicker*> darkBackgroundColorPickers;
 
+};
+
+// forward
+class UBStringListValidator;
+
+class UBScreenListLineEdit : public QLineEdit
+{
+    Q_OBJECT;
+
+public:
+    UBScreenListLineEdit(QWidget* parent);
+    virtual ~UBScreenListLineEdit() = default;
+
+    void setDefault();
+    void loadScreenList(const QStringList& screenList);
+
+protected:
+    virtual void focusInEvent(QFocusEvent* focusEvent) override;
+    virtual void focusOutEvent(QFocusEvent* focusEvent) override;
+
+signals:
+    void screenListChanged(QStringList screenList);
+
+private slots:
+    void addScreen();
+    void onTextChanged(const QString& input);
+
+private:
+    QList<QPushButton*> mScreenLabels;
+    UBStringListValidator* mValidator;
+};
+
+class UBStringListValidator : public QValidator
+{
+    Q_OBJECT;
+
+public:
+    UBStringListValidator(QObject* parent = nullptr);
+    virtual ~UBStringListValidator() = default;
+
+    virtual void fixup(QString& input) const;
+    virtual QValidator::State validate(QString& input, int& pos) const;
+
+    void setValidationStringList(const QStringList& list);
+
+private:
+    QStringList mList;
 };
 
 #endif /* UBPREFERENCESCONTROLLER_H_ */

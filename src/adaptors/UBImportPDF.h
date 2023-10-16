@@ -47,11 +47,8 @@ class UBImportPDF : public UBPageBasedImportAdaptor
         virtual QString importFileFilter();
 
         virtual QList<UBGraphicsItem*> import(const QUuid& uuid, const QString& filePath);
-        virtual void placeImportedItemToScene(UBGraphicsScene* scene, UBGraphicsItem* item);
+        virtual void placeImportedItemToScene(std::shared_ptr<UBGraphicsScene> scene, UBGraphicsItem* item);
         virtual const QString& folderToCopy();
-
-    private:
-        int dpi;
 };
 
 #endif /* UBIMPORTPDF_H_ */

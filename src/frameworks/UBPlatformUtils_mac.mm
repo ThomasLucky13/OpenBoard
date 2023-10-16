@@ -29,11 +29,13 @@
 #include "MacUtils.h"
 #include "UBPlatformUtils.h"
 #include "core/UBApplication.h"
+#include "core/UBDisplayManager.h"
 #include "core/UBSettings.h"
 #include "frameworks/UBFileSystemUtils.h"
 #include "gui/UBMainWindow.h"
 
 #include <QWidget>
+#include <QRegularExpression>
 
 #import <Foundation/NSAutoreleasePool.h>
 #import <Cocoa/Cocoa.h>
@@ -85,7 +87,7 @@ void UBPlatformUtils::init()
 }
 
 
-void UBPlatformUtils::setDesktopMode(bool desktop)
+void UBPlatformUtils::hideMenuBarAndDock()
 {
 
     @try {
@@ -204,16 +206,21 @@ void UBPlatformUtils::fadeDisplayIn()
     }
 }
 
+bool UBPlatformUtils::hasSystemOnScreenKeyboard()
+{
+    return true;
+}
+
 QStringList UBPlatformUtils::availableTranslations()
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSString *lprojPath = [[NSBundle mainBundle] resourcePath];
     QString translationsPath =  QString::fromUtf8([lprojPath UTF8String], strlen([lprojPath UTF8String]));
     QStringList translationsList = UBFileSystemUtils::allFiles(translationsPath, false);
-    QRegExp sankoreTranslationFiles(".*lproj");
+    QRegularExpression sankoreTranslationFiles(".*lproj");
     translationsList=translationsList.filter(sankoreTranslationFiles);
     [pool drain];
-    return translationsList.replaceInStrings(QRegExp("(.*)/(.*).lproj"),"\\2");
+    return translationsList.replaceInStrings(QRegularExpression("(.*)/(.*).lproj"),"\\2");
 }
 
 QString UBPlatformUtils::translationPath(QString pFilePrefix, QString pLanguage)
@@ -607,17 +614,22 @@ void UBPlatformUtils::showFullScreen(QWidget *pWidget)
      * Since it is impossible to later set different presentation options (i.e Hide dock & menu bar)
      * to NSApplication, we have to avoid calling QWidget::showFullScreen on OSX.
     */
-    
-    pWidget->showMaximized();
 
-    /* Bit of a hack. On OS X 10.10, showMaximized() resizes the widget to full screen (if the dock and
-     * menu bar are hidden); but on 10.9, it is placed in the "available" screen area (i.e the
-     * screen area minus the menu bar and dock area). So we have to manually resize it to the
-     * total screen height, and move it up to the top of the screen (y=0 position). */
+    if (UBSettings::settings()->appRunInWindow->get().toBool() &&
+            pWidget == UBApplication::displayManager->widget(ScreenRole::Control)) {
+        pWidget->show();
+    } else {
+        pWidget->showMaximized();
 
-    QRect currentScreenRect = QApplication::desktop()->screenGeometry(pWidget);
-    pWidget->resize(currentScreenRect.width(), currentScreenRect.height());
-    pWidget->move(currentScreenRect.left(), currentScreenRect.top());
+        /* Bit of a hack. On OS X 10.10, showMaximized() resizes the widget to full screen (if the dock and
+         * menu bar are hidden); but on 10.9, it is placed in the "available" screen area (i.e the
+         * screen area minus the menu bar and dock area). So we have to manually resize it to the
+         * total screen height, and move it up to the top of the screen (y=0 position). */
+
+        QRect currentScreenRect = QGuiApplication::screenAt(pWidget->geometry().topLeft())->geometry();
+        pWidget->resize(currentScreenRect.width(), currentScreenRect.height());
+        pWidget->move(currentScreenRect.left(), currentScreenRect.top());
+    }
 }
 
 

@@ -448,15 +448,15 @@ void UBGraphicsProtractor::paintGraduations(QPainter *painter)
             QString grad = QString("%1").arg((int)(angle));
             QString grad2 = QString("%1").arg((int)(mSpan - angle));
 
-            painter->drawText(QRectF(center.x() + (rad - graduationLength*1.5)*co  - fm1.width(grad)/2,
+            painter->drawText(QRectF(center.x() + (rad - graduationLength*1.5)*co  - fm1.horizontalAdvance(grad)/2,
                                      center.y() - (rad - graduationLength*1.5)*si - fm1.height()/2,
-                                     fm1.width(grad), fm1.height()), Qt::AlignTop, grad);
+                                     fm1.horizontalAdvance(grad), fm1.height()), Qt::AlignTop, grad);
 
             //internal arc
             painter->setFont(font2);
-            painter->drawText(QRectF(center.x() + (rad/2 + graduationLength*1.5)*co  - fm2.width(grad2)/2,
+            painter->drawText(QRectF(center.x() + (rad/2 + graduationLength*1.5)*co  - fm2.horizontalAdvance(grad2)/2,
                                      center.y() - (rad/2 + graduationLength*1.5)*si - fm2.height()/2,
-                                     fm2.width(grad2), fm2.height()), Qt::AlignTop, grad2);
+                                     fm2.horizontalAdvance(grad2), fm2.height()), Qt::AlignTop, grad2);
             painter->setFont(font1);
 
         }
@@ -543,9 +543,9 @@ void UBGraphicsProtractor::paintAngleMarker(QPainter *painter)
 
         co = cos((mStartAngle + angle) * PI/180);
         si = sin((mStartAngle + angle) * PI/180);
-        painter->drawText(QRectF(rect().center().x() + (rad*2.5/10)*co  - fm2.width(ang)/2,
+        painter->drawText(QRectF(rect().center().x() + (rad*2.5/10)*co  - fm2.horizontalAdvance(ang)/2,
                                  rect().center().y() - (rad*2.5/10)*si - fm2.height()/2,
-                                 fm2.width(ang), fm2.height()), Qt::AlignTop, ang);
+                                 fm2.horizontalAdvance(ang), fm2.height()), Qt::AlignTop, ang);
     }
 
     painter->restore();
@@ -585,9 +585,10 @@ UBGraphicsProtractor::Tool UBGraphicsProtractor::toolFromPos(QPointF pos)
 }
 
 
-UBGraphicsScene* UBGraphicsProtractor::scene() const
+std::shared_ptr<UBGraphicsScene> UBGraphicsProtractor::scene() const
 {
-    return static_cast<UBGraphicsScene*>(QGraphicsEllipseItem::scene());
+    auto scenePtr = dynamic_cast<UBGraphicsScene*>(QGraphicsEllipseItem::scene());
+    return scenePtr ? scenePtr->shared_from_this() : nullptr;
 }
 
 QBrush UBGraphicsProtractor::fillBrush() const

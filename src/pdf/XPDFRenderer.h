@@ -80,10 +80,12 @@ class XPDFRenderer : public PDFRenderer
         XPDFRenderer(const QString &filename, bool importingFile = false);
         virtual ~XPDFRenderer();
 
+        void initPDFZoomData();
         virtual bool isValid() const override;
         virtual int pageCount() const override;
         virtual QSizeF pageSizeF(int pageNumber) const override;
         virtual int pageRotation(int pageNumber) const override;
+        virtual QSizeF pointSizeF(int pageNumber) const override;
         virtual QString title() const override;
         virtual void render(QPainter *p, int pageNumber, const bool cacheAllowed, const QRectF &bounds = QRectF()) override;
 
@@ -167,7 +169,7 @@ class XPDFRenderer : public PDFRenderer
         // =2, has 2.5, 5 and 10 (= no loss, but a bit slower).
         // =3, has 1.0, 2.5, 5 and 10, but downsampled instead of upsampled (= minor quality loss, a bit faster).
         // =4, multithreaded, multiple level of zoom.
-        QVector<PdfZoomCacheData> m_pdfZoomCache;
+        QMap<int, QVector<PdfZoomCacheData>> m_perPagepdfZoomCache;
         int const m_pdfZoomMode;
 
         // Used when 'ZoomBehavior == 0' (no cache).

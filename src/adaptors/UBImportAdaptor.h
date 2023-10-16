@@ -62,7 +62,7 @@ protected:
 
 public:
         virtual QList<UBGraphicsItem*> import(const QUuid& uuid, const QString& filePath) = 0;
-        virtual void placeImportedItemToScene(UBGraphicsScene* scene, UBGraphicsItem* item) = 0;
+        virtual void placeImportedItemToScene(std::shared_ptr<UBGraphicsScene> scene, UBGraphicsItem* item) = 0;
         virtual const QString& folderToCopy() = 0;
 };
 
@@ -71,8 +71,8 @@ class UBDocumentBasedImportAdaptor : public UBImportAdaptor
 protected:
         UBDocumentBasedImportAdaptor(QObject *parent = 0);
 public:
-    virtual UBDocumentProxy* importFile(const QFile& pFile, const QString& pGroup) = 0;
-    virtual bool addFileToDocument(UBDocumentProxy* pDocument, const QFile& pFile) = 0;
+    virtual std::shared_ptr<UBDocumentProxy> importFile(const QFile& pFile, const QString& pGroup) = 0;
+    virtual bool addFileToDocument(std::shared_ptr<UBDocumentProxy> pDocument, const QFile& pFile) = 0;
 };
 
 

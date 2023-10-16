@@ -45,11 +45,10 @@
 
 #include <QLabel>
 #include <QHBoxLayout>
+#include <QElapsedTimer>
 
 
 #define STARTDRAGTIME   1000000
-#define BUTTONSIZE      96
-#define BUTTONSPACING 10
 
 class UBDocumentProxy;
 class UBThumbnailTextItem;
@@ -139,10 +138,10 @@ class UBThumbnailWidget : public QGraphicsView
         int mSelectionSpan;
         QRectF mPrevLassoRect;
         QGraphicsRectItem *mLassoRectItem;
-        QSet<QGraphicsItem*> mSelectedThumbnailItems;
+        QList<QGraphicsItem*> mSelectedThumbnailItems;
         QSet<QGraphicsItem*> mPreviouslyIncrementalSelectedItemsX;
         QSet<QGraphicsItem*> mPreviouslyIncrementalSelectedItemsY;
-        QTime mClickTime;
+        QElapsedTimer mClickTime;
 };
 
 class UBThumbnail
@@ -290,9 +289,42 @@ class UBThumbnailTextItem : public QGraphicsTextItem
         bool mIsHighlighted;
 };
 
+class UBWidgetTextThumbnailElement
+{
+protected:
+    QGraphicsItem* thumbnail;
+    UBThumbnailTextItem* caption;
+    int border;
+
+public:
+    UBWidgetTextThumbnailElement(QGraphicsProxyWidget* proxyWidget, UBThumbnailTextItem* text)
+        : thumbnail(proxyWidget)
+        , caption(text)
+        , border(0)
+    {
+    }
+
+    QGraphicsItem* getThumbnail() const { return this->thumbnail; }
+    void setThumbnail(QGraphicsItem* newGItem) { this->thumbnail = newGItem; }
+
+    UBThumbnailTextItem* getCaption() const { return this->caption; }
+    void setCaption(UBThumbnailTextItem* newcaption) { this->caption = newcaption; }
+
+    void Place(int row, int col, qreal width, qreal height);
+
+    int getBorder() const { return this->border; }
+    void setBorder(int newBorder) { this->border = newBorder; }
+};
+
 class UBThumbnailPixmap : public QGraphicsPixmapItem, public UBThumbnail
 {
     public:
+        UBThumbnailPixmap(const QPixmap& pix, std::shared_ptr<UBDocumentProxy> proxy, int pSceneIndex)
+            : QGraphicsPixmapItem(pix)
+        {
+
+        }
+
         UBThumbnailPixmap(const QPixmap& pix)
             : QGraphicsPixmapItem(pix)
         {
@@ -301,18 +333,12 @@ class UBThumbnailPixmap : public QGraphicsPixmapItem, public UBThumbnail
             setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
         }
 
-        virtual ~UBThumbnailPixmap()
-        {
-            // NOOP
-        }
-
         virtual QPainterPath shape () const
         {
             QPainterPath path;
             path.addRect(boundingRect());
             return path;
         }
-
 
         virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
         {
@@ -324,15 +350,15 @@ class UBThumbnailPixmap : public QGraphicsPixmapItem, public UBThumbnail
         {
             UBThumbnail::itemChange(this, change, value);
             return QGraphicsPixmapItem::itemChange(change, value);
-        }
+        }      
 };
 
 class UBSceneThumbnailPixmap : public UBThumbnailPixmap
 {
     public:
-        UBSceneThumbnailPixmap(const QPixmap& pix, UBDocumentProxy* proxy, int pSceneIndex)
+        UBSceneThumbnailPixmap(const QPixmap& pix, std::shared_ptr<UBDocumentProxy> proxy, int pSceneIndex)
             : UBThumbnailPixmap(pix)
-            , mProxy(proxy)
+            , mDocumentProxy(proxy)
             , mSceneIndex(pSceneIndex)
         {
             // NOOP
@@ -343,9 +369,9 @@ class UBSceneThumbnailPixmap : public UBThumbnailPixmap
             // NOOP
         }
 
-        UBDocumentProxy* proxy()
+        std::shared_ptr<UBDocumentProxy> documentProxy()
         {
-            return mProxy;
+            return mDocumentProxy;
         }
 
         int sceneIndex()
@@ -360,18 +386,18 @@ class UBSceneThumbnailPixmap : public UBThumbnailPixmap
 
         void highlight()
         {
-            //NOOP
+
         }
 
     private:
-        UBDocumentProxy* mProxy;
+        std::shared_ptr<UBDocumentProxy> mDocumentProxy;
         int mSceneIndex;
 };
 
 class UBSceneThumbnailNavigPixmap : public UBSceneThumbnailPixmap
 {
     public:
-        UBSceneThumbnailNavigPixmap(const QPixmap& pix, UBDocumentProxy* proxy, int pSceneIndex);
+        UBSceneThumbnailNavigPixmap(const QPixmap& pix, std::shared_ptr<UBDocumentProxy> proxy, int pSceneIndex);
         ~UBSceneThumbnailNavigPixmap();
 
         bool editable()
@@ -381,7 +407,7 @@ class UBSceneThumbnailNavigPixmap : public UBSceneThumbnailPixmap
 
         bool deletable()
         {
-            return proxy()->pageCount() > 1;
+            return documentProxy()->pageCount() > 1;
         }
 
         bool movableUp()
@@ -391,7 +417,7 @@ class UBSceneThumbnailNavigPixmap : public UBSceneThumbnailPixmap
 
         bool movableDown()
         {
-            return sceneIndex() < (proxy()->pageCount() -1);
+            return sceneIndex() < (documentProxy()->pageCount() -1);
         }
 
         void showUI()
@@ -450,17 +476,17 @@ public:
     void setBorder(int newBorder) { this->border = newBorder; }
 };
 
-class UBThumbnailProxyWidget : public QGraphicsProxyWidget
+class UBThumbnailPixmapItem : public QGraphicsPixmapItem
 {
     public:
-        UBThumbnailProxyWidget(UBDocumentProxy* proxy, int index)
+        UBThumbnailPixmapItem(std::shared_ptr<UBDocumentProxy> proxy, int index)
             : mDocumentProxy(proxy)
             , mSceneIndex(index)
         {
 
         }
 
-        UBDocumentProxy* documentProxy()
+        std::shared_ptr<UBDocumentProxy> documentProxy()
         {
             return mDocumentProxy;
         }
@@ -476,25 +502,20 @@ class UBThumbnailProxyWidget : public QGraphicsProxyWidget
         }
 
 private:
-        UBDocumentProxy* mDocumentProxy;
+        std::shared_ptr<UBDocumentProxy> mDocumentProxy;
         int mSceneIndex;
 };
 
-class UBDraggableThumbnail : public UBThumbnailProxyWidget
+class UBDraggableThumbnailItem : public QObject, public UBThumbnailPixmapItem
 {
     Q_OBJECT
+
     public:
-        UBDraggableThumbnail(UBDocumentProxy* documentProxy, int index)
-        : UBThumbnailProxyWidget(documentProxy, index)
-        , mPageNumber(new UBThumbnailTextItem(index))
+        UBDraggableThumbnailItem(std::shared_ptr<UBDocumentProxy> documentProxy, int index)
+        : UBThumbnailPixmapItem(documentProxy, index)
         , mEditable(false)
         {
-
-        }
-
-        ~UBDraggableThumbnail()
-        {
-            delete mPageNumber; // not a child of "this" QObject so it has to be deleted manually
+            setAcceptHoverEvents(true);
         }
 
         bool editable()
@@ -532,23 +553,6 @@ class UBDraggableThumbnail : public UBThumbnailProxyWidget
             mEditable = editable;
         }
 
-        UBThumbnailTextItem* pageNumber()
-        {
-            return mPageNumber;
-        }
-
-        void setPageNumber(int i)
-        {
-            mPageNumber->setPlainText(tr("Page %0").arg(i+1));
-
-            if (UBApplication::boardController->activeSceneIndex() == i)
-                mPageNumber->setHtml("<span style=\";font-weight:bold;color: red\">" + tr("Page %0").arg(i+1) + "</span>");
-            else
-                mPageNumber->setHtml("<span style=\";color: #000000\">" + tr("Page %0").arg(i+1) + "</span>");
-        }
-
-        virtual void updatePos(qreal w, qreal h);
-
     protected:
         void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
         void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
@@ -556,7 +560,6 @@ class UBDraggableThumbnail : public UBThumbnailProxyWidget
         void mousePressEvent(QGraphicsSceneMouseEvent *event);
         void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
-        UBThumbnailTextItem* mPageNumber;
     private:
         void deletePage();
         void duplicatePage();
@@ -566,56 +569,19 @@ class UBDraggableThumbnail : public UBThumbnailProxyWidget
         bool mEditable;
 };
 
-class UBDraggableThumbnailPixmap : public UBDraggableThumbnail
+
+class UBDraggableLivePixmapItem : public UBDraggableThumbnailItem
 {
     Q_OBJECT
     public:
-        UBDraggableThumbnailPixmap(UBThumbnailPixmap* thumbnailPixmap, UBDocumentProxy* documentProxy, int index)
-            : UBDraggableThumbnail(documentProxy, index)
-            , mThumbnailPixmap(thumbnailPixmap)
-        {
-            setFlag(QGraphicsItem::ItemIsSelectable, true);
-            setAcceptDrops(true);
-        }
+        UBDraggableLivePixmapItem(std::shared_ptr<UBGraphicsScene> pageScene, std::shared_ptr<UBDocumentProxy> documentProxy, int index);
 
-        ~UBDraggableThumbnailPixmap()
-        {
-
-        }
-
-        UBThumbnailPixmap* thumbnailPixmap()
-        {
-            return mThumbnailPixmap;
-        }
-
-        void updatePos(qreal w, qreal h);
-
-    private:
-        UBThumbnailPixmap* mThumbnailPixmap;
-};
-
-class UBDraggableThumbnailView : public UBDraggableThumbnail
-{
-    Q_OBJECT
-    public:
-        UBDraggableThumbnailView(UBThumbnailView* thumbnailView, UBDocumentProxy* documentProxy, int index)
-            : UBDraggableThumbnail(documentProxy, index)
-            , mThumbnailView(thumbnailView)
-        {
-            setFlag(QGraphicsItem::ItemIsSelectable, true);
-            setWidget(mThumbnailView);
-            setAcceptDrops(true);            
-        }
-
-        ~UBDraggableThumbnailView()
+        ~UBDraggableLivePixmapItem()
         {
             delete mPageNumber; // not a child of "this" QObject so it has to be deleted manually
         }
 
-        UBThumbnailView* thumbnailView()
-        {
-            return mThumbnailView;
-        }
+        void updatePos(qreal w, qreal h);
 
         UBThumbnailTextItem* pageNumber()
         {
@@ -627,18 +593,40 @@ class UBDraggableThumbnailView : public UBDraggableThumbnail
             mPageNumber->setPlainText(tr("Page %0").arg(i+1));
 
             if (UBApplication::boardController->activeSceneIndex() == i)
-                mPageNumber->setHtml("<span style=\";font-weight:bold;color: red\">" + tr("Page %0").arg(i+1) + "</span>");
+                mPageNumber->setHtml("<span style=\";font-weight:bold;color: #6682b5\">" + tr("Page %0").arg(i+1) + "</span>");
             else
                 mPageNumber->setHtml("<span style=\";color: #000000\">" + tr("Page %0").arg(i+1) + "</span>");
         }
 
-    private:        
-        UBThumbnailView* mThumbnailView;
+        void setHighlighted(bool highlighted);
+
+        QGraphicsRectItem* selectionItem()
+        {
+            return mSelectionItem;
+        }
+
+        void setExposed(bool exposed);
+
+        bool isExposed();
+
+    public slots:
+        void updatePixmap(const QRectF &region = QRectF());
+
+    private:
+        static const int sSelectionItemMargin = 5;
+        QGraphicsRectItem *mSelectionItem;
+        std::shared_ptr<UBGraphicsScene> mScene;
+        UBThumbnailTextItem* mPageNumber;
+        bool mExposed;
+        QSizeF mSize;
+        QTransform mTransform;
+        QTimer updateTimer;
+        int updateCount;
 };
 
 namespace UBThumbnailUI
 {
-    const int ICONSIZE      = 96;
+    const int ICONSIZE      = 32;
     const int ICONSPACING   = 10;
 
     class UBThumbnailUIIcon : public QPixmap

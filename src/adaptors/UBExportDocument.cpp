@@ -60,13 +60,13 @@ UBExportDocument::~UBExportDocument()
     // NOOP
 }
 
-void UBExportDocument::persist(UBDocumentProxy* pDocumentProxy)
+void UBExportDocument::persist(std::shared_ptr<UBDocumentProxy> pDocumentProxy)
 {
     persistLocally(pDocumentProxy, tr("Export as UBZ File"));
 }
 
 
-bool UBExportDocument::persistsDocument(UBDocumentProxy* pDocumentProxy, const QString &filename)
+bool UBExportDocument::persistsDocument(std::shared_ptr<UBDocumentProxy> pDocumentProxy, const QString &filename)
 {
     QuaZip zip(filename);
     zip.setFileNameCodec("UTF-8");
@@ -98,7 +98,7 @@ bool UBExportDocument::persistsDocument(UBDocumentProxy* pDocumentProxy, const Q
 
 void UBExportDocument::processing(const QString& pObjectName, int pCurrent, int pTotal)
 {
-    QString localized = UBExportDocument::trUtf8(pObjectName.toUtf8());
+    QString localized = UBExportDocument::tr(pObjectName.toUtf8());
 
     if (mIsVerbose)
         UBApplication::showMessage(tr("Exporting %1 %2 of %3").arg(localized).arg(pCurrent).arg(pTotal));

@@ -165,7 +165,7 @@ QFileInfoList UBDocumentManager::importUbx(const QString &Incomingfile, const QS
     return docSetAdaptor->importData(Incomingfile, destination);
 }
 
-UBDocumentProxy* UBDocumentManager::importFile(const QFile& pFile, const QString& pGroup)
+std::shared_ptr<UBDocumentProxy> UBDocumentManager::importFile(const QFile& pFile, const QString& pGroup)
 {
     QFileInfo fileInfo(pFile);
 
@@ -173,7 +173,7 @@ UBDocumentProxy* UBDocumentManager::importFile(const QFile& pFile, const QString
     {
         if (adaptor->supportedExtentions().lastIndexOf(fileInfo.suffix().toLower()) != -1)
         {
-            UBDocumentProxy* document;
+            std::shared_ptr<UBDocumentProxy> document;
             UBApplication::setDisabled(true);
 
             if (adaptor->isDocumentBased())
@@ -210,6 +210,7 @@ UBDocumentProxy* UBDocumentManager::importFile(const QFile& pFile, const QString
 
                 QList<UBGraphicsItem*> pages = importAdaptor->import(uuid, filepath);
                 int nPage = 0;
+                int pageIndex = 0;
                 foreach(UBGraphicsItem* page, pages)
                 {
 
@@ -218,10 +219,10 @@ UBDocumentProxy* UBDocumentManager::importFile(const QFile& pFile, const QString
                     //Workaround for issue 912
                     QApplication::processEvents();
 #endif
-                    int pageIndex = document->pageCount();
-                    UBGraphicsScene* scene = UBPersistenceManager::persistenceManager()->createDocumentSceneAt(document, pageIndex);
+                    std::shared_ptr<UBGraphicsScene> scene = UBPersistenceManager::persistenceManager()->createDocumentSceneAt(document, pageIndex);
                     importAdaptor->placeImportedItemToScene(scene, page);
                     UBPersistenceManager::persistenceManager()->persistDocumentScene(document, scene, pageIndex);
+                    pageIndex++;
                 }
 
                 UBPersistenceManager::persistenceManager()->persistDocumentMetadata(document);
@@ -237,7 +238,7 @@ UBDocumentProxy* UBDocumentManager::importFile(const QFile& pFile, const QString
 }
 
 
-int UBDocumentManager::addFilesToDocument(UBDocumentProxy* document, QStringList fileNames)
+int UBDocumentManager::addFilesToDocument(std::shared_ptr<UBDocumentProxy> document, QStringList fileNames)
 {
     int nImportedDocuments = 0;
     foreach(const QString& fileName, fileNames)
@@ -283,7 +284,7 @@ int UBDocumentManager::addFilesToDocument(UBDocumentProxy* document, QStringList
                     {
                         UBApplication::showMessage(tr("Inserting page %1 of %2").arg(++nPage).arg(pages.size()), true);
                         int pageIndex = document->pageCount();
-                        UBGraphicsScene* scene = UBPersistenceManager::persistenceManager()->createDocumentSceneAt(document, pageIndex);
+                        std::shared_ptr<UBGraphicsScene> scene = UBPersistenceManager::persistenceManager()->createDocumentSceneAt(document, pageIndex);
                         importAdaptor->placeImportedItemToScene(scene, page);
                         UBPersistenceManager::persistenceManager()->persistDocumentScene(document, scene, pageIndex);
                     }
@@ -301,7 +302,7 @@ int UBDocumentManager::addFilesToDocument(UBDocumentProxy* document, QStringList
 }
 
 
-int UBDocumentManager::addImageDirToDocument(const QDir& pDir, UBDocumentProxy* pDocument)
+int UBDocumentManager::addImageDirToDocument(const QDir& pDir, std::shared_ptr<UBDocumentProxy> pDocument)
 {
     QStringList filenames = pDir.entryList(QDir::Files | QDir::NoDotAndDotDot);
 
@@ -319,9 +320,9 @@ int UBDocumentManager::addImageDirToDocument(const QDir& pDir, UBDocumentProxy* 
 }
 
 
-UBDocumentProxy* UBDocumentManager::importDir(const QDir& pDir, const QString& pGroup)
+std::shared_ptr<UBDocumentProxy> UBDocumentManager::importDir(const QDir& pDir, const QString& pGroup)
 {
-    UBDocumentProxy* doc = UBPersistenceManager::persistenceManager()->createDocument(pGroup, pDir.dirName());
+    std::shared_ptr<UBDocumentProxy> doc = UBPersistenceManager::persistenceManager()->createDocument(pGroup, pDir.dirName());
 
     int result = addImageDirToDocument(pDir, doc);
 
@@ -347,9 +348,4 @@ UBDocumentProxy* UBDocumentManager::importDir(const QDir& pDir, const QString& p
 QList<UBExportAdaptor*> UBDocumentManager::supportedExportAdaptors()
 {
     return mExportAdaptors;
-}
-
-void UBDocumentManager::emitDocumentUpdated(UBDocumentProxy* pDocument)
-{
-    emit documentUpdated(pDocument);
 }

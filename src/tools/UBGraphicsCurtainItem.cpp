@@ -130,7 +130,7 @@ void UBGraphicsCurtainItem::paint(QPainter *painter, const QStyleOptionGraphicsI
     if(widget == UBApplication::boardController->controlView()->viewport())
     {
         color = UBSettings::paletteColor;
-        if(!UBApplication::applicationController->displayManager()->hasDisplay())
+        if(!UBApplication::displayManager->hasDisplay())
         {
             color = opaqueControlColor();
         }
@@ -175,15 +175,17 @@ void UBGraphicsCurtainItem::copyItemParameters(UBItem *copy) const
 
 QColor UBGraphicsCurtainItem::drawColor() const
 {
-    UBGraphicsScene* pScene = static_cast<UBGraphicsScene*>(QGraphicsRectItem::scene());
-    return pScene->isDarkBackground() ? sDarkBackgroundDrawColor : sDrawColor;
+    auto scenePtr = dynamic_cast<UBGraphicsScene*>(QGraphicsItem::scene());
+    std::shared_ptr<UBGraphicsScene> pScene = scenePtr ? scenePtr->shared_from_this() : nullptr;
+    return pScene && pScene->isDarkBackground() ? sDarkBackgroundDrawColor : sDrawColor;
 }
 
 
 QColor UBGraphicsCurtainItem::opaqueControlColor() const
 {
-    UBGraphicsScene* pScene = static_cast<UBGraphicsScene*>(QGraphicsRectItem::scene());
-    return pScene->isDarkBackground() ? sDarkBackgroundOpaqueControlColor : sOpaqueControlColor;
+    auto scenePtr = dynamic_cast<UBGraphicsScene*>(QGraphicsItem::scene());
+    std::shared_ptr<UBGraphicsScene> pScene = scenePtr ? scenePtr->shared_from_this() : nullptr;
+    return pScene && pScene->isDarkBackground() ? sDarkBackgroundOpaqueControlColor : sOpaqueControlColor;
 }
 
 

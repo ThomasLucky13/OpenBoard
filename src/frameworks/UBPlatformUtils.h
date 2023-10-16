@@ -198,9 +198,10 @@ public:
         static QString translationPath(QString pFilePrefix, QString pLanguage);
         static QString systemLanguage();
         static bool hasVirtualKeyboard();
+        static bool hasSystemOnScreenKeyboard();
         static void bringPreviousProcessToFront();
         static QString osUserLoginName();
-        static void setDesktopMode(bool desktop);
+        static void hideMenuBarAndDock();
         static void setWindowNonActivableFlag(QWidget* widget, bool nonAcivable);
         static QString computerName();
         static UBKeyboardLocale** getKeyboardLayouts(int& nCount);
@@ -218,6 +219,24 @@ public:
 #endif
 };
 
+#ifdef Q_OS_LINUX
+#include <QDBusConnection>
+
+class OnboardListener : public QObject
+{
+    Q_OBJECT
+
+public:
+    OnboardListener(const QDBusConnection& connection, QObject* parent = nullptr);
+
+public slots:
+    void onboardPropertiesChanged(QString interface, QMap<QString, QVariant> properties) const;
+
+private:
+    QDBusConnection mConnection;
+};
+
+#endif
 
 
 #endif /* UBPLATFORMUTILS_H_ */

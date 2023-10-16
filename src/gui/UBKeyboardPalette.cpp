@@ -222,7 +222,11 @@ void UBKeyboardPalette::setKeyButtonSize(const QString& _strSize)
     }
 }
 
-void UBKeyboardPalette::enterEvent ( QEvent * )
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+void UBKeyboardPalette::enterEvent(QEvent *event)
+#else
+void UBKeyboardPalette::enterEvent(QEnterEvent *event)
+#endif
 {
     if (keyboardActive)
         return;
@@ -274,15 +278,12 @@ void  UBKeyboardPalette::paintEvent( QPaintEvent* event)
 
     QRect r = this->geometry();
 
-    int lleft, ltop, lright, lbottom;
-    getContentsMargins ( &lleft, &ltop, &lright, &lbottom ) ;
-
     //------------------------------------------------
     // calculate start offset from left, and from top
 
     int ctrlButtonsId = 0;
-    lleft = ( r.width() - btnWidth * 15 ) / 2;
-    ltop = ( r.height() - btnHeight * 5 ) / 2;
+    int lleft = ( r.width() - btnWidth * 15 ) / 2;
+    int ltop = ( r.height() - btnHeight * 5 ) / 2;
 
     //------------------------------------------------
     // set geometry (position) for row 1
@@ -503,7 +504,7 @@ void UBKeyboardButton::paintEvent(QPaintEvent*)
     //--------------------------
 }
 
-void  UBKeyboardButton::enterEvent ( QEvent*)
+void UBKeyboardButton::enterEvent(UB::EnterEvent *event)
 {
     bFocused = true;
     update();

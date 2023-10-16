@@ -53,9 +53,9 @@ UBSceneCache::~UBSceneCache()
 }
 
 
-UBGraphicsScene* UBSceneCache::createScene(UBDocumentProxy* proxy, int pageIndex, bool useUndoRedoStack)
+std::shared_ptr<UBGraphicsScene> UBSceneCache::createScene(std::shared_ptr<UBDocumentProxy> proxy, int pageIndex, bool useUndoRedoStack)
 {
-    UBGraphicsScene* newScene = new UBGraphicsScene(proxy, useUndoRedoStack);
+    std::shared_ptr<UBGraphicsScene> newScene = std::make_shared<UBGraphicsScene>(proxy, useUndoRedoStack);
     insert(proxy, pageIndex, newScene);
 
     return newScene;
@@ -63,25 +63,25 @@ UBGraphicsScene* UBSceneCache::createScene(UBDocumentProxy* proxy, int pageIndex
 }
 
 
-void UBSceneCache::insert (UBDocumentProxy* proxy, int pageIndex, UBGraphicsScene* scene)
+void UBSceneCache::insert (std::shared_ptr<UBDocumentProxy> proxy, int pageIndex, std::shared_ptr<UBGraphicsScene> scene)
 {
-    QList<UBSceneCacheID> existingKeys = QHash<UBSceneCacheID, UBGraphicsScene*>::keys(scene);
+    QList<UBSceneCacheID> existingKeys = QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::keys(scene);
 
     foreach(UBSceneCacheID key, existingKeys)
     {
-        mCachedSceneCount -= QHash<UBSceneCacheID, UBGraphicsScene*>::remove(key);
+        mCachedSceneCount -= QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::remove(key);
     }
 
     UBSceneCacheID key(proxy, pageIndex);
 
-    if (QHash<UBSceneCacheID, UBGraphicsScene*>::contains(key))
+    if (QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::contains(key))
     {
-        QHash<UBSceneCacheID, UBGraphicsScene*>::insert(key, scene);
+        QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::insert(key, scene);
         mCachedKeyFIFO.enqueue(key);
     }
     else
     {
-        QHash<UBSceneCacheID, UBGraphicsScene*>::insert(key, scene);
+        QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::insert(key, scene);
         mCachedKeyFIFO.enqueue(key);
 
         mCachedSceneCount++;
@@ -94,20 +94,20 @@ void UBSceneCache::insert (UBDocumentProxy* proxy, int pageIndex, UBGraphicsScen
 }
 
 
-bool UBSceneCache::contains(UBDocumentProxy* proxy, int pageIndex) const
+bool UBSceneCache::contains(std::shared_ptr<UBDocumentProxy> proxy, int pageIndex) const
 {
     UBSceneCacheID key(proxy, pageIndex);
-    return QHash<UBSceneCacheID, UBGraphicsScene*>::contains(key);
+    return QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::contains(key);
 }
 
 
-UBGraphicsScene* UBSceneCache::value(UBDocumentProxy* proxy, int pageIndex)
+std::shared_ptr<UBGraphicsScene> UBSceneCache::value(std::shared_ptr<UBDocumentProxy> proxy, int pageIndex)
 {
     UBSceneCacheID key(proxy, pageIndex);
 
-    if (QHash<UBSceneCacheID, UBGraphicsScene*>::contains(key))
+    if (QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::contains(key))
     {
-        UBGraphicsScene* scene = QHash<UBSceneCacheID, UBGraphicsScene*>::value(key);
+        std::shared_ptr<UBGraphicsScene> scene = QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::value(key);
 
         mCachedKeyFIFO.removeAll(key);
         mCachedKeyFIFO.enqueue(key);
@@ -121,25 +121,23 @@ UBGraphicsScene* UBSceneCache::value(UBDocumentProxy* proxy, int pageIndex)
 }
 
 
-void UBSceneCache::removeScene(UBDocumentProxy* proxy, int pageIndex)
+void UBSceneCache::removeScene(std::shared_ptr<UBDocumentProxy> proxy, int pageIndex)
 {
-    UBGraphicsScene* scene = value(proxy, pageIndex);
+    std::shared_ptr<UBGraphicsScene> scene = value(proxy, pageIndex);
     if (scene && !scene->isActive())
     {
         UBSceneCacheID key(proxy, pageIndex);
-        int count = QHash<UBSceneCacheID, UBGraphicsScene*>::remove(key);
+        int count = QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::remove(key);
         mCachedKeyFIFO.removeAll(key);
 
         mViewStates.insert(key, scene->viewState());
-
-        scene->deleteLater();
 
         mCachedSceneCount -= count;
     }
 }
 
 
-void UBSceneCache::removeAllScenes(UBDocumentProxy* proxy)
+void UBSceneCache::removeAllScenes(std::shared_ptr<UBDocumentProxy> proxy)
 {
     for(int i = 0 ; i < proxy->pageCount(); i++)
     {
@@ -148,15 +146,15 @@ void UBSceneCache::removeAllScenes(UBDocumentProxy* proxy)
 }
 
 
-void UBSceneCache::moveScene(UBDocumentProxy* proxy, int sourceIndex, int targetIndex)
+void UBSceneCache::moveScene(std::shared_ptr<UBDocumentProxy> proxy, int sourceIndex, int targetIndex)
 {
     UBSceneCacheID keySource(proxy, sourceIndex);
 
-    UBGraphicsScene *scene = 0;
+    std::shared_ptr<UBGraphicsScene> scene = 0;
 
-    if (QHash<UBSceneCacheID, UBGraphicsScene*>::contains(keySource))
+    if (QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::contains(keySource))
     {
-        scene = QHash<UBSceneCacheID, UBGraphicsScene*>::value(keySource);
+        scene = QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::value(keySource);
         mCachedKeyFIFO.removeAll(keySource);
     }
 
@@ -182,15 +180,15 @@ void UBSceneCache::moveScene(UBDocumentProxy* proxy, int sourceIndex, int target
         insert(proxy, targetIndex, scene);
         mCachedKeyFIFO.enqueue(keyTarget);
     }
-    else if (QHash<UBSceneCacheID, UBGraphicsScene*>::contains(keyTarget))
+    else if (QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::contains(keyTarget))
     {
-        scene = QHash<UBSceneCacheID, UBGraphicsScene*>::take(keyTarget);
+        scene = QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::take(keyTarget);
         mCachedKeyFIFO.removeAll(keyTarget);
     }
 
 }
 
-void UBSceneCache::reassignDocProxy(UBDocumentProxy *newDocument, UBDocumentProxy *oldDocument)
+void UBSceneCache::reassignDocProxy(std::shared_ptr<UBDocumentProxy> newDocument, std::shared_ptr<UBDocumentProxy> oldDocument)
 {
     if (!newDocument || !oldDocument) {
         return;
@@ -204,12 +202,12 @@ void UBSceneCache::reassignDocProxy(UBDocumentProxy *newDocument, UBDocumentProx
     for (int i = 0; i < oldDocument->pageCount(); i++) {
 
         UBSceneCacheID sourceKey(oldDocument, i);
-        UBGraphicsScene *currentScene = value(sourceKey);
+        std::shared_ptr<UBGraphicsScene> currentScene = value(sourceKey);
         if (currentScene) {
             currentScene->setDocument(newDocument);
         }
         mCachedKeyFIFO.removeAll(sourceKey);
-        int count = QHash<UBSceneCacheID, UBGraphicsScene*>::remove(sourceKey);
+        int count = QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::remove(sourceKey);
         mCachedSceneCount -= count;
 
         insert(newDocument, i, currentScene);
@@ -218,7 +216,7 @@ void UBSceneCache::reassignDocProxy(UBDocumentProxy *newDocument, UBDocumentProx
 }
 
 
-void UBSceneCache::shiftUpScenes(UBDocumentProxy* proxy, int startIncIndex, int endIncIndex)
+void UBSceneCache::shiftUpScenes(std::shared_ptr<UBDocumentProxy> proxy, int startIncIndex, int endIncIndex)
 {
     for(int i = endIncIndex; i >= startIncIndex; i--)
     {
@@ -228,26 +226,26 @@ void UBSceneCache::shiftUpScenes(UBDocumentProxy* proxy, int startIncIndex, int 
 }
 
 
-void UBSceneCache::internalMoveScene(UBDocumentProxy* proxy, int sourceIndex, int targetIndex)
+void UBSceneCache::internalMoveScene(std::shared_ptr<UBDocumentProxy> proxy, int sourceIndex, int targetIndex)
 {
     UBSceneCacheID sourceKey(proxy, sourceIndex);
 
-    if (QHash<UBSceneCacheID, UBGraphicsScene*>::contains(sourceKey))
+    if (QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::contains(sourceKey))
     {
-        UBGraphicsScene* scene = QHash<UBSceneCacheID, UBGraphicsScene*>::take(sourceKey);
+        std::shared_ptr<UBGraphicsScene> scene = QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::take(sourceKey);
         mCachedKeyFIFO.removeAll(sourceKey);
 
         UBSceneCacheID targetKey(proxy, targetIndex);
-        QHash<UBSceneCacheID, UBGraphicsScene*>::insert(targetKey, scene);
+        QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::insert(targetKey, scene);
         mCachedKeyFIFO.enqueue(targetKey);
 
     }
     else
     {
         UBSceneCacheID targetKey(proxy, targetIndex);
-        if (QHash<UBSceneCacheID, UBGraphicsScene*>::contains(targetKey))
+        if (QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::contains(targetKey))
         {
-            /*UBGraphicsScene* scene = */QHash<UBSceneCacheID, UBGraphicsScene*>::take(targetKey);
+            QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::take(targetKey);
 
             mCachedKeyFIFO.removeAll(targetKey);
         }
@@ -258,13 +256,13 @@ void UBSceneCache::dumpCacheContent()
 {
     foreach(UBSceneCacheID key, keys())
     {
-        UBGraphicsScene *scene = 0;
+        std::shared_ptr<UBGraphicsScene> scene = 0;
 
-        if (QHash<UBSceneCacheID, UBGraphicsScene*>::contains(key))
-            scene = QHash<UBSceneCacheID, UBGraphicsScene*>::value(key);
+        if (QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::contains(key))
+            scene = QHash<UBSceneCacheID, std::shared_ptr<UBGraphicsScene>>::value(key);
 
         int index = key.pageIndex;
 
-        qDebug() << "UBSceneCache::dumpCacheContent:" << index << " : " << scene;
+        qDebug() << "UBSceneCache::dumpCacheContent:" << index << " : " << scene.get();
     }
 }

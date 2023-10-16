@@ -51,6 +51,7 @@ class UBResources;
 class UBSettings;
 class UBPersistenceManager;
 class UBApplicationController;
+class UBDisplayManager;
 class UBDocumentController;
 class UBMainWindow;
 
@@ -69,6 +70,7 @@ class UBApplication : public SingleApplication
 
         static QPointer<QUndoStack> undoStack;
 
+        static UBDisplayManager* displayManager;
         static UBApplicationController *applicationController;
         static UBBoardController* boardController;
         static UBWebController* webController;
@@ -104,9 +106,6 @@ class UBApplication : public SingleApplication
         static QString urlFromHtml(QString html);
         static bool isFromWeb(QString url);
 
-        static QScreen* controlScreen();
-        static int controlScreenIndex();
-
     signals:
 
     public slots:
@@ -126,7 +125,7 @@ class UBApplication : public SingleApplication
          * Used on Windows platform to open file in running application. On MacOS X opening file is done through the
          * FileOpen event that is handle in eventFilter method.
          */
-        bool handleOpenMessage(const QString& pMessage);
+        void handleOpenMessage(quint32 instanceId, QByteArray message);
 
     private slots:
 

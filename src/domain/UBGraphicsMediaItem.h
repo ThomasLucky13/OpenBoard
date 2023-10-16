@@ -31,18 +31,17 @@
 #define UBGRAPHICSMEDIAITEM_H
 
 #include <QtWidgets/QGraphicsView>
-#include "UBGraphicsProxyWidget.h"
 
 #include <QAudioOutput>
-#include <QMediaObject>
 #include <QMediaPlayer>
-#include <QMediaService>
 
 #include <QtMultimediaWidgets/QVideoWidget>
 #include <QtMultimedia/QVideoFrame>
 
 #include "core/UBApplication.h"
 #include "board/UBBoardController.h"
+#include "domain/UBItem.h"
+#include "domain/UBResizableGraphicsItem.h"
 #include "frameworks/UBFileSystemUtils.h"
 
 class QGraphicsVideoItem;
@@ -74,7 +73,7 @@ public:
 
     virtual mediaType getMediaType() const = 0;
 
-    virtual UBGraphicsScene* scene();
+    virtual std::shared_ptr<UBGraphicsScene> scene();
     bool hasLinkedImage() const             { return haveLinkedImage; }
     virtual QUrl mediaFileUrl() const       { return mMediaFileUrl; }
     bool isMuted() const                    { return mMuted; }
@@ -84,9 +83,16 @@ public:
     qint64 mediaDuration() const;
     qint64 mediaPosition() const;
 
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+    QMediaPlayer::PlaybackState playerState() const;
+    bool isPlaying() const { return (mMediaObject->playbackState() == QMediaPlayer::PlayingState); }
+    bool isPaused() const { return (mMediaObject->playbackState() == QMediaPlayer::PausedState); }
+#else
     QMediaPlayer::State playerState() const;
     bool isPlaying() const { return (mMediaObject->state() == QMediaPlayer::PlayingState); }
     bool isPaused() const { return (mMediaObject->state() == QMediaPlayer::PausedState); }
+#endif
+
     bool isStopped() const;
     bool firstLoad() const;
     void setFirstLoad(bool firstLoad);
@@ -200,7 +206,13 @@ public:
 public slots:
     void videoSizeChanged(QSizeF newSize);
     void hasVideoChanged(bool hasVideo);
+
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+    void mediaStateChanged(QMediaPlayer::PlaybackState state);
+#else
     void mediaStateChanged(QMediaPlayer::State state);
+#endif
+
     void activeSceneChanged();
 
 protected slots:

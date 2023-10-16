@@ -36,6 +36,7 @@
 #include <QHBoxLayout>
 #include <QUndoCommand>
 
+#include "core/UB.h"
 #include "document/UBDocumentContainer.h"
 #include "core/UBApplicationController.h"
 
@@ -47,6 +48,7 @@ class UBDocumentController;
 class UBMessageWindow;
 class UBGraphicsScene;
 class UBDocumentProxy;
+class UBEmbedController;
 class UBBlackoutWidget;
 class UBToolWidget;
 class UBVersion;
@@ -77,12 +79,10 @@ class UBBoardController : public UBDocumentContainer
         void init();
         void setupLayout();
 
-        UBGraphicsScene* activeScene() const;
+        std::shared_ptr<UBGraphicsScene> activeScene() const;
         int activeSceneIndex() const;
         void setActiveSceneIndex(int i);
-        QSize displayViewport();
         QSize controlViewport();
-        QRectF controlGeometry();
         void closing();
 
         int currentPage();
@@ -102,7 +102,7 @@ class UBBoardController : public UBDocumentContainer
             return mDisplayView;
         }
 
-        UBGraphicsScene* activeScene()
+        std::shared_ptr<UBGraphicsScene> activeScene()
         {
             return mActiveScene;
         }
@@ -180,7 +180,7 @@ class UBBoardController : public UBDocumentContainer
         void findUniquesItems(const QUndoCommand *parent, QSet<QGraphicsItem *> &items);
         void ClearUndoStack();
 
-        void setActiveDocumentScene(UBDocumentProxy* pDocumentProxy, int pSceneIndex = 0, bool forceReload = false, bool onImport = false);
+        void setActiveDocumentScene(std::shared_ptr<UBDocumentProxy> pDocumentProxy, int pSceneIndex = 0, bool forceReload = false, bool onImport = false);
         void setActiveDocumentScene(int pSceneIndex);
 
         void moveSceneToIndex(int source, int target);
@@ -199,8 +199,8 @@ class UBBoardController : public UBDocumentContainer
         void togglePodcast(bool checked);
         void blackout();
         void addScene();
-        void addScene(UBDocumentProxy* proxy, int sceneIndex, bool replaceActiveIfEmpty = false);
-        void addScene(UBGraphicsScene* scene, bool replaceActiveIfEmpty = false);
+        void addScene(std::shared_ptr<UBDocumentProxy> proxy, int sceneIndex, bool replaceActiveIfEmpty = false);
+        void addScene(std::shared_ptr<UBGraphicsScene> scene, bool replaceActiveIfEmpty = false);
         void duplicateScene();
         void importPage();
         void clearScene();
@@ -282,7 +282,7 @@ class UBBoardController : public UBDocumentContainer
     protected slots:
         void selectionChanged();
         void undoRedoStateChange(bool canUndo);
-        void documentSceneChanged(UBDocumentProxy* proxy, int pIndex);
+        void documentSceneChanged(std::shared_ptr<UBDocumentProxy> proxy, int pIndex);
 
     private slots:
         void autosaveTimeout();
@@ -295,11 +295,12 @@ class UBBoardController : public UBDocumentContainer
         int autosaveTimeoutFromSettings();
 
         UBMainWindow *mMainWindow;
-        UBGraphicsScene* mActiveScene;
+        std::shared_ptr<UBGraphicsScene> mActiveScene;
         int mActiveSceneIndex;
         UBBoardPaletteManager *mPaletteManager;
         UBSoftwareUpdateDialog *mSoftwareUpdateDialog;
         UBMessageWindow *mMessageWindow;
+        UBEmbedController *mEmbedController;
         UBBoardView *mControlView;
         UBBoardView *mDisplayView;
         QWidget *mControlContainer;
@@ -325,7 +326,6 @@ class UBBoardController : public UBDocumentContainer
     private slots:
         void stylusToolDoubleClicked(int tool);
         void boardViewResized(QResizeEvent* event);
-        void documentWillBeDeleted(UBDocumentProxy* pProxy);
         void updateBackgroundActionsState(bool isDark, UBPageBackground pageBackground);
         void colorPaletteChanged();
         void libraryDialogClosed(int ret);

@@ -9,41 +9,105 @@
     </message>
 </context>
 <context>
-    <name>DownloadDialog</name>
+    <name>BrowserWindow</name>
     <message>
-        <source>Downloads</source>
-        <translation>다운로드</translation>
+        <source>Navigation</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Clean Up</source>
-        <translation>정리</translation>
-    </message>
-    <message>
-        <source>0 Items</source>
-        <translation>0 항목</translation>
+        <source>Show downloads</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>DownloadItem</name>
+    <name>CertificateErrorDialog</name>
     <message>
-        <source>Form</source>
-        <translation>양식</translation>
+        <source>Dialog</source>
+        <translation type="unfinished">대화</translation>
     </message>
     <message>
-        <source>Filename</source>
-        <translation>파일명</translation>
+        <source>Icon</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Try Again</source>
-        <translation>재시도</translation>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Stop</source>
-        <translation>중지</translation>
+        <source>If you wish so, you may continue with an unverified certificate. Accepting an unverified certificate mean you may not be connected with the host you tried to connect to.
+
+Do you wish to override the security check and continue ?   </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DownloadManagerWidget</name>
+    <message>
+        <source>Downloads</source>
+        <translation type="unfinished">다운로드</translation>
     </message>
     <message>
-        <source>Open</source>
-        <translation>열기</translation>
+        <source>No downloads</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DownloadWidget</name>
+    <message>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%L1 B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%L1 KiB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%L1 MiB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%L1 GiB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%p% - %1 of %2 downloaded - %3/s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unknown size - %1 downloaded - %2/s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>completed - %1 downloaded - %2/s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cancelled - %1 downloaded - %2/s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>interrupted: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop downloading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove from list</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -137,7 +201,7 @@
     </message>
     <message>
         <source>Manage Documents</source>
-        <translation>문서 관리</translation>
+        <translation type="vanished">문서 관리</translation>
     </message>
     <message>
         <source>Ctrl+D</source>
@@ -145,7 +209,7 @@
     </message>
     <message>
         <source>Web Browsing</source>
-        <translation>웹 검색</translation>
+        <translation type="vanished">웹 검색</translation>
     </message>
     <message>
         <source>Ctrl+W</source>
@@ -176,20 +240,12 @@
         <translation>지우개</translation>
     </message>
     <message>
-        <source>Smalle Eraser</source>
-        <translation type="vanished">작은 지우개</translation>
-    </message>
-    <message>
         <source>Medium Eraser</source>
         <translation>중간 지우개</translation>
     </message>
     <message>
         <source>Large Eraser</source>
         <translation>큰 지우개</translation>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation type="vanished">색상</translation>
     </message>
     <message>
         <source>Back</source>
@@ -241,7 +297,7 @@
     </message>
     <message>
         <source>Display Board</source>
-        <translation>보드 표시</translation>
+        <translation type="vanished">보드 표시</translation>
     </message>
     <message>
         <source>Ctrl+B</source>
@@ -281,7 +337,7 @@
     </message>
     <message>
         <source>Show Computer Desktop</source>
-        <translation>컴퓨터 바탕 화면 보이기</translation>
+        <translation type="vanished">컴퓨터 바탕 화면 보이기</translation>
     </message>
     <message>
         <source>Ctrl+Shift+H</source>
@@ -377,7 +433,7 @@
     </message>
     <message>
         <source>Add to Working Document</source>
-        <translation>작업 문서에 추가</translation>
+        <translation type="vanished">작업 문서에 추가</translation>
     </message>
     <message>
         <source>Add Selected Content to Open Document</source>
@@ -677,7 +733,7 @@
     </message>
     <message>
         <source>Import an External Page</source>
-        <translation>외부 페이지 가져오기</translation>
+        <translation type="vanished">외부 페이지 가져오기</translation>
     </message>
     <message>
         <source>Pause</source>
@@ -705,11 +761,11 @@
     </message>
     <message>
         <source>Web Trap</source>
-        <translation>웹 트랩</translation>
+        <translation type="vanished">웹 트랩</translation>
     </message>
     <message>
         <source>Trap Web Content</source>
-        <translation>웹 콘텐츠 트랩</translation>
+        <translation type="vanished">웹 콘텐츠 트랩</translation>
     </message>
     <message>
         <source>Custom Capture</source>
@@ -745,11 +801,11 @@
     </message>
     <message>
         <source>eduMedia</source>
-        <translation>eduMedia</translation>
+        <translation type="vanished">eduMedia</translation>
     </message>
     <message>
         <source>Import eduMedia simulation</source>
-        <translation>eduMedia 시뮬레이션 가져오기</translation>
+        <translation type="vanished">eduMedia 시뮬레이션 가져오기</translation>
     </message>
     <message>
         <source>Check Update</source>
@@ -843,6 +899,82 @@
         <source>Capture Web Content</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Documents Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Web Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Board Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Desktop</source>
+        <translation type="unfinished">바탕 화면</translation>
+    </message>
+    <message>
+        <source>Desktop Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add to document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Seyes ruled Light Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Seyes ruled Dark Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import one or more pages (supported formats : jpg, png, svg, ubz, pdf)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add to favorites</source>
+        <translation type="obsolete">즐겨찾기에 추가</translation>
+    </message>
+    <message>
+        <source>Add Document to favorites</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hints and tips</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Hints and tips</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Favorite</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PasswordDialog</name>
@@ -858,28 +990,13 @@
         <source>Password:</source>
         <translation>암호:</translation>
     </message>
-</context>
-<context>
-    <name>ProxyDialog</name>
     <message>
-        <source>Proxy Authentication</source>
-        <translation>프록시 인증</translation>
+        <source>Icon</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Connect to Proxy</source>
-        <translation>프록시에 연결</translation>
-    </message>
-    <message>
-        <source>Username:</source>
-        <translation>사용자명:</translation>
-    </message>
-    <message>
-        <source>Password:</source>
-        <translation>암호:</translation>
-    </message>
-    <message>
-        <source>Save username and password for future use</source>
-        <translation>향후 사용을 위해 사용자명과 암호 저장</translation>
+        <source>Info</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -898,7 +1015,7 @@
     </message>
     <message>
         <source>Are you sure you want to remove 1 page from the selected document &apos;%0&apos;?</source>
-        <translation type="unfinished">선택한 문서 &apos;%0&apos;에서 1페이지를 제거하시겠습니까?</translation>
+        <translation type="obsolete">선택한 문서 &apos;%0&apos;에서 1페이지를 제거하시겠습니까?</translation>
     </message>
     <message>
         <source>Loading scene (%1/%2)</source>
@@ -907,6 +1024,41 @@
     <message>
         <source>Moving cached scenes (%1/%2)</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove page %1 ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabWidget</name>
+    <message>
+        <source>New &amp;Tab</source>
+        <translation>새 탭(&amp;T)</translation>
+    </message>
+    <message>
+        <source>Clone Tab</source>
+        <translation>탭 복제</translation>
+    </message>
+    <message>
+        <source>&amp;Close Tab</source>
+        <translation>탭 닫기(&amp;C)</translation>
+    </message>
+    <message>
+        <source>Close &amp;Other Tabs</source>
+        <translation>다른 탭 닫기(&amp;O)</translation>
+    </message>
+    <message>
+        <source>Reload Tab</source>
+        <translation>탭 다시보기</translation>
+    </message>
+    <message>
+        <source>Reload All Tabs</source>
+        <translation>모든 탭 다시보기</translation>
+    </message>
+    <message>
+        <source>(Untitled)</source>
+        <translation>(무제)</translation>
     </message>
 </context>
 <context>
@@ -985,10 +1137,6 @@
         <translation>모든 지원 형식 (%1)</translation>
     </message>
     <message>
-        <source>Delete page %1 from document</source>
-        <translation type="obsolete">문서에서 %1페이지 삭제</translation>
-    </message>
-    <message>
         <source>Page %1 deleted</source>
         <translation type="unfinished">%1페이지 삭제됨</translation>
     </message>
@@ -1020,6 +1168,14 @@
         <source>Color</source>
         <translation type="unfinished">색상</translation>
     </message>
+    <message>
+        <source>Untitled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not find document.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UBBoardPaletteManager</name>
@@ -1033,9 +1189,13 @@
     </message>
 </context>
 <context>
-    <name>UBBoardThumbnailsView</name>
+    <name>UBBoardView</name>
     <message>
-        <source>Loading page (%1/%2)</source>
+        <source>Is it for Board or Widget ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you trying to drop the object(s) inside the widget ?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1120,46 +1280,6 @@
         <translation>%1 문서 복사됨</translation>
     </message>
     <message>
-        <source>Remove Page</source>
-        <translation type="vanished">페이지 제거</translation>
-    </message>
-    <message>
-        <source>Remove Document</source>
-        <translation type="vanished">문서 제거</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to remove the document &apos;%1&apos;?</source>
-        <translation type="vanished">정말로 &apos;%1&apos; 문서를 제거하시겠습니까?</translation>
-    </message>
-    <message>
-        <source>Empty Trash</source>
-        <translation type="vanished">휴지통 비우기</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to empty trash?</source>
-        <translation type="vanished">정말로 휴지통을 비우시겠습니까?</translation>
-    </message>
-    <message>
-        <source>Emptying trash</source>
-        <translation type="vanished">휴지통 비우는 중</translation>
-    </message>
-    <message>
-        <source>Emptied trash</source>
-        <translation type="vanished">휴지통 비우기 완료</translation>
-    </message>
-    <message>
-        <source>Remove Folder</source>
-        <translation type="vanished">폴더 제거</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to remove the folder &apos;%1&apos; and all its content?</source>
-        <translation type="vanished">정말로 &apos;%1&apos; 폴더와 해당 내용을 모두 제거하시겠습니까?</translation>
-    </message>
-    <message>
-        <source>No document selected!</source>
-        <translation type="vanished">선택된 문서가 없습니다!</translation>
-    </message>
-    <message>
         <source>Open Supported File</source>
         <translation>지원되는 파일 열기</translation>
     </message>
@@ -1203,12 +1323,6 @@
         <source>Selection does not contain any image files!</source>
         <translation>선택된 영역에 이미지 파일이 없습니다!</translation>
     </message>
-    <message numerus="yes">
-        <source>Are you sure you want to remove %n page(s) from the selected document &apos;%1&apos;?</source>
-        <translation type="obsolete">
-            <numerusform>선택한 문서 &apos;%1&apos;에서 %n페이지를 제거하시겠습니까?</numerusform>
-        </translation>
-    </message>
     <message>
         <source>Folder does not contain any image files</source>
         <translation type="unfinished">폴더에 이미지 파일이 없습니다</translation>
@@ -1225,14 +1339,6 @@
         </translation>
     </message>
     <message>
-        <source>Remove Item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Are you sure you want to remove the selected item(s) ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The document &apos;%1&apos; has been generated with a newer version of OpenBoard (%2). By opening it, you may lose some information. Do you want to proceed?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1242,6 +1348,90 @@
     </message>
     <message>
         <source>Refreshing Document Thumbnails View (%1/%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Complete deletion of %1 documents/folders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to permanantly delete %1 documents and/or folders. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Complete deletion of folder &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to permanantly delete folder &quot;%1&quot;. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Complete deletion of document &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to permanantly delete document &quot;%1&quot;. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Emptying My Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to entirely empty the folder &quot;My Documents&quot;. All your documents will be moved to trash. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Emptying Trash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to entirely empty the trash. All documents and folders in it will be permanently deleted. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Moving %1 elements to trash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to move %1 documents and/or folders to trash. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move folder &quot;%1&quot;to trash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to move folder &quot;%1&quot; to trash. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move document &quot;%1&quot;to trash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to move document &quot;%1&quot; to trash. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Supported File(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Moving %1 pages of the document &quot;%2&quot; to trash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to move %1 pages of the document &quot;%2&quot; to trash. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove page %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to remove page %1 of the document &quot;%2&quot;. Are you sure ?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1292,25 +1482,14 @@
     <name>UBDocumentNavigator</name>
     <message>
         <source>Page %0</source>
-        <translation>%0 페이지</translation>
-    </message>
-    <message>
-        <source>Generating thumbnails for board (%1/%2)</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>UBDocumentPublisher</name>
-    <message>
-        <source>Export failed.</source>
-        <translation type="obsolete">내보내기 실패.</translation>
+        <translation type="vanished">%0 페이지</translation>
     </message>
 </context>
 <context>
     <name>UBDocumentReplaceDialog</name>
     <message>
         <source>Accept</source>
-        <translation type="unfinished">적용</translation>
+        <translation type="obsolete">적용</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -1324,6 +1503,22 @@
         <source>The name %1 is allready used.
 Keeping this name will replace the document.
 Providing a new name will create a new document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation type="unfinished">이름 바꾸기</translation>
+    </message>
+    <message>
+        <source>Replace all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Skip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Skip all</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1359,36 +1554,8 @@ Providing a new name will create a new document.</source>
         </translation>
     </message>
     <message>
-        <source>Remove Item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Are you sure you want to remove the selected item(s) ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Copying page %1/%2</source>
         <translation type="unfinished">%1/%2 페이지 복사 중</translation>
-    </message>
-</context>
-<context>
-    <name>UBDocumentTreeWidget</name>
-    <message>
-        <source>%1 (copy)</source>
-        <translation type="vanished">%1 (사본)</translation>
-    </message>
-    <message>
-        <source>Copying page %1/%2</source>
-        <translation type="vanished">%1/%2 페이지 복사 중</translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 pages copied</source>
-        <translation type="obsolete">
-            <numerusform variants="yes">
-                <lengthvariant>%1 페이지 복사됨</lengthvariant>
-                <lengthvariant></lengthvariant>
-            </numerusform>
-        </translation>
     </message>
 </context>
 <context>
@@ -1403,17 +1570,40 @@ Providing a new name will create a new document.</source>
     </message>
 </context>
 <context>
-    <name>UBDraggableThumbnail</name>
+    <name>UBDraggableLivePixmapItem</name>
     <message>
         <source>Page %0</source>
         <translation type="unfinished">%0 페이지</translation>
     </message>
 </context>
 <context>
+    <name>UBDraggableThumbnail</name>
+    <message>
+        <source>Page %0</source>
+        <translation type="obsolete">%0 페이지</translation>
+    </message>
+</context>
+<context>
     <name>UBDraggableThumbnailView</name>
     <message>
         <source>Page %0</source>
-        <translation type="unfinished">%0 페이지</translation>
+        <translation type="obsolete">%0 페이지</translation>
+    </message>
+</context>
+<context>
+    <name>UBEmbedController</name>
+    <message>
+        <source>Whole page</source>
+        <translation>전체 페이지</translation>
+    </message>
+    <message>
+        <source>Web</source>
+        <translation>웹</translation>
+    </message>
+    <message>
+        <source>Application name can`t contain any of the following characters:<byte value="xd"/>
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1477,14 +1667,6 @@ Providing a new name will create a new document.</source>
         <translation>UBZ 파일로 내보내기</translation>
     </message>
     <message>
-        <source>Exporting document...</source>
-        <translation type="vanished">문서를 내보내는 중...</translation>
-    </message>
-    <message>
-        <source>Export successful.</source>
-        <translation type="vanished">내보내기 완료.</translation>
-    </message>
-    <message>
         <source>Exporting %1 %2 of %3</source>
         <translation>%1 내보내는 중 %2/%3</translation>
     </message>
@@ -1527,16 +1709,12 @@ Providing a new name will create a new document.</source>
         <translation>PDF 파일로 내보내기</translation>
     </message>
     <message>
-        <source>Exporting document...</source>
-        <translation type="vanished">문서를 내보내는 중...</translation>
-    </message>
-    <message>
-        <source>Export successful.</source>
-        <translation type="vanished">내보내기 완료.</translation>
-    </message>
-    <message>
         <source>Export to PDF</source>
         <translation>PDF로 내보내기</translation>
+    </message>
+    <message>
+        <source>The original PDF imported in OpenBoard seems not valid and could not be merged with your annotations. Please repair it and then reimport it in OpenBoard. The current export will be done with detailed (heavy) images of the pages of the original PDF instead, to avoid complete export failure.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1544,14 +1722,6 @@ Providing a new name will create a new document.</source>
     <message>
         <source>Export as PDF File</source>
         <translation>PDF 파일로 내보내기</translation>
-    </message>
-    <message>
-        <source>Exporting document...</source>
-        <translation type="vanished">문서를 내보내는 중...</translation>
-    </message>
-    <message>
-        <source>Export successful.</source>
-        <translation type="vanished">내보내기 완료.</translation>
     </message>
     <message>
         <source>Exporting page %1 of %2</source>
@@ -1594,10 +1764,6 @@ Providing a new name will create a new document.</source>
     <message>
         <source>Add to page</source>
         <translation type="unfinished">페이지에 추가</translation>
-    </message>
-    <message>
-        <source>Set as background</source>
-        <translation type="obsolete">배경으로 지정</translation>
     </message>
     <message>
         <source>Add to library</source>
@@ -1662,10 +1828,6 @@ Providing a new name will create a new document.</source>
         <translation type="unfinished">사진</translation>
     </message>
     <message>
-        <source>Animations</source>
-        <translation type="obsolete">애니메이션</translation>
-    </message>
-    <message>
         <source>Interactivities</source>
         <translation type="unfinished">대화형 작업</translation>
     </message>
@@ -1722,6 +1884,10 @@ Providing a new name will create a new document.</source>
         <source>Visible on Extended Screen</source>
         <translation type="unfinished">확장 화면에 보이기</translation>
     </message>
+    <message>
+        <source>Hide on Extended Screen when selected</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UBGraphicsItemDelegate</name>
@@ -1734,12 +1900,16 @@ Providing a new name will create a new document.</source>
         <translation>확장 화면에 보이기</translation>
     </message>
     <message>
-        <source>Go to Content Source</source>
-        <translation>콘텐츠 소스로 이동</translation>
-    </message>
-    <message>
         <source>Set as background</source>
         <translation type="unfinished">배경으로 지정</translation>
+    </message>
+    <message>
+        <source>Web Inspector</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide on Extended Screen when selected</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2103,39 +2273,9 @@ Do you want to ignore these errors for this host?</source>
         <source>Marker is pressure sensitive</source>
         <translation>마커는 압력 감지식입니다</translation>
     </message>
-</context>
-<context>
-    <name>UBProxyLoginDlg</name>
     <message>
-        <source>Proxy Login</source>
-        <translation type="vanished">프록시 로그인</translation>
-    </message>
-    <message>
-        <source>Username:</source>
-        <translation type="vanished">사용자명:</translation>
-    </message>
-    <message>
-        <source>Password:</source>
-        <translation type="vanished">암호:</translation>
-    </message>
-</context>
-<context>
-    <name>UBPublicationDlg</name>
-    <message>
-        <source>Publish document on the web</source>
-        <translation type="vanished">웹에 문서 게시</translation>
-    </message>
-    <message>
-        <source>Title:</source>
-        <translation type="vanished">제목:</translation>
-    </message>
-    <message>
-        <source>Description:</source>
-        <translation type="vanished">설명:</translation>
-    </message>
-    <message>
-        <source>Publish</source>
-        <translation type="vanished">게시</translation>
+        <source>Use all available displays</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2217,17 +2357,6 @@ Do you want to ignore these errors for this host?</source>
     </message>
 </context>
 <context>
-    <name>UBTrapFlashController</name>
-    <message>
-        <source>Whole page</source>
-        <translation>전체 페이지</translation>
-    </message>
-    <message>
-        <source>Web</source>
-        <translation>웹</translation>
-    </message>
-</context>
-<context>
     <name>UBUpdateDlg</name>
     <message>
         <source>Document updater</source>
@@ -2281,17 +2410,10 @@ Please reboot the application to access the updated documents.</source>
     </message>
 </context>
 <context>
-    <name>UBWebPluginWidget</name>
+    <name>UBWebEngineView</name>
     <message>
-        <source>Loading...</source>
-        <translation>불러오는 중...</translation>
-    </message>
-</context>
-<context>
-    <name>UBWidgetUniboardAPI</name>
-    <message>
-        <source>%0 called (method=%1, status=%2)</source>
-        <translation>%0 호출됨 (메소드=%1, 상태=%2)</translation>
+        <source>Open Web Inspector</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2380,85 +2502,6 @@ Please reboot the application to access the updated documents.</source>
     </message>
 </context>
 <context>
-    <name>WBClearButton</name>
-    <message>
-        <source>Clear</source>
-        <translation>지우기</translation>
-    </message>
-</context>
-<context>
-    <name>WBDownloadItem</name>
-    <message>
-        <source>Save File</source>
-        <translation>파일 저장</translation>
-    </message>
-    <message>
-        <source>Download canceled: %1</source>
-        <translation>다운로드 취소됨: %1</translation>
-    </message>
-    <message>
-        <source>Error opening saved file: %1</source>
-        <translation>저장된 파일 열기 오류: %1</translation>
-    </message>
-    <message>
-        <source>Error saving: %1</source>
-        <translation>저장 오류: %1</translation>
-    </message>
-    <message>
-        <source>Network Error: %1</source>
-        <translation>네트워크 오류: %1</translation>
-    </message>
-    <message>
-        <source>seconds</source>
-        <translation>초</translation>
-    </message>
-    <message>
-        <source>minutes</source>
-        <translation>분</translation>
-    </message>
-    <message>
-        <source>- %4 %5 remaining</source>
-        <translation>- %4 %5 남았습니다</translation>
-    </message>
-    <message>
-        <source>%1 of %2 (%3/sec) %4</source>
-        <translation>%1/%2 (%3/초) %4</translation>
-    </message>
-    <message>
-        <source>?</source>
-        <comment>unknown file size</comment>
-        <translation>?</translation>
-    </message>
-    <message>
-        <source>%1 of %2 - Stopped</source>
-        <translation>%1/%2 - 중지됨</translation>
-    </message>
-    <message>
-        <source>bytes</source>
-        <translation>바이트</translation>
-    </message>
-    <message>
-        <source>KB</source>
-        <translation>KB</translation>
-    </message>
-    <message>
-        <source>MB</source>
-        <translation>MB</translation>
-    </message>
-</context>
-<context>
-    <name>WBDownloadManager</name>
-    <message>
-        <source>1 Download</source>
-        <translation>1 다운로드</translation>
-    </message>
-    <message>
-        <source>%1 Downloads</source>
-        <comment>always &gt;= 2</comment>
-        <translation>%1 다운로드</translation>
-    </message>
-</context>
-<context>
     <name>WBHistoryModel</name>
     <message>
         <source>Title</source>
@@ -2481,103 +2524,100 @@ Please reboot the application to access the updated documents.</source>
     </message>
 </context>
 <context>
-    <name>WBSearchLineEdit</name>
+    <name>WebPage</name>
     <message>
-        <source>Search</source>
-        <translation>검색</translation>
-    </message>
-</context>
-<context>
-    <name>WBTabBar</name>
-    <message>
-        <source>New &amp;Tab</source>
-        <translation>새 탭(&amp;T)</translation>
+        <source>Certificate Error</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Clone Tab</source>
-        <translation>탭 복제</translation>
+        <source>Enter username and password for &quot;%1&quot; at %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Close Tab</source>
-        <translation>탭 닫기(&amp;C)</translation>
+        <source>Allow %1 to access your location information?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Close &amp;Other Tabs</source>
-        <translation>다른 탭 닫기(&amp;O)</translation>
+        <source>Allow %1 to access your microphone?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Reload Tab</source>
-        <translation>탭 다시보기</translation>
+        <source>Allow %1 to access your webcam?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Reload All Tabs</source>
-        <translation>모든 탭 다시보기</translation>
-    </message>
-</context>
-<context>
-    <name>WBTabWidget</name>
-    <message>
-        <source>Recently Closed Tabs</source>
-        <translation>최근 닫은 탭</translation>
+        <source>Allow %1 to access your microphone and webcam?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(Untitled)</source>
-        <translation>(무제)</translation>
-    </message>
-</context>
-<context>
-    <name>WBToolbarSearch</name>
-    <message>
-        <source>Search</source>
-        <translation>검색</translation>
+        <source>Allow %1 to lock your mouse cursor?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No Recent Searches</source>
-        <translation>최근 검색 없음</translation>
+        <source>Allow %1 to capture video of your desktop?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Recent Searches</source>
-        <translation>최근 검색</translation>
+        <source>Allow %1 to capture audio and video of your desktop?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Clear Recent Searches</source>
-        <translation>최근 검색 지우기</translation>
-    </message>
-</context>
-<context>
-    <name>WBWebPage</name>
-    <message>
-        <source>Download</source>
-        <translation>다운로드</translation>
+        <source>Permission Request</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add to Current Document</source>
-        <translation>현재 문서에 추가</translation>
+        <source>Connect to proxy &quot;%1&quot; using:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PDF</source>
-        <translation>PDF</translation>
-    </message>
-    <message>
-        <source>Error loading page: %1</source>
-        <translation>페이지 불러오기 오류: %1</translation>
-    </message>
-    <message>
-        <source>Download PDF Document: would you prefer to download the PDF file or add it to the current OpenBoard document?</source>
+        <source>Allow %1 to open all %2 links?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>WBWebView</name>
+    <name>WebView</name>
     <message>
-        <source>Open in New Tab</source>
-        <translation>새 탭에서 열기</translation>
+        <source>Render process normal exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Render process abnormal exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Render process crashed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Render process killed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Render process exited with code: %1
+Do you want to reload the page ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Web Inspector in new window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inspect element</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add to board</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>XPDFRenderer</name>
     <message>
         <source>Processing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>an error occured while trying to open the PDF file</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2699,29 +2739,6 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>documentPublishingDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation type="obsolete">대화</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation type="obsolete">제목</translation>
-    </message>
-    <message>
-        <source>E-mail</source>
-        <translation type="obsolete">이메일</translation>
-    </message>
-    <message>
-        <source>Author</source>
-        <translation type="obsolete">저자</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation type="obsolete">설명</translation>
-    </message>
-</context>
-<context>
     <name>documents</name>
     <message>
         <source>OpenBoard Documents</source>
@@ -2781,10 +2798,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Virtual Keyboard</source>
         <translation>가상 키보드</translation>
-    </message>
-    <message>
-        <source>Keyboard button size:</source>
-        <translation type="vanished">키보드 버튼 크기:</translation>
     </message>
     <message>
         <source>Toolbar</source>
@@ -2852,7 +2865,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Swap control display and view display</source>
-        <translation type="unfinished">컨트롤 디스플레이 스왑 및 디스플레이 보기</translation>
+        <translation type="obsolete">컨트롤 디스플레이 스왑 및 디스플레이 보기</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -2895,10 +2908,6 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">밝은 배경</translation>
     </message>
     <message>
-        <source>Swap first and second view displays</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Built-in virtual keyboard button size:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2935,11 +2944,27 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PDF Rendering</source>
+        <source>Improve zoom execution time (can slightly affect rendering quality)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Improve zoom execution time (can slightly affect rendering quality)</source>
+        <source>PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export background grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents</source>
+        <translation type="unfinished">문서</translation>
+    </message>
+    <message>
+        <source>List of screens used for Control, Display and Previous pages</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2947,7 +2972,7 @@ p, li { white-space: pre-wrap; }
     <name>trapFlashDialog</name>
     <message>
         <source>Trap flash</source>
-        <translation>플래시 트랩</translation>
+        <translation type="vanished">플래시 트랩</translation>
     </message>
     <message>
         <source>Select a flash to trap</source>
@@ -2967,6 +2992,10 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Select a content to capture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Capture Web Content</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

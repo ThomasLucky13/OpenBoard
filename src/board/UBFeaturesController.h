@@ -112,6 +112,7 @@ enum UBFeatureElementType
     FEATURE_TRASH,
     FEATURE_FAVORITE,
     FEATURE_SEARCH,
+    FEATURE_DOCUMENT,
     FEATURE_INVALID
 };
 
@@ -196,10 +197,11 @@ public:
     void deleteItem(const UBFeature &pFeature);
     bool isTrash( const QUrl &url );
     void moveToTrash(UBFeature feature, bool deleteManualy = false);
-    void addToFavorite( const QUrl &path );
+    void addToFavorite(const QUrl &path , const QString &name = QString(), bool temporaryAdded = false);
     void removeFromFavorite(const QUrl &path, bool deleteManualy = false);
-    void importImage(const QImage &image, const QString &fileName = QString());
-    void importImage( const QImage &image, const UBFeature &destination, const QString &fileName = QString() );
+    void storeAsFavorite(UBFeature feature);
+    void importImage(const QByteArray& imageData, const QString &fileName = QString());
+    void importImage(const QByteArray& imageData, const UBFeature &destination, const QString &fileName = QString() );
     QStringList getFileNamesInFolders();
 
     void fileSystemScan(const QUrl &currPath, const QString & currVirtualPath);
@@ -216,6 +218,10 @@ public:
 
     void assignFeaturesListView(UBFeaturesListView *pList);
     void assignPathListView(UBFeaturesListView *pList);
+
+    bool isInFavoriteList(QUrl url);
+    bool isDocumentInFavoriteList(QString documentFolderName);
+    bool isInRecentlyOpenDocuments(QString documentFolderName);
 
 public:
     static const QString rootPath;
@@ -301,7 +307,8 @@ private:
     UBFeature shapesElement;
     UBFeature webSearchElement;
 
-    QSet <QUrl> *favoriteSet;
+    QSet<QUrl> *favoriteSet;
+    QSet<QUrl> recentlyOpenDocuments;
 
 public:
     UBFeature trashElement;

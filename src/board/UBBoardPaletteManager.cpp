@@ -48,12 +48,9 @@
 #include "gui/UBBackgroundPalette.h"
 #include "gui/UBFavoriteToolPalette.h"
 #include "gui/UBStartupHintsPalette.h"
+#include "gui/UBPageNavigationWidget.h"
 
-#include "web/UBWebPage.h"
 #include "web/UBWebController.h"
-#include "web/browser/WBBrowserWindow.h"
-#include "web/browser/WBTabWidget.h"
-#include "web/browser/WBWebView.h"
 
 #include "desktop/UBDesktopAnnotationController.h"
 
@@ -77,6 +74,8 @@
 #include "core/UBPersistenceManager.h"
 #include "core/memcheck.h"
 
+inline constexpr int longpress_interval = 350;
+
 UBBoardPaletteManager::UBBoardPaletteManager(QWidget* container, UBBoardController* pBoardController)
     : QObject(container)
     , mKeyboardPalette(0)
@@ -95,7 +94,7 @@ UBBoardPaletteManager::UBBoardPaletteManager(QWidget* container, UBBoardControll
     , mPagePalette(NULL)
     , mPendingPageButtonPressed(false)
     , mPendingZoomButtonPressed(false)
-    , mPendingPanButtonPressed(false)
+    , mPendingHandButtonPressed(false)
     , mPendingEraseButtonPressed(false)
     , mpPageNavigWidget(NULL)
     , mpCachePropWidget(NULL)
@@ -245,15 +244,21 @@ void UBBoardPaletteManager::setupPalettes()
 
     mStylusPalette->stackUnder(mZoomPalette);
 
-    //mTipPalette = new UBStartupHintsPalette(mContainer);
+    mTipPalette = new UBStartupHintsPalette(mContainer);
     QList<QAction*> backgroundsActions;
 
     backgroundsActions << UBApplication::mainWindow->actionPlainLightBackground;
     backgroundsActions << UBApplication::mainWindow->actionCrossedLightBackground;
-    backgroundsActions << UBApplication::mainWindow->actionRuledLightBackground;
+    if(UBSettings::settings()->isSeyesRuledBackground())
+        backgroundsActions << UBApplication::mainWindow->actionSeyesRuledLightBackground;
+    else
+        backgroundsActions << UBApplication::mainWindow->actionRuledLightBackground;
     backgroundsActions << UBApplication::mainWindow->actionPlainDarkBackground;
     backgroundsActions << UBApplication::mainWindow->actionCrossedDarkBackground;
-    backgroundsActions << UBApplication::mainWindow->actionRuledDarkBackground;
+    if(UBSettings::settings()->isSeyesRuledBackground())
+        backgroundsActions << UBApplication::mainWindow->actionSeyesRuledDarkBackground;
+    else
+        backgroundsActions << UBApplication::mainWindow->actionRuledDarkBackground;
 
     mBackgroundsPalette = new UBBackgroundPalette(backgroundsActions, mContainer);
     mBackgroundsPalette->setButtonIconSize(QSize(128, 128));
@@ -314,7 +319,7 @@ void UBBoardPaletteManager::pagePaletteButtonPressed()
     mPageButtonPressedTime = QTime::currentTime();
 
     mPendingPageButtonPressed = true;
-    QTimer::singleShot(1000, this, SLOT(pagePaletteButtonReleased()));
+    QTimer::singleShot(longpress_interval, this, SLOT(pagePaletteButtonReleased()));
 }
 
 
@@ -322,7 +327,7 @@ void UBBoardPaletteManager::pagePaletteButtonReleased()
 {
     if (mPendingPageButtonPressed)
     {
-        if( mPageButtonPressedTime.msecsTo(QTime::currentTime()) > 900)
+        if( mPageButtonPressedTime.msecsTo(QTime::currentTime()) > longpress_interval-100)
         {
             // The palette is reinstanciated because the duplication depends on the current scene
             delete(mPagePalette);
@@ -360,7 +365,7 @@ void UBBoardPaletteManager::erasePaletteButtonPressed()
     mEraseButtonPressedTime = QTime::currentTime();
 
     mPendingEraseButtonPressed = true;
-    QTimer::singleShot(1000, this, SLOT(erasePaletteButtonReleased()));
+    QTimer::singleShot(longpress_interval, this, SLOT(erasePaletteButtonReleased()));
 }
 
 
@@ -368,7 +373,7 @@ void UBBoardPaletteManager::erasePaletteButtonReleased()
 {
     if (mPendingEraseButtonPressed)
     {
-        if( mEraseButtonPressedTime.msecsTo(QTime::currentTime()) > 900)
+        if( mEraseButtonPressedTime.msecsTo(QTime::currentTime()) > longpress_interval - 100)
         {
             toggleErasePalette(true);
         }
@@ -425,8 +430,8 @@ void UBBoardPaletteManager::connectPalettes()
         QAbstractButton *button = qobject_cast<QAbstractButton*>(widget);
         if (button)
         {
-            connect(button, SIGNAL(pressed()), this, SLOT(panButtonPressed()));
-            connect(button, SIGNAL(released()), this, SLOT(panButtonReleased()));
+            connect(button, SIGNAL(pressed()), this, SLOT(handButtonPressed()));
+            connect(button, SIGNAL(released()), this, SLOT(handButtonReleased()));
         }
     }
 
@@ -436,9 +441,11 @@ void UBBoardPaletteManager::connectPalettes()
     connect(UBApplication::mainWindow->actionPlainLightBackground, SIGNAL(triggered()), this, SLOT(changeBackground()));
     connect(UBApplication::mainWindow->actionCrossedLightBackground, SIGNAL(triggered()), this, SLOT(changeBackground()));
     connect(UBApplication::mainWindow->actionRuledLightBackground, SIGNAL(triggered()), this, SLOT(changeBackground()));
+    connect(UBApplication::mainWindow->actionSeyesRuledLightBackground, SIGNAL(triggered()), this, SLOT(changeBackground()));
     connect(UBApplication::mainWindow->actionPlainDarkBackground, SIGNAL(triggered()), this, SLOT(changeBackground()));
     connect(UBApplication::mainWindow->actionCrossedDarkBackground, SIGNAL(triggered()), this, SLOT(changeBackground()));
     connect(UBApplication::mainWindow->actionRuledDarkBackground, SIGNAL(triggered()), this, SLOT(changeBackground()));
+    connect(UBApplication::mainWindow->actionSeyesRuledDarkBackground, SIGNAL(triggered()), this, SLOT(changeBackground()));
     connect(UBApplication::mainWindow->actionPodcast, SIGNAL(triggered(bool)), this, SLOT(tooglePodcastPalette(bool)));
 
     connect(UBApplication::mainWindow->actionAddItemToCurrentPage, SIGNAL(triggered()), this, SLOT(addItemToCurrentPage()));
@@ -533,7 +540,8 @@ void UBBoardPaletteManager::changeBackground()
     if (UBApplication::mainWindow->actionCrossedLightBackground->isChecked())
         UBApplication::boardController->changeBackground(false, UBPageBackground::crossed);
 
-    else if (UBApplication::mainWindow->actionRuledLightBackground->isChecked())
+    else if (UBApplication::mainWindow->actionRuledLightBackground->isChecked() ||
+             UBApplication::mainWindow->actionSeyesRuledLightBackground->isChecked())
         UBApplication::boardController->changeBackground(false, UBPageBackground::ruled);
 
     else if (UBApplication::mainWindow->actionPlainDarkBackground->isChecked())
@@ -542,7 +550,8 @@ void UBBoardPaletteManager::changeBackground()
     else if (UBApplication::mainWindow->actionCrossedDarkBackground->isChecked())
         UBApplication::boardController->changeBackground(true, UBPageBackground::crossed);
 
-    else if (UBApplication::mainWindow->actionRuledDarkBackground->isChecked())
+    else if (UBApplication::mainWindow->actionRuledDarkBackground->isChecked() ||
+             UBApplication::mainWindow->actionSeyesRuledDarkBackground->isChecked())
         UBApplication::boardController->changeBackground(true, UBPageBackground::ruled);
 
     else
@@ -554,11 +563,11 @@ void UBBoardPaletteManager::changeBackground()
 
 void UBBoardPaletteManager::activeSceneChanged()
 {
-    UBGraphicsScene *activeScene =  UBApplication::boardController->activeScene();
+    std::shared_ptr<UBGraphicsScene> activeScene =  UBApplication::boardController->activeScene();
     int pageIndex = UBApplication::boardController->activeSceneIndex();
 
     if (mStylusPalette)
-        connect(mStylusPalette, SIGNAL(mouseEntered()), activeScene, SLOT(hideTool()));
+        connect(mStylusPalette, SIGNAL(mouseEntered()), activeScene.get(), SLOT(hideTool()));
 
     if (mpPageNavigWidget)
     {
@@ -566,10 +575,10 @@ void UBBoardPaletteManager::activeSceneChanged()
     }
 
     if (mZoomPalette)
-        connect(mZoomPalette, SIGNAL(mouseEntered()), activeScene, SLOT(hideTool()));
+        connect(mZoomPalette, SIGNAL(mouseEntered()), activeScene.get(), SLOT(hideTool()));
 
     if (mBackgroundsPalette) {
-        connect(mBackgroundsPalette, SIGNAL(mouseEntered()), activeScene, SLOT(hideTool()));
+        connect(mBackgroundsPalette, SIGNAL(mouseEntered()), activeScene.get(), SLOT(hideTool()));
         mBackgroundsPalette->refresh();
     }
 }
@@ -884,23 +893,35 @@ void UBBoardPaletteManager::addItemToNewPage()
 
 void UBBoardPaletteManager::addItemToLibrary()
 {
+    QByteArray data;
+
     if(mPixmap.isNull())
     {
-       mPixmap = QPixmap(mItemUrl.toLocalFile());
-    }
+        QFile file(mItemUrl.toLocalFile());
 
-    if(!mPixmap.isNull())
+        if (file.open(QFile::ReadOnly))
+        {
+            data = file.readAll();
+            file.close();
+        }
+    }
+    else
     {
         if(mScaleFactor != 1.)
         {
              mPixmap = mPixmap.scaled(mScaleFactor * mPixmap.width(), mScaleFactor* mPixmap.height()
                      , Qt::KeepAspectRatio, Qt::SmoothTransformation);
         }
-        QImage image = mPixmap.toImage();
 
+        QBuffer buffer(&data);
+        mPixmap.save(&buffer, "png");
+    }
+
+    if(!data.isEmpty())
+    {
         QDateTime now = QDateTime::currentDateTime();
         QString capturedName  = tr("CapturedImage") + "-" + now.toString("dd-MM-yyyy hh-mm-ss") + ".png";
-        mpFeaturesWidget->importImage(image, capturedName);
+        mpFeaturesWidget->importImage(data, capturedName);
     }
     else
     {
@@ -915,7 +936,7 @@ void UBBoardPaletteManager::zoomButtonPressed()
     mZoomButtonPressedTime = QTime::currentTime();
 
     mPendingZoomButtonPressed = true;
-    QTimer::singleShot(1000, this, SLOT(zoomButtonReleased()));
+    QTimer::singleShot(longpress_interval, this, SLOT(zoomButtonReleased()));
 }
 
 
@@ -923,7 +944,7 @@ void UBBoardPaletteManager::zoomButtonReleased()
 {
     if (mPendingZoomButtonPressed)
     {
-        if(mZoomButtonPressedTime.msecsTo(QTime::currentTime()) > 900)
+        if(mZoomButtonPressedTime.msecsTo(QTime::currentTime()) > longpress_interval - 100)
         {
             mBoardControler->zoomRestore();
         }
@@ -932,25 +953,25 @@ void UBBoardPaletteManager::zoomButtonReleased()
     }
 }
 
-void UBBoardPaletteManager::panButtonPressed()
+void UBBoardPaletteManager::handButtonPressed()
 {
-    mPanButtonPressedTime = QTime::currentTime();
+    mHandButtonPressedTime = QTime::currentTime();
 
-    mPendingPanButtonPressed = true;
-    QTimer::singleShot(1000, this, SLOT(panButtonReleased()));
+    mPendingHandButtonPressed = true;
+    QTimer::singleShot(longpress_interval, this, SLOT(handButtonReleased()));
 }
 
 
-void UBBoardPaletteManager::panButtonReleased()
+void UBBoardPaletteManager::handButtonReleased()
 {
-    if (mPendingPanButtonPressed)
+    if (mPendingHandButtonPressed)
     {
-        if(mPanButtonPressedTime.msecsTo(QTime::currentTime()) > 900)
+        if(mHandButtonPressedTime.msecsTo(QTime::currentTime()) > longpress_interval - 100)
         {
             mBoardControler->centerRestore();
         }
 
-        mPendingPanButtonPressed = false;
+        mPendingHandButtonPressed = false;
     }
 }
 

@@ -33,10 +33,11 @@ class QCheckBox;
 class QVBoxLayout;
 class QHBoxLayout;
 
-#include <QWebView>
+#include <QWebEngineView>
 
 #include "UBFloatingPalette.h"
 #include "api/UBWidgetUniboardAPI.h"
+#include "domain/UBWebEngineView.h"
 
 class UBStartupHintsPalette : public UBFloatingPalette
 {
@@ -62,11 +63,10 @@ private:
     QVBoxLayout* mLayout;
     QHBoxLayout* mButtonLayout;
     UBWidgetUniboardAPI *mpSankoreAPI;
-    QWebView* mpWebView;
+    UBWebEngineView* mpWebView;
 
 private slots:
     void onShowNextTimeStateChanged(int state);
-    void javaScriptWindowObjectCleared();
 };
 
 #endif // UBSTARTUPTIPSPALETTE_H

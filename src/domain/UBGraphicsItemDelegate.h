@@ -42,6 +42,7 @@
 #include <QtGui>
 #include <QtSvg>
 #include <QMimeData>
+#include <QGraphicsSvgItem>
 #include <QGraphicsVideoItem>
 
 #include "core/UB.h"
@@ -50,7 +51,6 @@
 class QGraphicsSceneMouseEvent;
 class QGraphicsItem;
 class UBGraphicsScene;
-class UBGraphicsProxyWidget;
 class UBGraphicsDelegateFrame;
 class UBGraphicsWidgetItem;
 class UBGraphicsMediaItem;
@@ -241,7 +241,7 @@ class UBGraphicsItemDelegate : public QObject
     Q_OBJECT
 
     public:
-    UBGraphicsItemDelegate(QGraphicsItem* pDelegated, QObject * parent = 0, UBGraphicsFlags fls = 0);
+    UBGraphicsItemDelegate(QGraphicsItem* pDelegated, QObject * parent = 0, UBGraphicsFlags fls = {});
 
         virtual ~UBGraphicsItemDelegate();
 
@@ -263,7 +263,7 @@ class UBGraphicsItemDelegate : public QObject
 
         virtual QVariant itemChange(QGraphicsItem::GraphicsItemChange change,
                 const QVariant &value);
-        virtual UBGraphicsScene *castUBGraphicsScene();
+        virtual std::shared_ptr<UBGraphicsScene> castUBGraphicsScene();
         virtual void postpaint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
 
@@ -309,6 +309,8 @@ class UBGraphicsItemDelegate : public QObject
         void showMenu();
 
         virtual void showHide(bool show);
+        virtual void showOnDisplay(bool hide);
+        virtual void hideOnDisplayWhenSelected(bool hide);
         virtual void lock(bool lock);
         virtual void duplicate();
 
@@ -327,6 +329,7 @@ class UBGraphicsItemDelegate : public QObject
 
         void showHideRecurs(const QVariant &pShow, QGraphicsItem *pItem);
         void setLockedRecurs(const QVariant &pLock, QGraphicsItem *pItem);
+        void setItemIsHiddenOnDisplayRecurs(const QVariant &pHide, QGraphicsItem *pItem);
 
         QList<DelegateButton*> buttons() {return mButtons;}
         QGraphicsItem* mDelegated;
@@ -344,6 +347,7 @@ class UBGraphicsItemDelegate : public QObject
 
         QAction* mLockAction;
         QAction* mShowOnDisplayAction;
+        QAction* mHideOnDisplayWhenSelectedAction;
         QAction* mSetAsBackgroundAction;
         QAction* mGotoContentSourceAction;
 

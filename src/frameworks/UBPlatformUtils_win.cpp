@@ -25,7 +25,9 @@
  */
 
 
+#define QT_IMPLICIT_QCHAR_CONSTRUCTION
 
+#include <QtPlatformHeaders/QWindowsWindowFunctions>
 
 #include "UBPlatformUtils.h"
 
@@ -36,6 +38,9 @@
 
 #include "frameworks/UBFileSystemUtils.h"
 #include "core/memcheck.h"
+#include "core/UBApplication.h"
+#include "core/UBDisplayManager.h"
+#include "core/UBSettings.h"
 
 void UBPlatformUtils::init()
 {
@@ -74,13 +79,18 @@ void UBPlatformUtils::fadeDisplayIn()
     // NOOP
 }
 
+bool UBPlatformUtils::hasSystemOnScreenKeyboard()
+{
+    return true;
+}
+
 QStringList UBPlatformUtils::availableTranslations()
 {
     QString translationsPath = applicationResourcesDirectory() + "/" + "i18n" + "/";
     QStringList translationsList = UBFileSystemUtils::allFiles(translationsPath);
-    QRegExp sankoreTranslationFiles(".*OpenBoard_.*.qm");
-    translationsList=translationsList.filter(sankoreTranslationFiles);
-    return translationsList.replaceInStrings(QRegExp("(.*)OpenBoard_(.*).qm"),"\\2");
+    static const QRegularExpression sankoreTranslationFiles("(.*)OpenBoard_(.*).qm");
+    translationsList = translationsList.filter(sankoreTranslationFiles);
+    return translationsList.replaceInStrings(sankoreTranslationFiles, "\\2");
 }
 
 QString UBPlatformUtils::translationPath(QString pFilePrefix,QString pLanguage)
@@ -122,9 +132,9 @@ QString UBPlatformUtils::computerName()
 }
 
 
-void UBPlatformUtils::setDesktopMode(bool desktop)
+void UBPlatformUtils::hideMenuBarAndDock()
 {
-    Q_UNUSED(desktop);
+
 }
 
 void UBPlatformUtils::setWindowNonActivableFlag(QWidget* widget, bool nonAcivable)
@@ -436,7 +446,24 @@ void UBPlatformUtils::setFrontProcess()
 
 void UBPlatformUtils::showFullScreen(QWidget *pWidget)
 {
-    pWidget->showFullScreen();
+    if (UBSettings::settings()->appRunInWindow->get().toBool()
+        && pWidget == UBApplication::displayManager->widget(ScreenRole::Control))
+    {
+        pWidget->show();
+    }
+    else
+    {
+        if (pWidget->windowHandle())
+        {
+            /*HWND handle = reinterpret_cast<HWND>(pWidget->windowHandle()->winId());
+            SetWindowLongPtr(handle, GWL_STYLE, (GetWindowLongPtr(handle, GWL_STYLE) | WS_BORDER) & ~WS_POPUP);*/
+
+            #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+                QWindowsWindowFunctions::setHasBorderInFullScreen(pWidget->windowHandle(), true);
+            #endif
+        }
+        pWidget->showFullScreen();
+    }
 }
 
 void UBPlatformUtils::showOSK(bool show)

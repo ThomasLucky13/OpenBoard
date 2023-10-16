@@ -46,7 +46,7 @@ class UBActionPalette;
 class UBMainWindow;
 class UBRightPalette;
 
-#define PROPERTY_PALETTE_TIMER      1000
+#define PROPERTY_PALETTE_TIMER      350
 
 /**
  * The uninotes controller. This object allocate a uninotes window and implements all the actions corresponding to
@@ -78,7 +78,6 @@ class UBDesktopAnnotationController : public QObject
         void screenLayoutChanged();
         void goToUniboard();
         void customCapture();
-        void windowCapture();
         void screenCapture();
         void updateShowHideState(bool pEnabled);
 
@@ -103,7 +102,7 @@ class UBDesktopAnnotationController : public QObject
         QPixmap getScreenPixmap();
 
         UBBoardView* mTransparentDrawingView;       
-        UBGraphicsScene* mTransparentDrawingScene;
+        std::shared_ptr<UBGraphicsScene> mTransparentDrawingScene;
 
     private slots:
         void updateColors();

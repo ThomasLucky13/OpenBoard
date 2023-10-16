@@ -370,10 +370,11 @@ void UBGraphicsGroupContainerItem::pRemoveFromGroup(QGraphicsItem *item)
     item->setParentItem(newParent);
     item->setPos(oldPos);
 
-    UBGraphicsScene *Scene = dynamic_cast<UBGraphicsScene *>(item->scene());
-    if (Scene)
+    // here we may directly use the plain pointer returned from item->scene() as we will not use it later
+    auto scene = dynamic_cast<UBGraphicsScene*>(item->scene());
+    if (scene)
     {
-        Scene->addItem(item);
+        scene->addItem(item);
     }
 
     // removing position from translation component of the new transform

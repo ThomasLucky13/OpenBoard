@@ -102,19 +102,26 @@ QList<UBGraphicsItem*> UBImportImage::import(const QUuid& uuid, const QString& f
     UBGraphicsPixmapItem* pixmapItem = new UBGraphicsPixmapItem();
     pixmapItem->setPixmap(pix);
     result << pixmapItem;
+    mLastFilePath = filePath;
 
     return result;
 }
 
-void UBImportImage::placeImportedItemToScene(UBGraphicsScene* scene, UBGraphicsItem* item)
+void UBImportImage::placeImportedItemToScene(std::shared_ptr<UBGraphicsScene> scene, UBGraphicsItem* item)
 {
     UBGraphicsPixmapItem* pixmapItem = (UBGraphicsPixmapItem*)item;
 
-     UBGraphicsPixmapItem* sceneItem = scene->addPixmap(pixmapItem->pixmap(), NULL, QPointF(0, 0),1.0,false,true);
-     scene->setAsBackgroundObject(sceneItem, true);
+    QFile file(mLastFilePath);
 
-     // Only stored pixmap, should be deleted now
-     delete pixmapItem;
+    if (file.open(QFile::ReadOnly))
+    {
+        QByteArray data = file.readAll();
+        UBGraphicsPixmapItem* sceneItem = scene->addImage(data, nullptr, QPointF(0, 0), 1.0, false, true);
+        scene->setAsBackgroundObject(sceneItem, true);
+    }
+
+    // Only stored pixmap, should be deleted now
+    delete pixmapItem;
 }
 
 const QString& UBImportImage::folderToCopy()

@@ -165,9 +165,10 @@ QRectF UBGraphicsTriangle::bounding_Rect() const
     return bounds;
 }
 
-UBGraphicsScene* UBGraphicsTriangle::scene() const
+std::shared_ptr<UBGraphicsScene> UBGraphicsTriangle::scene() const
 {
-    return static_cast<UBGraphicsScene*>(QGraphicsPolygonItem::scene());
+    auto scenePtr = dynamic_cast<UBGraphicsScene*>(QGraphicsPolygonItem::scene());
+    return scenePtr ? scenePtr->shared_from_this() : nullptr;
 }
 
 void UBGraphicsTriangle::calculatePoints(const QRectF& r)
@@ -394,7 +395,7 @@ void UBGraphicsTriangle::paintGraduations(QPainter *painter)
     double pixelsPerMillimeter = sPixelsPerCentimeter/10.0;
 
     // When a "centimeter" is too narrow, we only display every 5th number, and every 5th millimeter mark
-    double numbersWidth = fontMetrics.width("00");
+    double numbersWidth = fontMetrics.horizontalAdvance("00");
     bool shouldDisplayAllNumbers = (numbersWidth <= (sPixelsPerCentimeter - 5));
 
     for (int millimeters = 0; millimeters < (rect().width() - sLeftEdgeMargin - sRoundingRadius) / pixelsPerMillimeter; millimeters++)
@@ -450,7 +451,7 @@ void UBGraphicsTriangle::paintGraduations(QPainter *painter)
             || millimeters % (UBGeometryUtils::millimetersPerCentimeter*5) == 0)
         {
             QString text = QString("%1").arg((int)(millimeters / UBGeometryUtils::millimetersPerCentimeter));
-            qreal textWidth = fontMetrics.width(text);
+            qreal textWidth = fontMetrics.horizontalAdvance(text);
             qreal textHeight = fontMetrics.tightBoundingRect(text).height();
 
             requiredSpace = graduationHeight + textHeight + textWidth + SEPARATOR ;
@@ -886,7 +887,7 @@ void UBGraphicsTriangle::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 
     } else if (UBDrawingController::drawingController()->isDrawingTool())  {
             setCursor(drawRulerLineCursor());
-            UBDrawingController::drawingController()->mActiveRuler = this;
+            UBDrawingController::drawingController()->setActiveRuler(this);
             event->accept();
     }
 
@@ -904,7 +905,7 @@ void UBGraphicsTriangle::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
     mVFlipSvgItem->setVisible(false);
     mHFlipSvgItem->setVisible(false);
     mRotateSvgItem->setVisible(false);
-    UBDrawingController::drawingController()->mActiveRuler = NULL;
+    UBDrawingController::drawingController()->setActiveRuler(nullptr);
     event->accept();
     update();
 }

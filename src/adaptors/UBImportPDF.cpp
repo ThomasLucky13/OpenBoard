@@ -43,8 +43,6 @@
 UBImportPDF::UBImportPDF(QObject *parent)
     : UBPageBasedImportAdaptor(parent)
 {
-    QDesktopWidget* desktop = UBApplication::desktop();
-    this->dpi = (desktop->physicalDpiX() + desktop->physicalDpiY()) / 2;
 }
 
 
@@ -77,7 +75,6 @@ QList<UBGraphicsItem*> UBImportPDF::import(const QUuid& uuid, const QString& fil
         UBApplication::showMessage(tr("PDF import failed."));
         return result;
     }
-    pdfRenderer->setDPI(this->dpi);
 
     int pdfPageCount = pdfRenderer->pageCount();
 
@@ -89,7 +86,7 @@ QList<UBGraphicsItem*> UBImportPDF::import(const QUuid& uuid, const QString& fil
     return result;
 }
 
-void UBImportPDF::placeImportedItemToScene(UBGraphicsScene* scene, UBGraphicsItem* item)
+void UBImportPDF::placeImportedItemToScene(std::shared_ptr<UBGraphicsScene> scene, UBGraphicsItem* item)
 {
     UBGraphicsPDFItem *pdfItem = (UBGraphicsPDFItem*)item;
 

@@ -43,7 +43,7 @@
 #include "domain/UBGraphicsItemDelegate.h"
 
 UBItem::UBItem()
-    : mUuid(QUuid())
+    : mUuid(QUuid::createUuid())
     , mRenderingQuality(UBItem::RenderingQualityNormal)
 {
     // NOOP
@@ -90,6 +90,11 @@ bool UBGraphicsItem::isRotatable(QGraphicsItem *item)
 bool UBGraphicsItem::isLocked(QGraphicsItem *item)
 {
     return item->data(UBGraphicsItemData::ItemLocked).toBool();
+}
+
+bool UBGraphicsItem::isHiddenOnDisplay(QGraphicsItem *item)
+{
+    return item->data(UBGraphicsItemData::ItemIsHiddenOnDisplay).toBool();
 }
 
 QUuid UBGraphicsItem::getOwnUuid(QGraphicsItem *item)

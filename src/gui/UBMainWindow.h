@@ -44,7 +44,7 @@ class UBMainWindow : public QMainWindow, public Ui::MainWindow
     Q_OBJECT
     public:
 
-        UBMainWindow(QWidget *parent = 0, Qt::WindowFlags flags = 0);
+        UBMainWindow(QWidget *parent = 0, Qt::WindowFlags flags = {});
         virtual ~UBMainWindow();
 
         void addBoardWidget(QWidget *pWidget);
@@ -56,7 +56,7 @@ class UBMainWindow : public QMainWindow, public Ui::MainWindow
         void addDocumentsWidget(QWidget *pWidget);
         void switchToDocumentsWidget();
 
-        bool yesNoQuestion(QString windowTitle, QString text);
+        bool yesNoQuestion(QString windowTitle, QString text, const QPixmap &iconPixmap = QPixmap(), const QMessageBox::Icon icon = QMessageBox::Question);
         void warning(QString windowTitle, QString text);
         void information(QString windowTitle, QString text);
 

@@ -35,6 +35,7 @@
 #include <QPdfWriter>
 
 #include "core/UBApplication.h"
+#include "core/UBDisplayManager.h"
 #include "core/UBSettings.h"
 #include "core/UBSetting.h"
 #include "core/UBPersistenceManager.h"
@@ -61,7 +62,7 @@ UBExportPDF::~UBExportPDF()
     // NOOP
 }
 
-void UBExportPDF::persist(UBDocumentProxy* pDocumentProxy)
+void UBExportPDF::persist(std::shared_ptr<UBDocumentProxy> pDocumentProxy)
 {
     persistLocally(pDocumentProxy, tr("Export as PDF File"));
 }
@@ -77,7 +78,7 @@ bool UBExportPDF::associatedActionactionAvailableFor(const QModelIndex &selected
 }
 
 
-bool UBExportPDF::persistsDocument(UBDocumentProxy* pDocumentProxy, const QString& filename)
+bool UBExportPDF::persistsDocument(std::shared_ptr<UBDocumentProxy> pDocumentProxy, const QString& filename)
 {
     QPdfWriter pdfWriter(filename);
 
@@ -89,10 +90,9 @@ bool UBExportPDF::persistsDocument(UBDocumentProxy* pDocumentProxy, const QStrin
     pdfWriter.setCreator("OpenBoard PDF export");
     pdfWriter.setPdfVersion(QPagedPaintDevice::PdfVersion_1_4);
 
-    //need to calculate screen resolution
-    QDesktopWidget* desktop = UBApplication::desktop();
-    int dpiCommon = (desktop->physicalDpiX() + desktop->physicalDpiY()) / 2;
-    float scaleFactor = 72.0f / dpiCommon;
+    // need to calculate screen resolution
+    float dpiCommon = UBApplication::displayManager->logicalDpi(ScreenRole::Control);
+    float scaleFactor = dpiCommon ? 72.0f / dpiCommon : 1.f;
 
     QPainter pdfPainter;
     bool painterNeedsBegin = true;
@@ -101,7 +101,7 @@ bool UBExportPDF::persistsDocument(UBDocumentProxy* pDocumentProxy, const QStrin
 
     for(int pageIndex = 0 ; pageIndex < existingPageCount; pageIndex++) {
 
-        UBGraphicsScene* scene = UBPersistenceManager::persistenceManager()->loadDocumentScene(pDocumentProxy, pageIndex);
+        std::shared_ptr<UBGraphicsScene> scene = UBPersistenceManager::persistenceManager()->loadDocumentScene(pDocumentProxy, pageIndex);
         UBApplication::showMessage(tr("Exporting page %1 of %2").arg(pageIndex + 1).arg(existingPageCount));
 
         // set background to white, no crossing for PDF output

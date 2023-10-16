@@ -9,41 +9,105 @@
     </message>
 </context>
 <context>
-    <name>DownloadDialog</name>
+    <name>BrowserWindow</name>
     <message>
-        <source>Downloads</source>
-        <translation>下載</translation>
+        <source>Navigation</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Clean Up</source>
-        <translation>清理乾淨</translation>
-    </message>
-    <message>
-        <source>0 Items</source>
-        <translation>零個項目</translation>
+        <source>Show downloads</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>DownloadItem</name>
+    <name>CertificateErrorDialog</name>
     <message>
-        <source>Form</source>
-        <translation>表格</translation>
+        <source>Dialog</source>
+        <translation type="unfinished">對話</translation>
     </message>
     <message>
-        <source>Filename</source>
-        <translation>檔名</translation>
+        <source>Icon</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Try Again</source>
-        <translation>再試一次</translation>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Stop</source>
-        <translation>停止</translation>
+        <source>If you wish so, you may continue with an unverified certificate. Accepting an unverified certificate mean you may not be connected with the host you tried to connect to.
+
+Do you wish to override the security check and continue ?   </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DownloadManagerWidget</name>
+    <message>
+        <source>Downloads</source>
+        <translation type="unfinished">下載</translation>
     </message>
     <message>
-        <source>Open</source>
-        <translation>開啟</translation>
+        <source>No downloads</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DownloadWidget</name>
+    <message>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%L1 B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%L1 KiB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%L1 MiB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%L1 GiB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%p% - %1 of %2 downloaded - %3/s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unknown size - %1 downloaded - %2/s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>completed - %1 downloaded - %2/s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cancelled - %1 downloaded - %2/s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>interrupted: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop downloading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove from list</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -165,7 +229,7 @@
     </message>
     <message>
         <source>Manage Documents</source>
-        <translation>文件管理</translation>
+        <translation type="vanished">文件管理</translation>
     </message>
     <message>
         <source>Ctrl+D</source>
@@ -173,7 +237,7 @@
     </message>
     <message>
         <source>Web Browsing</source>
-        <translation>網頁瀏覽</translation>
+        <translation type="vanished">網頁瀏覽</translation>
     </message>
     <message>
         <source>Ctrl+W</source>
@@ -190,10 +254,6 @@
     <message>
         <source>Large Line</source>
         <translation>粗</translation>
-    </message>
-    <message>
-        <source>Smalle Eraser</source>
-        <translation type="vanished">細</translation>
     </message>
     <message>
         <source>Medium Eraser</source>
@@ -221,7 +281,7 @@
     </message>
     <message>
         <source>Display Board</source>
-        <translation>顯示演示板</translation>
+        <translation type="vanished">顯示演示板</translation>
     </message>
     <message>
         <source>Erase Content</source>
@@ -237,7 +297,7 @@
     </message>
     <message>
         <source>Show Computer Desktop</source>
-        <translation>顯示本機桌面</translation>
+        <translation type="vanished">顯示本機桌面</translation>
     </message>
     <message>
         <source>Ctrl+Shift+H</source>
@@ -409,11 +469,11 @@
     </message>
     <message>
         <source>eduMedia</source>
-        <translation>eduMedia</translation>
+        <translation type="vanished">eduMedia</translation>
     </message>
     <message>
         <source>Import eduMedia simulation</source>
-        <translation>匯入 eduMedia 模擬程序</translation>
+        <translation type="vanished">匯入 eduMedia 模擬程序</translation>
     </message>
     <message>
         <source>Check Update</source>
@@ -442,10 +502,6 @@
     <message>
         <source>Eraser</source>
         <translation>橡皮擦</translation>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation type="vanished">顏色</translation>
     </message>
     <message>
         <source>Back</source>
@@ -561,7 +617,7 @@
     </message>
     <message>
         <source>Add to Working Document</source>
-        <translation>新增至運作中文件</translation>
+        <translation type="vanished">新增至運作中文件</translation>
     </message>
     <message>
         <source>Add Selected Content to Open Document</source>
@@ -661,7 +717,7 @@
     </message>
     <message>
         <source>Import an External Page</source>
-        <translation>匯入外部頁面</translation>
+        <translation type="vanished">匯入外部頁面</translation>
     </message>
     <message>
         <source>Pause</source>
@@ -689,11 +745,11 @@
     </message>
     <message>
         <source>Web Trap</source>
-        <translation>網頁擷取</translation>
+        <translation type="vanished">網頁擷取</translation>
     </message>
     <message>
         <source>Trap Web Content</source>
-        <translation>擷取網頁內容</translation>
+        <translation type="vanished">擷取網頁內容</translation>
     </message>
     <message>
         <source>Window Capture</source>
@@ -843,6 +899,82 @@
         <source>Capture Web Content</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Documents Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Web Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Board Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Desktop</source>
+        <translation type="unfinished">桌面</translation>
+    </message>
+    <message>
+        <source>Desktop Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add to document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Seyes ruled Light Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Seyes ruled Dark Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import one or more pages (supported formats : jpg, png, svg, ubz, pdf)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add to favorites</source>
+        <translation type="obsolete">新增至我的最愛</translation>
+    </message>
+    <message>
+        <source>Add Document to favorites</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hints and tips</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Hints and tips</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Favorite</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PasswordDialog</name>
@@ -858,28 +990,13 @@
         <source>Password:</source>
         <translation>密碼：</translation>
     </message>
-</context>
-<context>
-    <name>ProxyDialog</name>
     <message>
-        <source>Proxy Authentication</source>
-        <translation>Proxy 驗證</translation>
+        <source>Icon</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Connect to Proxy</source>
-        <translation>連接至 Proxy</translation>
-    </message>
-    <message>
-        <source>Username:</source>
-        <translation>帳號：</translation>
-    </message>
-    <message>
-        <source>Password:</source>
-        <translation>密碼：</translation>
-    </message>
-    <message>
-        <source>Save username and password for future use</source>
-        <translation>儲存帳號密碼</translation>
+        <source>Info</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -898,7 +1015,7 @@
     </message>
     <message>
         <source>Are you sure you want to remove 1 page from the selected document &apos;%0&apos;?</source>
-        <translation>確定要移除所選文件 &apos;%0&apos; 的一個頁面？</translation>
+        <translation type="vanished">確定要移除所選文件 &apos;%0&apos; 的一個頁面？</translation>
     </message>
     <message>
         <source>Loading scene (%1/%2)</source>
@@ -907,6 +1024,41 @@
     <message>
         <source>Moving cached scenes (%1/%2)</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove page %1 ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabWidget</name>
+    <message>
+        <source>New &amp;Tab</source>
+        <translation>新建分頁(&amp;T)</translation>
+    </message>
+    <message>
+        <source>Clone Tab</source>
+        <translation>複製分頁</translation>
+    </message>
+    <message>
+        <source>&amp;Close Tab</source>
+        <translation>關閉分頁(&amp;C)</translation>
+    </message>
+    <message>
+        <source>Close &amp;Other Tabs</source>
+        <translation>關閉其他分頁 (&amp;O)</translation>
+    </message>
+    <message>
+        <source>Reload Tab</source>
+        <translation>重新載入分頁</translation>
+    </message>
+    <message>
+        <source>Reload All Tabs</source>
+        <translation>重新載入所有分頁</translation>
+    </message>
+    <message>
+        <source>(Untitled)</source>
+        <translation>空白頁</translation>
     </message>
 </context>
 <context>
@@ -985,10 +1137,6 @@
         <translation>未知內容類型 %1</translation>
     </message>
     <message>
-        <source>Delete page %1 from document</source>
-        <translation type="vanished">刪除文件的第 %1 頁</translation>
-    </message>
-    <message>
         <source>Page %1 deleted</source>
         <translation>已刪除第 %1 頁</translation>
     </message>
@@ -1020,6 +1168,14 @@
         <source>Color</source>
         <translation>顏色</translation>
     </message>
+    <message>
+        <source>Untitled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not find document.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UBBoardPaletteManager</name>
@@ -1036,7 +1192,18 @@
     <name>UBBoardThumbnailsView</name>
     <message>
         <source>Loading page (%1/%2)</source>
-        <translation>正在載入第 %1 頁，共 %2 頁</translation>
+        <translation type="vanished">正在載入第 %1 頁，共 %2 頁</translation>
+    </message>
+</context>
+<context>
+    <name>UBBoardView</name>
+    <message>
+        <source>Is it for Board or Widget ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you trying to drop the object(s) inside the widget ?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1120,46 +1287,6 @@
         <translation>文件 %1 已複製</translation>
     </message>
     <message>
-        <source>Remove Page</source>
-        <translation type="vanished">移除頁面</translation>
-    </message>
-    <message>
-        <source>Remove Document</source>
-        <translation type="vanished">移除文件</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to remove the document &apos;%1&apos;?</source>
-        <translation type="vanished">確定要移除文件 &apos;%1&apos;?</translation>
-    </message>
-    <message>
-        <source>Empty Trash</source>
-        <translation type="vanished">清空回收桶</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to empty trash?</source>
-        <translation type="vanished">確定要清空回收桶?</translation>
-    </message>
-    <message>
-        <source>Emptying trash</source>
-        <translation type="vanished">回收桶清空中</translation>
-    </message>
-    <message>
-        <source>Emptied trash</source>
-        <translation type="vanished">回收桶已清空</translation>
-    </message>
-    <message>
-        <source>Remove Folder</source>
-        <translation type="vanished">移除檔案夾</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to remove the folder &apos;%1&apos; and all its content?</source>
-        <translation type="vanished">確定要移除檔案夾 &apos;%1&apos; 及其所有內容?</translation>
-    </message>
-    <message>
-        <source>No document selected!</source>
-        <translation type="vanished">未選擇任何文件！</translation>
-    </message>
-    <message>
         <source>Open Supported File</source>
         <translation>開啟支援的檔案</translation>
     </message>
@@ -1203,12 +1330,6 @@
         <source>Selection does not contain any image files!</source>
         <translation>所選內容並沒有圖像檔！</translation>
     </message>
-    <message numerus="yes">
-        <source>Are you sure you want to remove %n page(s) from the selected document &apos;%1&apos;?</source>
-        <translation type="obsolete">
-            <numerusform>確定要從所選文件 &apos;%1&apos; 移除 %n 個頁面?</numerusform>
-        </translation>
-    </message>
     <message>
         <source>Folder does not contain any image files</source>
         <translation>檔案夾並沒有圖像檔</translation>
@@ -1226,11 +1347,11 @@
     </message>
     <message>
         <source>Remove Item</source>
-        <translation>刪除項目</translation>
+        <translation type="vanished">刪除項目</translation>
     </message>
     <message>
         <source>Are you sure you want to remove the selected item(s) ?</source>
-        <translation>您確定要刪除所選項目嗎？</translation>
+        <translation type="vanished">您確定要刪除所選項目嗎？</translation>
     </message>
     <message>
         <source>The document &apos;%1&apos; has been generated with a newer version of OpenBoard (%2). By opening it, you may lose some information. Do you want to proceed?</source>
@@ -1242,6 +1363,90 @@
     </message>
     <message>
         <source>Refreshing Document Thumbnails View (%1/%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Complete deletion of %1 documents/folders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to permanantly delete %1 documents and/or folders. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Complete deletion of folder &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to permanantly delete folder &quot;%1&quot;. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Complete deletion of document &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to permanantly delete document &quot;%1&quot;. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Emptying My Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to entirely empty the folder &quot;My Documents&quot;. All your documents will be moved to trash. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Emptying Trash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to entirely empty the trash. All documents and folders in it will be permanently deleted. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Moving %1 elements to trash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to move %1 documents and/or folders to trash. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move folder &quot;%1&quot;to trash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to move folder &quot;%1&quot; to trash. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move document &quot;%1&quot;to trash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to move document &quot;%1&quot; to trash. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Supported File(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Moving %1 pages of the document &quot;%2&quot; to trash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to move %1 pages of the document &quot;%2&quot; to trash. Are you sure ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove page %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are about to remove page %1 of the document &quot;%2&quot;. Are you sure ?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1292,25 +1497,14 @@
     <name>UBDocumentNavigator</name>
     <message>
         <source>Page %0</source>
-        <translation>第 %0 頁</translation>
-    </message>
-    <message>
-        <source>Generating thumbnails for board (%1/%2)</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>UBDocumentPublisher</name>
-    <message>
-        <source>Export failed.</source>
-        <translation type="obsolete">匯出失敗。</translation>
+        <translation type="vanished">第 %0 頁</translation>
     </message>
 </context>
 <context>
     <name>UBDocumentReplaceDialog</name>
     <message>
         <source>Accept</source>
-        <translation>接受</translation>
+        <translation type="vanished">接受</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -1324,6 +1518,22 @@
         <source>The name %1 is allready used.
 Keeping this name will replace the document.
 Providing a new name will create a new document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation type="unfinished">重新命名</translation>
+    </message>
+    <message>
+        <source>Replace all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Skip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Skip all</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1354,32 +1564,15 @@ Providing a new name will create a new document.</source>
     </message>
     <message>
         <source>Remove Item</source>
-        <translation>刪除項目</translation>
+        <translation type="vanished">刪除項目</translation>
     </message>
     <message>
         <source>Are you sure you want to remove the selected item(s) ?</source>
-        <translation>您確定要刪除所選項目嗎？</translation>
+        <translation type="vanished">您確定要刪除所選項目嗎？</translation>
     </message>
     <message>
         <source>Copying page %1/%2</source>
         <translation>頁面 %1/%2 複製中</translation>
-    </message>
-</context>
-<context>
-    <name>UBDocumentTreeWidget</name>
-    <message>
-        <source>%1 (copy)</source>
-        <translation type="vanished">%1 (copy)</translation>
-    </message>
-    <message>
-        <source>Copying page %1/%2</source>
-        <translation type="vanished">頁面 %1/%2 複製中</translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 pages copied</source>
-        <translation type="obsolete">
-            <numerusform>已複製 %1 個頁面</numerusform>
-        </translation>
     </message>
 </context>
 <context>
@@ -1394,17 +1587,40 @@ Providing a new name will create a new document.</source>
     </message>
 </context>
 <context>
-    <name>UBDraggableThumbnail</name>
+    <name>UBDraggableLivePixmapItem</name>
     <message>
         <source>Page %0</source>
         <translation type="unfinished">第 %0 頁</translation>
     </message>
 </context>
 <context>
+    <name>UBDraggableThumbnail</name>
+    <message>
+        <source>Page %0</source>
+        <translation type="obsolete">第 %0 頁</translation>
+    </message>
+</context>
+<context>
     <name>UBDraggableThumbnailView</name>
     <message>
         <source>Page %0</source>
-        <translation type="unfinished">第 %0 頁</translation>
+        <translation type="obsolete">第 %0 頁</translation>
+    </message>
+</context>
+<context>
+    <name>UBEmbedController</name>
+    <message>
+        <source>Whole page</source>
+        <translation>整頁</translation>
+    </message>
+    <message>
+        <source>Web</source>
+        <translation>網路</translation>
+    </message>
+    <message>
+        <source>Application name can`t contain any of the following characters:<byte value="xd"/>
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1468,14 +1684,6 @@ Providing a new name will create a new document.</source>
         <translation>以UBZ格式匯出</translation>
     </message>
     <message>
-        <source>Exporting document...</source>
-        <translation type="vanished">文件匯出中...</translation>
-    </message>
-    <message>
-        <source>Export successful.</source>
-        <translation type="vanished">匯出成功。</translation>
-    </message>
-    <message>
         <source>Exporting %1 %2 of %3</source>
         <translation> %3 的 %1 %2 匯出中</translation>
     </message>
@@ -1518,16 +1726,12 @@ Providing a new name will create a new document.</source>
         <translation>以 PDF 格式匯出</translation>
     </message>
     <message>
-        <source>Exporting document...</source>
-        <translation type="vanished">匯出文件中...</translation>
-    </message>
-    <message>
         <source>Export to PDF</source>
         <translation>匯出成 PDF</translation>
     </message>
     <message>
-        <source>Export successful.</source>
-        <translation type="vanished">匯出成功。</translation>
+        <source>The original PDF imported in OpenBoard seems not valid and could not be merged with your annotations. Please repair it and then reimport it in OpenBoard. The current export will be done with detailed (heavy) images of the pages of the original PDF instead, to avoid complete export failure.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1539,14 +1743,6 @@ Providing a new name will create a new document.</source>
     <message>
         <source>Exporting page %1 of %2</source>
         <translation>頁面 %2 的 %1 匯出中</translation>
-    </message>
-    <message>
-        <source>Export successful.</source>
-        <translation type="vanished">匯出成功。</translation>
-    </message>
-    <message>
-        <source>Exporting document...</source>
-        <translation type="vanished">匯出文件中...</translation>
     </message>
     <message>
         <source>Export to PDF</source>
@@ -1585,10 +1781,6 @@ Providing a new name will create a new document.</source>
     <message>
         <source>Add to page</source>
         <translation>新增至頁面</translation>
-    </message>
-    <message>
-        <source>Set as background</source>
-        <translation type="vanished">設定成背景</translation>
     </message>
     <message>
         <source>Add to library</source>
@@ -1653,10 +1845,6 @@ Providing a new name will create a new document.</source>
         <translation>圖案</translation>
     </message>
     <message>
-        <source>Animations</source>
-        <translation type="vanished">動畫</translation>
-    </message>
-    <message>
         <source>Interactivities</source>
         <translation>互動</translation>
     </message>
@@ -1713,6 +1901,10 @@ Providing a new name will create a new document.</source>
         <source>Visible on Extended Screen</source>
         <translation>於延伸螢幕可見</translation>
     </message>
+    <message>
+        <source>Hide on Extended Screen when selected</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UBGraphicsItemDelegate</name>
@@ -1725,12 +1917,16 @@ Providing a new name will create a new document.</source>
         <translation>於延伸螢幕可見</translation>
     </message>
     <message>
-        <source>Go to Content Source</source>
-        <translation>至內容來源</translation>
-    </message>
-    <message>
         <source>Set as background</source>
         <translation>設定成背景</translation>
+    </message>
+    <message>
+        <source>Web Inspector</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide on Extended Screen when selected</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2088,39 +2284,9 @@ Do you want to ignore these errors for this host?</source>
         <source>Marker is pressure sensitive</source>
         <translation>感壓型提示筆</translation>
     </message>
-</context>
-<context>
-    <name>UBProxyLoginDlg</name>
     <message>
-        <source>Proxy Login</source>
-        <translation type="vanished">Proxy 登入</translation>
-    </message>
-    <message>
-        <source>Username:</source>
-        <translation type="vanished">帳號：</translation>
-    </message>
-    <message>
-        <source>Password:</source>
-        <translation type="vanished">密碼：</translation>
-    </message>
-</context>
-<context>
-    <name>UBPublicationDlg</name>
-    <message>
-        <source>Publish document on the web</source>
-        <translation type="vanished">發佈文件至網路</translation>
-    </message>
-    <message>
-        <source>Title:</source>
-        <translation type="vanished">標題：</translation>
-    </message>
-    <message>
-        <source>Description:</source>
-        <translation type="vanished">描述：</translation>
-    </message>
-    <message>
-        <source>Publish</source>
-        <translation type="vanished">發佈</translation>
+        <source>Use all available displays</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2195,17 +2361,6 @@ Do you want to ignore these errors for this host?</source>
     </message>
 </context>
 <context>
-    <name>UBTrapFlashController</name>
-    <message>
-        <source>Whole page</source>
-        <translation>整頁</translation>
-    </message>
-    <message>
-        <source>Web</source>
-        <translation>網路</translation>
-    </message>
-</context>
-<context>
     <name>UBUpdateDlg</name>
     <message>
         <source>Document updater</source>
@@ -2259,17 +2414,10 @@ Please reboot the application to access the updated documents.</source>
     </message>
 </context>
 <context>
-    <name>UBWebPluginWidget</name>
+    <name>UBWebEngineView</name>
     <message>
-        <source>Loading...</source>
-        <translation>載入中...</translation>
-    </message>
-</context>
-<context>
-    <name>UBWidgetUniboardAPI</name>
-    <message>
-        <source>%0 called (method=%1, status=%2)</source>
-        <translation>已呼叫 %0 (方法= %1 , 狀態= %2 )</translation>
+        <source>Open Web Inspector</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2358,85 +2506,6 @@ Please reboot the application to access the updated documents.</source>
     </message>
 </context>
 <context>
-    <name>WBClearButton</name>
-    <message>
-        <source>Clear</source>
-        <translation>清空</translation>
-    </message>
-</context>
-<context>
-    <name>WBDownloadItem</name>
-    <message>
-        <source>Save File</source>
-        <translation>儲存檔案</translation>
-    </message>
-    <message>
-        <source>Download canceled: %1</source>
-        <translation>取消下載: %1</translation>
-    </message>
-    <message>
-        <source>Error opening saved file: %1</source>
-        <translation>已存檔案開啟時有錯誤: %1</translation>
-    </message>
-    <message>
-        <source>Error saving: %1</source>
-        <translation>儲存錯誤: %1</translation>
-    </message>
-    <message>
-        <source>Network Error: %1</source>
-        <translation>網路錯誤: %1</translation>
-    </message>
-    <message>
-        <source>seconds</source>
-        <translation>秒</translation>
-    </message>
-    <message>
-        <source>minutes</source>
-        <translation>分</translation>
-    </message>
-    <message>
-        <source>- %4 %5 remaining</source>
-        <translation>- 還剩下 %4 %5 </translation>
-    </message>
-    <message>
-        <source>%1 of %2 (%3/sec) %4</source>
-        <translation>%2 的 %1 (%3/秒) %4</translation>
-    </message>
-    <message>
-        <source>%1 of %2 - Stopped</source>
-        <translation>%2 的 %1 - 已停止</translation>
-    </message>
-    <message>
-        <source>bytes</source>
-        <translation>bytes</translation>
-    </message>
-    <message>
-        <source>KB</source>
-        <translation>KB</translation>
-    </message>
-    <message>
-        <source>MB</source>
-        <translation>MB</translation>
-    </message>
-    <message>
-        <source>?</source>
-        <comment>unknown file size</comment>
-        <translation>?</translation>
-    </message>
-</context>
-<context>
-    <name>WBDownloadManager</name>
-    <message>
-        <source>1 Download</source>
-        <translation>1 個下載</translation>
-    </message>
-    <message>
-        <source>%1 Downloads</source>
-        <comment>always &gt;= 2</comment>
-        <translation type="unfinished">%1 個下載</translation>
-    </message>
-</context>
-<context>
     <name>WBHistoryModel</name>
     <message>
         <source>Title</source>
@@ -2459,97 +2528,90 @@ Please reboot the application to access the updated documents.</source>
     </message>
 </context>
 <context>
-    <name>WBSearchLineEdit</name>
+    <name>WebPage</name>
     <message>
-        <source>Search</source>
-        <translation>搜尋</translation>
-    </message>
-</context>
-<context>
-    <name>WBTabBar</name>
-    <message>
-        <source>New &amp;Tab</source>
-        <translation>新建分頁(&amp;T)</translation>
+        <source>Certificate Error</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Clone Tab</source>
-        <translation>複製分頁</translation>
+        <source>Enter username and password for &quot;%1&quot; at %2</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Close Tab</source>
-        <translation>關閉分頁(&amp;C)</translation>
+        <source>Allow %1 to access your location information?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Close &amp;Other Tabs</source>
-        <translation>關閉其他分頁 (&amp;O)</translation>
+        <source>Allow %1 to access your microphone?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Reload Tab</source>
-        <translation>重新載入分頁</translation>
+        <source>Allow %1 to access your webcam?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Reload All Tabs</source>
-        <translation>重新載入所有分頁</translation>
-    </message>
-</context>
-<context>
-    <name>WBTabWidget</name>
-    <message>
-        <source>Recently Closed Tabs</source>
-        <translation>最近關閉的分頁</translation>
+        <source>Allow %1 to access your microphone and webcam?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>(Untitled)</source>
-        <translation>空白頁</translation>
-    </message>
-</context>
-<context>
-    <name>WBToolbarSearch</name>
-    <message>
-        <source>Search</source>
-        <translation>搜尋</translation>
+        <source>Allow %1 to lock your mouse cursor?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No Recent Searches</source>
-        <translation>無近期搜尋</translation>
+        <source>Allow %1 to capture video of your desktop?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Recent Searches</source>
-        <translation>近期搜尋</translation>
+        <source>Allow %1 to capture audio and video of your desktop?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Clear Recent Searches</source>
-        <translation>清除近期搜尋</translation>
-    </message>
-</context>
-<context>
-    <name>WBWebPage</name>
-    <message>
-        <source>Download</source>
-        <translation>下載</translation>
+        <source>Permission Request</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add to Current Document</source>
-        <translation>新增至目前文件</translation>
+        <source>Connect to proxy &quot;%1&quot; using:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PDF</source>
-        <translation>PDF</translation>
-    </message>
-    <message>
-        <source>Error loading page: %1</source>
-        <translation>頁面載入錯誤: %1</translation>
-    </message>
-    <message>
-        <source>Download PDF Document: would you prefer to download the PDF file or add it to the current OpenBoard document?</source>
+        <source>Allow %1 to open all %2 links?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>WBWebView</name>
+    <name>WebView</name>
     <message>
-        <source>Open in New Tab</source>
-        <translation>於新分頁中開啟</translation>
+        <source>Render process normal exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Render process abnormal exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Render process crashed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Render process killed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Render process exited with code: %1
+Do you want to reload the page ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Web Inspector in new window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inspect element</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add to board</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2557,6 +2619,10 @@ Please reboot the application to access the updated documents.</source>
     <message>
         <source>Processing...</source>
         <translation>處理中...</translation>
+    </message>
+    <message>
+        <source>an error occured while trying to open the PDF file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2677,29 +2743,6 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>documentPublishingDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation type="obsolete">對話</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation type="obsolete">標題</translation>
-    </message>
-    <message>
-        <source>E-mail</source>
-        <translation type="obsolete">E-mail</translation>
-    </message>
-    <message>
-        <source>Author</source>
-        <translation type="obsolete">作者</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation type="obsolete">描述</translation>
-    </message>
-</context>
-<context>
     <name>documents</name>
     <message>
         <source>OpenBoard Documents</source>
@@ -2747,10 +2790,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Virtual Keyboard</source>
         <translation>虛擬鍵盤</translation>
-    </message>
-    <message>
-        <source>Keyboard button size:</source>
-        <translation type="vanished">按鍵大小:</translation>
     </message>
     <message>
         <source>Positioned at the Top (recommended for tablets)</source>
@@ -2830,7 +2869,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Swap control display and view display</source>
-        <translation>控制螢幕與顯示螢幕之間切換</translation>
+        <translation type="vanished">控制螢幕與顯示螢幕之間切換</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -2873,10 +2912,6 @@ p, li { white-space: pre-wrap; }
         <translation>淡色背景</translation>
     </message>
     <message>
-        <source>Swap first and second view displays</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Built-in virtual keyboard button size:</source>
         <translation>內建虛擬鍵盤按鍵大小：</translation>
     </message>
@@ -2913,11 +2948,27 @@ p, li { white-space: pre-wrap; }
         <translation>天</translation>
     </message>
     <message>
-        <source>PDF Rendering</source>
+        <source>Improve zoom execution time (can slightly affect rendering quality)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Improve zoom execution time (can slightly affect rendering quality)</source>
+        <source>PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export background grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents</source>
+        <translation type="unfinished">文件</translation>
+    </message>
+    <message>
+        <source>List of screens used for Control, Display and Previous pages</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2925,7 +2976,7 @@ p, li { white-space: pre-wrap; }
     <name>trapFlashDialog</name>
     <message>
         <source>Trap flash</source>
-        <translation>擷取 flash</translation>
+        <translation type="vanished">擷取 flash</translation>
     </message>
     <message>
         <source>Select a flash to trap</source>
@@ -2945,6 +2996,10 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Select a content to capture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Capture Web Content</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

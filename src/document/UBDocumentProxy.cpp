@@ -43,23 +43,22 @@ UBDocumentProxy::UBDocumentProxy()
     : mPageCount(0)
     , mPageDpi(0)
     , mPersistencePath("")
+    , mDocumentDateLittleEndian("")
+    , mDocumentUpdatedAtLittleEndian("")
+    , mNeedsCleanup(true)
+    , mLastVisitedIndex(0)
+    , mIsInFavoriteList(false)
 {
     init();
-}
-
-UBDocumentProxy::UBDocumentProxy(const UBDocumentProxy &rValue) :
-    QObject()
-{
-    mPersistencePath = rValue.mPersistencePath;
-    mMetaDatas = rValue.mMetaDatas;
-    mIsModified = rValue.mIsModified;
-    mPageCount = rValue.mPageCount;
 }
 
 
 UBDocumentProxy::UBDocumentProxy(const QString& pPersistancePath)
     : mPageCount(0)
     , mPageDpi(0)
+    , mNeedsCleanup(true)
+    , mLastVisitedIndex(0)
+    , mIsInFavoriteList(false)
 {
     init();
     setPersistencePath(pPersistancePath);
@@ -73,14 +72,14 @@ void UBDocumentProxy::init()
     setMetaData(UBSettings::documentGroupName, "");
 
     QDateTime now = QDateTime::currentDateTime();
-    setMetaData(UBSettings::documentName, now.toString(Qt::SystemLocaleShortDate));
+    setMetaData(UBSettings::documentName, QLocale::system().toString(now, QLocale::ShortFormat));
 
     setUuid(QUuid::createUuid());
 
     setDefaultDocumentSize(UBSettings::settings()->pageSize->get().toSize());
 }
 
-bool UBDocumentProxy::theSameDocument(UBDocumentProxy *proxy)
+bool UBDocumentProxy::theSameDocument(std::shared_ptr<UBDocumentProxy> proxy)
 {
     return  proxy && mPersistencePath == proxy->mPersistencePath;
 }
@@ -90,18 +89,39 @@ UBDocumentProxy::~UBDocumentProxy()
     // NOOP
 }
 
-UBDocumentProxy* UBDocumentProxy::deepCopy() const
+std::shared_ptr<UBDocumentProxy> UBDocumentProxy::deepCopy() const
 {
-    UBDocumentProxy* copy = new UBDocumentProxy();
+    std::shared_ptr<UBDocumentProxy> copy = std::make_shared<UBDocumentProxy>();
 
     copy->mPersistencePath = QString(mPersistencePath);
     copy->mMetaDatas = QMap<QString, QVariant>(mMetaDatas);
     copy->mIsModified = mIsModified;
     copy->mPageCount = mPageCount;
+    copy->mLastVisitedIndex = mLastVisitedIndex;
+    copy->mIsInFavoriteList = mIsInFavoriteList;
 
     return copy;
 }
 
+int UBDocumentProxy::lastVisitedSceneIndex() const
+{
+    return mLastVisitedIndex;
+}
+
+void UBDocumentProxy::setLastVisitedSceneIndex(int lastVisitedSceneIndex)
+{
+    mLastVisitedIndex = lastVisitedSceneIndex;
+}
+
+bool UBDocumentProxy::isInFavoriteList() const
+{
+    return mIsInFavoriteList;
+}
+
+void UBDocumentProxy::setIsInFavoristeList(bool isInFavoriteList)
+{
+    mIsInFavoriteList = isInFavoriteList;
+}
 
 int UBDocumentProxy::pageCount()
 {
@@ -122,6 +142,23 @@ int UBDocumentProxy::pageDpi()
 void UBDocumentProxy::setPageDpi(int dpi)
 {
     mPageDpi = dpi;
+}
+
+bool UBDocumentProxy::isWidgetCompatible(const QUuid &uuid) const
+{
+    return mWidgetCompatibility.value(uuid, true);
+}
+
+void UBDocumentProxy::setWidgetCompatible(const QUuid &uuid, bool compatible)
+{
+    mWidgetCompatibility[uuid] = compatible;
+}
+
+bool UBDocumentProxy::testAndResetCleanupNeeded()
+{
+    bool tmp = mNeedsCleanup;
+    mNeedsCleanup = false;
+    return tmp;
 }
 
 int UBDocumentProxy::incPageCount()
@@ -149,12 +186,19 @@ int UBDocumentProxy::decPageCount()
         mPageCount = 0;
     }
 
+    mNeedsCleanup = true;
+
     return mPageCount;
 }
 
 QString UBDocumentProxy::persistencePath() const
 {
     return mPersistencePath;
+}
+
+QString UBDocumentProxy::documentFolderName() const
+{
+    return mPersistencePath.section('/', -1);
 }
 
 void UBDocumentProxy::setPersistencePath(const QString& pPersistencePath)
@@ -176,9 +220,7 @@ void UBDocumentProxy::setMetaData(const QString& pKey, const QVariant& pValue)
         mMetaDatas.insert(pKey, pValue);
         if (pKey == UBSettings::documentUpdatedAt)
         {
-            UBDocumentManager *documentManager = UBDocumentManager::documentManager();
-            if (documentManager)
-                documentManager->emitDocumentUpdated(this);
+            mDocumentUpdatedAtLittleEndian = "";
         }
     }
 }
@@ -259,7 +301,9 @@ QDateTime UBDocumentProxy::documentDate()
 QDateTime UBDocumentProxy::lastUpdate()
 {
     if(mMetaDatas.contains(UBSettings::documentUpdatedAt))
+    {
         return UBStringUtils::fromUtcIsoDate(metaData(UBSettings::documentUpdatedAt).toString());
+    }
     return QDateTime::currentDateTime();
 }
 

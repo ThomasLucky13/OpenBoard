@@ -87,7 +87,7 @@ class UBItem
 
         virtual void copyItemParameters(UBItem *copy) const = 0;
 
-        virtual UBGraphicsScene* scene() // TODO UB 4.x should be pure virtual ...
+        virtual std::shared_ptr<UBGraphicsScene> scene() // TODO UB 4.x should be pure virtual ...
         {
             return 0;
         }
@@ -132,6 +132,7 @@ public:
     static bool isRotatable(QGraphicsItem *item);
     static bool isFlippable(QGraphicsItem *item);
     static bool isLocked(QGraphicsItem *item);
+    static bool isHiddenOnDisplay(QGraphicsItem *item);
     static QUuid getOwnUuid(QGraphicsItem *item);
 
     static UBGraphicsItemDelegate *Delegate(QGraphicsItem *pItem);

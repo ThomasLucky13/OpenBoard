@@ -19,7 +19,7 @@ PROJECT_ROOT="$SCRIPT_PATH/../.."
 
 
 APPLICATION_NAME="OpenBoard"
-BASE_QT_DIR=~/Qt/5.15.2/clang_64
+BASE_QT_DIR=/Users/dev/Qt/6.5.2/macos
 # Executables
 QMAKE=$BASE_QT_DIR/bin/qmake
 MACDEPLOYQT=$BASE_QT_DIR/bin/macdeployqt
@@ -133,7 +133,7 @@ checkExecutable "$PLISTBUDDY"
 checkExecutable "$ICEBERG"
 checkExecutable "$LRELEASE"
 
-addImporter
+#addImporter
 
 # delete the build directory
 notify "Cleaning ..."
@@ -163,6 +163,7 @@ notify "Qt Translations ..."
 addQtTranslations
 
 cp -R resources/customizations $PRODUCT_DIR/$APPLICATION_NAME.app/Contents/Resources
+cp -R resources/startupHints $PRODUCT_DIR/$APPLICATION_NAME.app/Contents/Resources
 cp -R $importerDir/$importerName.app $PRODUCT_DIR/$APPLICATION_NAME.app/Contents/Resources
 
 VERSION=`cat "$BUILD_DIR/version"`
