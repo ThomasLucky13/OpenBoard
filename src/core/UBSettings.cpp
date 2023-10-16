@@ -835,6 +835,7 @@ void UBSettings::setPageBackground(UBPageBackground background)
         val = "plain";
 
     setValue("Board/PageBackground", val);
+    emit(pageBackgroundChanged());
 }
 
 

@@ -461,6 +461,7 @@ class UBSettings : public QObject
 
     signals:
         void colorContextChanged();
+        void pageBackgroundChanged();
 
     private:
 
