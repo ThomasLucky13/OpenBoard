@@ -1444,6 +1444,7 @@ UBItem *UBBoardController::downloadFinished(bool pSuccess, QUrl sourceUrl, QUrl 
 
         if (sourceUrl.toString() == UBToolsManager::manager()->compass.id)
         {
+            qWarning("AddCompass");
             mActiveScene->addCompass(pPos);
             UBDrawingController::drawingController()->setStylusTool(UBStylusTool::Selector);
         }
@@ -1485,6 +1486,11 @@ UBItem *UBBoardController::downloadFinished(bool pSuccess, QUrl sourceUrl, QUrl 
         else if (sourceUrl.toString() == UBToolsManager::manager()->mask.id)
         {
             mActiveScene->addMask(pPos);
+            UBDrawingController::drawingController()->setStylusTool(UBStylusTool::Selector);
+        }
+        else if (sourceUrl.toString() == UBToolsManager::manager()->multiDraw.id)
+        {
+            mActiveScene->addMultiDraw();
             UBDrawingController::drawingController()->setStylusTool(UBStylusTool::Selector);
         }
         else

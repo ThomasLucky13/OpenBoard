@@ -55,6 +55,7 @@ class UBGraphicsStroke;
 class UBMagnifierParams;
 class UBMagnifier;
 class UBGraphicsCache;
+class UBMultiDrawWidget;
 class UBGraphicsGroupContainerItem;
 class UBSelectionFrame;
 class UBBoardView;
@@ -243,6 +244,7 @@ class UBGraphicsScene: public UBCoreGraphicsScene, public UBItem, public std::en
         void addCompass(QPointF center);
         void addTriangle(QPointF center);
         void addMagnifier(UBMagnifierParams params);
+        void addMultiDraw();
 
         void addMask(const QPointF &center = QPointF());
         void addCache();
@@ -394,6 +396,8 @@ public slots:
 
         void controlViewportChanged();
 
+        void addMultiDrawLines();
+
     protected:
 
         UBGraphicsPolygonItem* lineToPolygonItem(const QLineF& pLine, const qreal& pWidth);
@@ -500,6 +504,9 @@ public slots:
         UBSelectionFrame *mSelectionFrame;
 
         UBGraphicsCache* mGraphicsCache;
+
+        QList<QLineF>* multiDrawLines;
+        QDialog* multiDrawDialog;
 };
 
 

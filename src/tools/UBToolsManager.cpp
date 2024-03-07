@@ -115,6 +115,13 @@ UBToolsManager::UBToolsManager(QObject *parent)
     mToolsIcon.insert(cache.id, ":/images/toolPalette/cacheTool.png");
     mDescriptors << cache;
 
+    multiDraw.id = "openboardtool://multidraw";
+    multiDraw.icon = QPixmap(":/images/toolPalette/compassTool.png");
+    multiDraw.label = tr("MultiDraw");
+    multiDraw.version = "1.0";
+    mToolsIcon.insert(multiDraw.id, ":/images/toolPalette/compassTool.png");
+    mDescriptors << multiDraw;
+
 }
 
 UBToolsManager::~UBToolsManager()

@@ -33,6 +33,7 @@
 #include <QtSvg>
 #include <QGraphicsView>
 #include <QGraphicsVideoItem>
+#include <QVBoxLayout>
 
 #include "frameworks/UBGeometryUtils.h"
 
@@ -44,6 +45,7 @@
 
 #include "gui/UBMagnifer.h"
 #include "gui/UBResources.h"
+#include "gui/UBMainWindow.h"
 
 #include "tools/UBGraphicsRuler.h"
 #include "tools/UBGraphicsAxes.h"
@@ -52,6 +54,7 @@
 #include "tools/UBGraphicsTriangle.h"
 #include "tools/UBGraphicsCurtainItem.h"
 #include "tools/UBGraphicsCache.h"
+#include "tools/UBMultiDrawWidget.h"
 
 #include "document/UBDocumentProxy.h"
 
@@ -364,6 +367,8 @@ UBGraphicsScene::UBGraphicsScene(std::shared_ptr<UBDocumentProxy> document, bool
 
     mBackgroundGridSize = UBSettings::settings()->crossSize;
     mIntermediateLines = UBSettings::settings()->intermediateLines;
+
+    multiDrawLines = new QList<QLineF>();
 
 //    Just for debug. Do not delete please
 //    connect(this, SIGNAL(selectionChanged()), this, SLOT(selectionChangedProcessing()));
@@ -2412,6 +2417,23 @@ void UBGraphicsScene::controlViewportChanged()
     }
 }
 
+void UBGraphicsScene::addMultiDrawLines()
+{
+    if (multiDrawDialog!=nullptr)
+    {
+        for (int i = 0; i < multiDrawLines->count(); ++i)
+        {
+            QLineF multiLine = multiDrawLines->at(i);
+            multiLine.setP1(QPointF(multiLine.p1().x() - (UBApplication::mainWindow->width()/2), multiLine.p1().y() - (UBApplication::mainWindow->height()/2)));
+            multiLine.setP2(QPointF(multiLine.p2().x() - (UBApplication::mainWindow->width()/2), multiLine.p2().y() - (UBApplication::mainWindow->height()/2)));
+            UBGraphicsPolygonItem *polygonItem = lineToPolygonItem(multiLine, 6, 6);
+            addPolygonItemToCurrentStroke(polygonItem);
+        }
+        multiDrawLines->clear();
+        delete multiDrawDialog;
+    }
+}
+
 void UBGraphicsScene::addCompass(QPointF center)
 {
     UBGraphicsCompass* compass = new UBGraphicsCompass(); // mem : owned and destroyed by the scene
@@ -2464,6 +2486,21 @@ void UBGraphicsScene::addMask(const QPointF &center)
     curtain->setRect(rect);
     curtain->setVisible(true);
     curtain->setSelected(true);
+}
+
+void UBGraphicsScene::addMultiDraw()
+{
+    multiDrawDialog = new QDialog(UBApplication::mainWindow, Qt::FramelessWindowHint);
+    UBApplication::mainWindow->setAttribute(Qt::WA_AcceptTouchEvents, true);
+    multiDrawDialog->setLayout(new QVBoxLayout());
+    UBMultiDrawWidget* drawWidget = new UBMultiDrawWidget(multiDrawLines, multiDrawDialog);
+    multiDrawDialog->layout()->addWidget(drawWidget);
+    multiDrawDialog->setWindowOpacity(0.7);
+    multiDrawDialog->setModal(true);
+    multiDrawDialog->setGeometry(UBApplication::mainWindow->geometry());
+    multiDrawDialog->show();
+    UBApplication::app()->installEventFilter(drawWidget);
+    connect(drawWidget, SIGNAL(windowTitleChanged(QString)), this, SLOT(addMultiDrawLines()));
 }
 
 void UBGraphicsScene::setRenderingQuality(UBItem::RenderingQuality pRenderingQuality, UBItem::CacheBehavior cacheBehavior)
