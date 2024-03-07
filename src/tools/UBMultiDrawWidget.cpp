@@ -11,9 +11,17 @@ UBMultiDrawWidget::UBMultiDrawWidget(QList<QLineF>* linesList, QWidget* parent):
     QHBoxLayout* hLayout = new QHBoxLayout();
     hLayout->addSpacerItem(new QSpacerItem(24, 0, QSizePolicy::Expanding, QSizePolicy::Preferred));
     QPushButton* exitButton = new QPushButton("exit");
+    exitButton->setIcon(QIcon(":/images/toolbar/remove.png"));
     connect(exitButton, &QPushButton::clicked, [this](){
+        lines->clear();
         emit windowTitleChanged("");
     });
+    QPushButton* saveButton = new QPushButton("save");
+    saveButton->setIcon(QIcon(":/images/toolbar/record.png"));
+    connect(saveButton, &QPushButton::clicked, [this](){
+        emit windowTitleChanged("");
+    });
+    hLayout->addWidget(saveButton);
     hLayout->addWidget(exitButton);
     vLayout->addLayout(hLayout);
     vLayout->addSpacerItem(new QSpacerItem(0, 24, QSizePolicy::Preferred, QSizePolicy::Expanding));
