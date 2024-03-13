@@ -4,7 +4,7 @@
 #include <QLabel>
 #include <QPushButton>
 
-UBMultiDrawWidget::UBMultiDrawWidget(QList<QLineF>* linesList, QWidget* parent): QWidget{parent}
+UBMultiDrawWidget::UBMultiDrawWidget(QList<QLineF>* linesList, qreal width, QColor color, QColor bgColor, QWidget* parent): QWidget{parent}
 {
     setWindowFlag(Qt::FramelessWindowHint, true);
     QVBoxLayout* vLayout = new QVBoxLayout();
@@ -28,14 +28,15 @@ UBMultiDrawWidget::UBMultiDrawWidget(QList<QLineF>* linesList, QWidget* parent):
     setLayout(vLayout);
 
     pix = new QPixmap();
-    penWidth = 1;
-    pen = QPen(Qt::black, 6, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
-    pen.setColor(QColor(0, 0, 0));
+    penWidth =  width;
+    pen = QPen(color, penWidth, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
     cp = QDesktopWidget().availableGeometry();
+
+    backgroundColor = bgColor;
 
     setAttribute(Qt::WA_AcceptTouchEvents, true);
     pix = new QPixmap(cp.width(), cp.height());
-    pix->fill(Qt::white);
+    pix->fill(backgroundColor);
     pp = new QPainter(pix);
     pp->setPen(pen);
 
@@ -49,7 +50,7 @@ UBMultiDrawWidget::~UBMultiDrawWidget()
 
 UBItem* UBMultiDrawWidget::deepCopy() const
 {
-   UBMultiDrawWidget* copy = new UBMultiDrawWidget(lines, dynamic_cast<QWidget*>(parent()));
+   UBMultiDrawWidget* copy = new UBMultiDrawWidget(lines, penWidth, pen.color(), backgroundColor, dynamic_cast<QWidget*>(parent()));
 
     copyItemParameters(copy);
 

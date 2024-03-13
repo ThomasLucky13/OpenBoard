@@ -507,6 +507,8 @@ public slots:
 
         QList<QLineF>* multiDrawLines;
         QDialog* multiDrawDialog;
+
+        QColor backgroundColor;
 };
 
 

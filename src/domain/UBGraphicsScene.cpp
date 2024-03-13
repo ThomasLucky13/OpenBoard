@@ -2426,7 +2426,8 @@ void UBGraphicsScene::addMultiDrawLines()
             QLineF multiLine = multiDrawLines->at(i);
             multiLine.setP1(QPointF(multiLine.p1().x() - (UBApplication::mainWindow->width()/2), multiLine.p1().y() - (UBApplication::mainWindow->height()/2)));
             multiLine.setP2(QPointF(multiLine.p2().x() - (UBApplication::mainWindow->width()/2), multiLine.p2().y() - (UBApplication::mainWindow->height()/2)));
-            UBGraphicsPolygonItem *polygonItem = lineToPolygonItem(multiLine, 6, 6);
+            qreal penWidth = UBSettings::settings()->currentPenWidth();
+            UBGraphicsPolygonItem *polygonItem = lineToPolygonItem(multiLine, penWidth, penWidth);
             addPolygonItemToCurrentStroke(polygonItem);
         }
         multiDrawLines->clear();
@@ -2493,7 +2494,13 @@ void UBGraphicsScene::addMultiDraw()
     multiDrawDialog = new QDialog(UBApplication::mainWindow, Qt::FramelessWindowHint);
     UBApplication::mainWindow->setAttribute(Qt::WA_AcceptTouchEvents, true);
     multiDrawDialog->setLayout(new QVBoxLayout());
-    UBMultiDrawWidget* drawWidget = new UBMultiDrawWidget(multiDrawLines, multiDrawDialog);
+    QColor color;
+    if (mDarkBackground)
+        color = UBApplication::boardController->penColorOnDarkBackground();
+    else
+        color = UBApplication::boardController->penColorOnLightBackground();
+
+    UBMultiDrawWidget* drawWidget = new UBMultiDrawWidget(multiDrawLines, UBSettings::settings()->currentPenWidth(), color, backgroundColor, multiDrawDialog);
     multiDrawDialog->layout()->addWidget(drawWidget);
     multiDrawDialog->setWindowOpacity(0.7);
     multiDrawDialog->setModal(true);
@@ -2767,12 +2774,13 @@ void UBGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect)
 
     if (darkBackground)
     {
-        painter->fillRect (rect, QBrush (QColor (Qt::black)));
+        backgroundColor = Qt::black;
     }
     else
     {
-        painter->fillRect (rect, QBrush (QColor (Qt::white)));
+        backgroundColor = Qt::white;
     }
+    painter->fillRect (rect, QBrush(backgroundColor));
 
     if (mZoomFactor > 0.5)
     {

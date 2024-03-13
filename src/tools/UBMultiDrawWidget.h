@@ -10,7 +10,7 @@
 class UBMultiDrawWidget : public UBItem, public QWidget, public QGraphicsRectItem
 {
 public:
-    UBMultiDrawWidget(QList<QLineF>* linesList, QWidget* parent) ;
+    UBMultiDrawWidget(QList<QLineF>* linesList, qreal width, QColor color, QColor bgColor, QWidget* parent) ;
     virtual ~UBMultiDrawWidget();
     enum { Type = UBGraphicsItemType::MultiDrawItemType };
 
@@ -44,11 +44,12 @@ protected:
 private:
     QPointF lastPoint_t, endPoint_t, lastPoint_m, endPoint_m;
     QPixmap* pix;
-    int penWidth;
+    qreal penWidth;
     QPen pen;
     QRect cp;
     QPainter* pp;
     QList<QLineF>* lines;
+    QColor backgroundColor;
 };
 
 #endif // UBMULTIDRAWWIDGET_H
