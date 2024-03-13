@@ -110,7 +110,7 @@ void UBMultiDrawWidget::paintEvent(QPaintEvent *event)
     QLineF line;
     line.setP1(lastPoint_m);
     line.setP2(endPoint_m);
-    lines->append(line);
+    addline(line);
     lastPoint_m = endPoint_m;
     QPainter painter = QPainter(this);
     painter.setPen(pen);
@@ -174,7 +174,7 @@ bool UBMultiDrawWidget::eventFilter(QObject *watched, QEvent *event)
         if (event->type() == QEvent::TouchUpdate || event->type() == QEvent::TouchEnd)
         {
             qWarning() << "TouchEvent";
-            addline(static_cast<QTouchEvent*>(event));
+            drawline(static_cast<QTouchEvent*>(event));
             return true;
         }
         if (event->type() == QEvent::MouseButtonDblClick || event->type() == QEvent::MouseMove || event->type() == QEvent::MouseButtonRelease || event->type() == QEvent::MouseButtonPress)
@@ -197,16 +197,22 @@ bool UBMultiDrawWidget::eventFilter(QObject *watched, QEvent *event)
     return QWidget::eventFilter(watched, event);
 }
 
-void UBMultiDrawWidget::addline(QTouchEvent *event)
+void UBMultiDrawWidget::drawline(QTouchEvent *event)
 {
     QList <QTouchEvent::TouchPoint> touchPoints = event->touchPoints();
     foreach (QTouchEvent::TouchPoint point, touchPoints)
     {
-        qWarning() << point.ellipseDiameters().width();
-        penWidth = point.ellipseDiameters().width();
         lastPoint_m = point.lastPos();
         endPoint_m = point.pos();
         paintEvent(nullptr);
+    }
+}
+
+void UBMultiDrawWidget::addline(QLineF line)
+{
+    if (!lines->contains(line))
+    {
+        lines->append(line);
     }
 }
 

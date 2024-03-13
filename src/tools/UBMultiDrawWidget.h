@@ -38,7 +38,8 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     bool eventFilter(QObject *watched, QEvent *event) override;
-    void addline(QTouchEvent *event);
+    void addline(QLineF line);
+    void drawline(QTouchEvent *event);
     void paintTouchEvent();
 
 private:
