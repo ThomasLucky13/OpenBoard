@@ -2419,7 +2419,7 @@ void UBGraphicsScene::controlViewportChanged()
 
 void UBGraphicsScene::addMultiDrawLines()
 {
-    if (multiDrawDialog!=nullptr)
+    if (multiDrawDialog!=nullptr && multiDrawLines->count() > 1)
     {
         mAddedItems.clear();
 
@@ -2482,8 +2482,9 @@ void UBGraphicsScene::addMultiDrawLines()
         mCurrentStroke = NULL;
 
         multiDrawLines->clear();
-        delete multiDrawDialog;
     }
+
+    delete multiDrawDialog;
 }
 
 void UBGraphicsScene::addCompass(QPointF center)
@@ -2551,7 +2552,8 @@ void UBGraphicsScene::addMultiDraw()
     else
         color = UBApplication::boardController->penColorOnLightBackground();
 
-    UBMultiDrawWidget* drawWidget = new UBMultiDrawWidget(multiDrawLines, UBSettings::settings()->currentPenWidth(), color, backgroundColor, multiDrawDialog);
+    UBMultiDrawWidget* drawWidget = new UBMultiDrawWidget(multiDrawLines, UBSettings::settings()->currentPenWidth(), color, backgroundColor, UBApplication::mainWindow->minimumSize(), UBApplication::mainWindow->maximumSize(), multiDrawDialog);
+    UBApplication::mainWindow->setFixedSize(UBApplication::mainWindow->size());
     multiDrawDialog->layout()->addWidget(drawWidget);
     multiDrawDialog->setWindowOpacity(0.7);
     multiDrawDialog->setModal(true);

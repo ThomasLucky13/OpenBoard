@@ -3,8 +3,10 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include "core/UBApplication.h"
+#include "gui/UBMainWindow.h"
 
-UBMultiDrawWidget::UBMultiDrawWidget(QList<QLineF>* linesList, qreal width, QColor color, QColor bgColor, QWidget* parent): QWidget{parent}
+UBMultiDrawWidget::UBMultiDrawWidget(QList<QLineF>* linesList, qreal width, QColor color, QColor bgColor, QSize minSize, QSize maxSize, QWidget* parent): QWidget{parent}
 {
     setWindowFlag(Qt::FramelessWindowHint, true);
     QVBoxLayout* vLayout = new QVBoxLayout();
@@ -14,11 +16,15 @@ UBMultiDrawWidget::UBMultiDrawWidget(QList<QLineF>* linesList, qreal width, QCol
     exitButton->setIcon(QIcon(":/images/toolbar/remove.png"));
     connect(exitButton, &QPushButton::clicked, [this](){
         lines->clear();
+        UBApplication::mainWindow->setMinimumSize(mainWinMinSize);
+        UBApplication::mainWindow->setMaximumSize(mainWinMaxSize);
         emit windowTitleChanged("");
     });
     QPushButton* saveButton = new QPushButton("save");
     saveButton->setIcon(QIcon(":/images/toolbar/record.png"));
     connect(saveButton, &QPushButton::clicked, [this](){
+        UBApplication::mainWindow->setMinimumSize(mainWinMinSize);
+        UBApplication::mainWindow->setMaximumSize(mainWinMaxSize);
         emit windowTitleChanged("");
     });
     hLayout->addWidget(saveButton);
@@ -41,6 +47,9 @@ UBMultiDrawWidget::UBMultiDrawWidget(QList<QLineF>* linesList, qreal width, QCol
     pp->setPen(pen);
 
     lines = linesList;
+
+    mainWinMinSize = minSize;
+    mainWinMaxSize = maxSize;
 }
 
 UBMultiDrawWidget::~UBMultiDrawWidget()
@@ -50,7 +59,7 @@ UBMultiDrawWidget::~UBMultiDrawWidget()
 
 UBItem* UBMultiDrawWidget::deepCopy() const
 {
-   UBMultiDrawWidget* copy = new UBMultiDrawWidget(lines, penWidth, pen.color(), backgroundColor, dynamic_cast<QWidget*>(parent()));
+   UBMultiDrawWidget* copy = new UBMultiDrawWidget(lines, penWidth, pen.color(), backgroundColor, mainWinMinSize, mainWinMaxSize, dynamic_cast<QWidget*>(parent()));
 
     copyItemParameters(copy);
 

@@ -10,7 +10,7 @@
 class UBMultiDrawWidget : public UBItem, public QWidget, public QGraphicsRectItem
 {
 public:
-    UBMultiDrawWidget(QList<QLineF>* linesList, qreal width, QColor color, QColor bgColor, QWidget* parent) ;
+    UBMultiDrawWidget(QList<QLineF>* linesList, qreal width, QColor color, QColor bgColor, QSize minSize, QSize maxSize, QWidget* parent) ;
     virtual ~UBMultiDrawWidget();
     enum { Type = UBGraphicsItemType::MultiDrawItemType };
 
@@ -51,6 +51,7 @@ private:
     QPainter* pp;
     QList<QLineF>* lines;
     QColor backgroundColor;
+    QSize mainWinMinSize, mainWinMaxSize;
 };
 
 #endif // UBMULTIDRAWWIDGET_H
