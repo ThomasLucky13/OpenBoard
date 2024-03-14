@@ -11,6 +11,12 @@ UBMultiDrawWidget::UBMultiDrawWidget(QList<QLineF>* linesList, qreal width, QCol
     setWindowFlag(Qt::FramelessWindowHint, true);
     QVBoxLayout* vLayout = new QVBoxLayout();
     QHBoxLayout* hLayout = new QHBoxLayout();
+    opacity = new QSlider(Qt::Horizontal);
+    opacity->setMinimum(1);
+    opacity->setMaximum(10);
+    opacity->setValue(7);
+    opacity->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    hLayout->addWidget(opacity);
     hLayout->addSpacerItem(new QSpacerItem(24, 0, QSizePolicy::Expanding, QSizePolicy::Preferred));
     QPushButton* exitButton = new QPushButton("exit");
     exitButton->setIcon(QIcon(":/images/toolbar/remove.png"));

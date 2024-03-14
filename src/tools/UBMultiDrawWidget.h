@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QtCore>
+#include <QSlider>
 
 #include "core/UB.h"
 #include "domain/UBItem.h"
@@ -24,6 +25,7 @@ public:
     virtual void copyItemParameters(UBItem *copy) const;
     void setSizePos(QRect newRect);
     QList<QLineF>* getLines();
+    QSlider* opacity;
 
 signals:
     void endDraw();

@@ -2561,6 +2561,9 @@ void UBGraphicsScene::addMultiDraw()
     multiDrawDialog->show();
     UBApplication::app()->installEventFilter(drawWidget);
     connect(drawWidget, SIGNAL(windowTitleChanged(QString)), this, SLOT(addMultiDrawLines()));
+    connect(drawWidget->opacity, &QSlider::valueChanged, [this](int val){
+        multiDrawDialog->setWindowOpacity(0.1*val);
+    });
 }
 
 void UBGraphicsScene::setRenderingQuality(UBItem::RenderingQuality pRenderingQuality, UBItem::CacheBehavior cacheBehavior)
