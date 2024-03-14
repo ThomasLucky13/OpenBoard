@@ -2421,7 +2421,10 @@ void UBGraphicsScene::addMultiDrawLines()
 {
     if (multiDrawDialog!=nullptr)
     {
-        for (int i = 0; i < multiDrawLines->count(); ++i)
+        mAddedItems.clear();
+
+        //Pass first, because it`s extra point at (0,0);
+        for (int i = 1; i < multiDrawLines->count(); ++i)
         {
             QLineF multiLine = multiDrawLines->at(i);
             UBBoardView* boardView = controlView();
@@ -2433,6 +2436,51 @@ void UBGraphicsScene::addMultiDrawLines()
             UBGraphicsPolygonItem *polygonItem = lineToPolygonItem(multiLine, penWidth, penWidth);
             addPolygonItemToCurrentStroke(polygonItem);
         }
+
+        UBGraphicsStrokesGroup* pStrokes = new UBGraphicsStrokesGroup();
+
+        // Remove the strokes that were just drawn here and replace them by a stroke item
+        foreach(UBGraphicsPolygonItem* poly, mCurrentStroke->polygons()){
+            mPreviousPolygonItems.removeAll(poly);
+            removeItem(poly);
+            UBCoreGraphicsScene::removeItemFromDeletion(poly);
+            poly->setStrokesGroup(pStrokes);
+            pStrokes->addToGroup(poly);
+        }
+
+        mAddedItems.clear();
+        mAddedItems << pStrokes;
+        addItem(pStrokes);
+
+        if (mCurrentStroke->polygons().empty()){
+            delete mCurrentStroke;
+            mCurrentStroke = 0;
+        }
+        mCurrentPolygon = 0;
+
+        if (mRemovedItems.size() > 0 || mAddedItems.size() > 0)
+        {
+
+            if (mUndoRedoStackEnabled) { //should be deleted after scene own undo stack implemented
+                if (UBApplication::undoStack)
+                {
+                    UBGraphicsItemUndoCommand* udcmd = new UBGraphicsItemUndoCommand(shared_from_this(), mRemovedItems, mAddedItems); //deleted by the undoStack
+                    UBApplication::undoStack->push(udcmd);
+                }
+            }
+
+            mRemovedItems.clear();
+            mAddedItems.clear();
+        }
+
+        setDocumentUpdated();
+
+        if (mCurrentStroke && mCurrentStroke->polygons().empty()){
+            delete mCurrentStroke;
+        }
+
+        mCurrentStroke = NULL;
+
         multiDrawLines->clear();
         delete multiDrawDialog;
     }
