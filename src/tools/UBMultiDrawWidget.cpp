@@ -97,7 +97,7 @@ void UBMultiDrawWidget::keyPressEvent(QKeyEvent *event)
     QGraphicsItem::keyPressEvent(event);
     if (event->key() == Qt::Key_C)
     {
-        pix->fill(Qt::white);
+        pix->fill(backgroundColor);
         QWidget::update();
     }
 }
