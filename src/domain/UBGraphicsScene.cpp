@@ -2424,9 +2424,12 @@ void UBGraphicsScene::addMultiDrawLines()
         for (int i = 0; i < multiDrawLines->count(); ++i)
         {
             QLineF multiLine = multiDrawLines->at(i);
-            multiLine.setP1(QPointF(multiLine.p1().x() - (UBApplication::mainWindow->width()/2), multiLine.p1().y() - (UBApplication::mainWindow->height()/2)));
-            multiLine.setP2(QPointF(multiLine.p2().x() - (UBApplication::mainWindow->width()/2), multiLine.p2().y() - (UBApplication::mainWindow->height()/2)));
+            UBBoardView* boardView = controlView();
+            multiLine.setP1(boardView->mapToScene(UBGeometryUtils::pointConstrainedInRect(multiLine.p1().toPoint(), boardView->rect())));
+            multiLine.setP2(boardView->mapToScene(UBGeometryUtils::pointConstrainedInRect(multiLine.p2().toPoint(), boardView->rect())));
             qreal penWidth = UBSettings::settings()->currentPenWidth();
+            penWidth /= UBApplication::boardController->systemScaleFactor();
+            penWidth /= UBApplication::boardController->currentZoom();
             UBGraphicsPolygonItem *polygonItem = lineToPolygonItem(multiLine, penWidth, penWidth);
             addPolygonItemToCurrentStroke(polygonItem);
         }
