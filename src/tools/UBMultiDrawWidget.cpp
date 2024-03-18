@@ -6,11 +6,15 @@
 #include "core/UBApplication.h"
 #include "gui/UBMainWindow.h"
 
-UBMultiDrawWidget::UBMultiDrawWidget(QList<QLineF>* linesList, qreal width, QColor color, QColor bgColor, QSize minSize, QSize maxSize, QWidget* parent): QWidget{parent}
+UBMultiDrawWidget::UBMultiDrawWidget(QList<QLineF>* linesList, qreal width, QColor color, QColor bgColor, bool isDarkBG, QSize minSize, QSize maxSize, QWidget* parent): QWidget{parent}
 {
     setWindowFlag(Qt::FramelessWindowHint, true);
     QVBoxLayout* vLayout = new QVBoxLayout();
     QHBoxLayout* hLayout = new QHBoxLayout();
+    QLabel* opacityLabel = new QLabel("Opacity: ");
+    if (isDarkBG) opacityLabel->setStyleSheet("color: rgb(255,255,255);");
+    else opacityLabel->setStyleSheet("color: rgb(0,0,0);");
+    hLayout->addWidget(opacityLabel);
     opacity = new QSlider(Qt::Horizontal);
     opacity->setMinimum(1);
     opacity->setMaximum(10);
@@ -22,16 +26,12 @@ UBMultiDrawWidget::UBMultiDrawWidget(QList<QLineF>* linesList, qreal width, QCol
     exitButton->setIcon(QIcon(":/images/toolbar/remove.png"));
     connect(exitButton, &QPushButton::clicked, [this](){
         lines->clear();
-        UBApplication::mainWindow->setMinimumSize(mainWinMinSize);
-        UBApplication::mainWindow->setMaximumSize(mainWinMaxSize);
-        emit windowTitleChanged("");
+        closeWidget();
     });
     QPushButton* saveButton = new QPushButton("save");
     saveButton->setIcon(QIcon(":/images/toolbar/record.png"));
     connect(saveButton, &QPushButton::clicked, [this](){
-        UBApplication::mainWindow->setMinimumSize(mainWinMinSize);
-        UBApplication::mainWindow->setMaximumSize(mainWinMaxSize);
-        emit windowTitleChanged("");
+        closeWidget();
     });
     hLayout->addWidget(saveButton);
     hLayout->addWidget(exitButton);
@@ -56,6 +56,7 @@ UBMultiDrawWidget::UBMultiDrawWidget(QList<QLineF>* linesList, qreal width, QCol
 
     mainWinMinSize = minSize;
     mainWinMaxSize = maxSize;
+    isDarkBackground = isDarkBG;
 }
 
 UBMultiDrawWidget::~UBMultiDrawWidget()
@@ -65,7 +66,7 @@ UBMultiDrawWidget::~UBMultiDrawWidget()
 
 UBItem* UBMultiDrawWidget::deepCopy() const
 {
-   UBMultiDrawWidget* copy = new UBMultiDrawWidget(lines, penWidth, pen.color(), backgroundColor, mainWinMinSize, mainWinMaxSize, dynamic_cast<QWidget*>(parent()));
+   UBMultiDrawWidget* copy = new UBMultiDrawWidget(lines, penWidth, pen.color(), backgroundColor, isDarkBackground, mainWinMinSize, mainWinMaxSize, dynamic_cast<QWidget*>(parent()));
 
     copyItemParameters(copy);
 
@@ -148,6 +149,13 @@ void UBMultiDrawWidget::paintTouchEvent()
     QPainter painter = QPainter(this);
     painter.setPen(pen);
     painter.drawPixmap(0, 0, *pix);
+}
+
+void UBMultiDrawWidget::closeWidget()
+{
+    UBApplication::mainWindow->setMinimumSize(mainWinMinSize);
+    UBApplication::mainWindow->setMaximumSize(mainWinMaxSize);
+    emit windowTitleChanged("");
 }
 
 

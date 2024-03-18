@@ -11,7 +11,7 @@
 class UBMultiDrawWidget : public UBItem, public QWidget, public QGraphicsRectItem
 {
 public:
-    UBMultiDrawWidget(QList<QLineF>* linesList, qreal width, QColor color, QColor bgColor, QSize minSize, QSize maxSize, QWidget* parent) ;
+    UBMultiDrawWidget(QList<QLineF>* linesList, qreal width, QColor color, QColor bgColor, bool isDarkBG, QSize minSize, QSize maxSize, QWidget* parent) ;
     virtual ~UBMultiDrawWidget();
     enum { Type = UBGraphicsItemType::MultiDrawItemType };
 
@@ -43,6 +43,7 @@ protected:
     void addline(QLineF line);
     void drawline(QTouchEvent *event);
     void paintTouchEvent();
+    void closeWidget();
 
 private:
     QPointF lastPoint_t, endPoint_t, lastPoint_m, endPoint_m;
@@ -54,6 +55,7 @@ private:
     QList<QLineF>* lines;
     QColor backgroundColor;
     QSize mainWinMinSize, mainWinMaxSize;
+    bool isDarkBackground;
 };
 
 #endif // UBMULTIDRAWWIDGET_H

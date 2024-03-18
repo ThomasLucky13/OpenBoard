@@ -2552,7 +2552,7 @@ void UBGraphicsScene::addMultiDraw()
     else
         color = UBApplication::boardController->penColorOnLightBackground();
 
-    UBMultiDrawWidget* drawWidget = new UBMultiDrawWidget(multiDrawLines, UBSettings::settings()->currentPenWidth(), color, backgroundColor, UBApplication::mainWindow->minimumSize(), UBApplication::mainWindow->maximumSize(), multiDrawDialog);
+    UBMultiDrawWidget* drawWidget = new UBMultiDrawWidget(multiDrawLines, UBSettings::settings()->currentPenWidth(), color, backgroundColor, mDarkBackground, UBApplication::mainWindow->minimumSize(), UBApplication::mainWindow->maximumSize(), multiDrawDialog);
     UBApplication::mainWindow->setFixedSize(UBApplication::mainWindow->size());
     multiDrawDialog->layout()->addWidget(drawWidget);
     multiDrawDialog->setWindowOpacity(0.7);
