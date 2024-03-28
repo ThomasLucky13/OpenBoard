@@ -46,7 +46,7 @@ UBMultiDrawWidget::UBMultiDrawWidget(QList<QLineF>* linesList, qreal width, QCol
 
     backgroundColor = bgColor;
 
-    setAttribute(Qt::WA_AcceptTouchEvents, true);
+    //setAttribute(Qt::WA_AcceptTouchEvents, true);
     pix = new QPixmap(cp.width(), cp.height());
     pix->fill(backgroundColor);
     pp = new QPainter(pix);
